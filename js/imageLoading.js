@@ -7,6 +7,8 @@ var goblinHQPic = document.createElement("img");
 var orcPic = document.createElement("img");
 var treePic = document.createElement("img");
 var minePic = document.createElement("img");
+var framePic = document.createElement("img");
+var lumberPic = document.createElement("img");
 
 var picsToLoad = 0;
 
@@ -38,7 +40,9 @@ function loadImages() {
 			{varName: humanHQPic, theFile: "humanHQ.png", sX: 0, sY: 0},
 			{varName: goblinHQPic, theFile: "goblinHQ.png", sX: 0, sY: 0},
 			{varName: treePic, theFile: "tree.png", sX: 0, sY: 0},
-			{varName: minePic, theFile: "mine.png", sX: 0, sY: 0}
+			{varName: minePic, theFile: "mine.png", sX: 0, sY: 0},
+			{varName: framePic, theFile: "buttonPics.png", sX: 0, sY: 0},
+			{varName: lumberPic, theFile: "buttonPics.png", sX: 0, sY:30}
 		];
 			
 	picsToLoad = imageList.length;

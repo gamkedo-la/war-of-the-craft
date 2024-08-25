@@ -67,4 +67,12 @@ function drawEverything() {
   if(isMouseDragging) {
     coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'yellow');
   }
+
+  drawUserInterface();
+}
+
+function drawUserInterface(){
+  drawBitmapCenteredAtLocation(lumberPic, 0,60, 60, 60, 40, 40);
+  drawBitmapCenteredAtLocation(framePic, 0,0, 60, 60, 40, 40);
+
 }
