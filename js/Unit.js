@@ -212,7 +212,7 @@ function unitClass(type) {
                 this.keepInPlayableArea();
             }
 
-            if (Math.random() < 0.02) {
+            if (this.myTarget!=undefined && Math.random() < 0.02) {
                 if(this.myTarget.type == "goblin hq" && this.jobType == "goblin"){
                     console.log(this.idNumber + " HQ + " + this.lumber)
                     if(this.lumber > 0){
