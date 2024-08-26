@@ -91,6 +91,7 @@ function moveEverything() {
   removeDeadUnits();
   checkButtonHandling();
   checkAndHandleVictory(); 
+  camera.update();
 }
 
 function checkMouseInsideBox(xPos, yPos, width, height){
@@ -134,7 +135,14 @@ function checkButtonHandling(){
 }
 
 function drawEverything() {
+  
+  canvasContext.save();
+  canvasContext.translate(-camera.x,-camera.y);
+  
   canvasContext.drawImage(backGroundPic, 0,0); 
+  canvasContext.drawImage(backGroundPic, backGroundPic.width,0); 
+  canvasContext.drawImage(backGroundPic, 0,backGroundPic.height); 
+  canvasContext.drawImage(backGroundPic, backGroundPic.width,backGroundPic.height); 
   
   for(var i=allUnits.length-1; i >=0;i--) {
     allUnits.sort(function(b, a){return a.y - b.y})
@@ -159,6 +167,7 @@ function drawEverything() {
       }
     }
   }
+  canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
 }
