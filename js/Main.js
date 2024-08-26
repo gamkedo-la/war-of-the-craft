@@ -21,7 +21,6 @@ var pictureHeight = 60;
 var lumberButtonHovering = false;
 var lumberButtonSelected = false;
 
-// Practice commit - [Zbigniew Zelga] will remove
 window.onload = function() {
   canvas = document.getElementById('gameCanvas');
   canvasContext = canvas.getContext('2d');
