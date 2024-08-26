@@ -88,3 +88,27 @@ function mouseupHandler(evt) {
     }
   }
 }
+
+function keydownHandler(evt) {
+  /** using KeyboardEvent.key here instead of KeyboardEvent.keyCode, as the
+   * latter is deprecated - more information here:
+   * https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+  */
+  console.log(`[debugging | keydown event] key pressed: ${evt.key}`);
+  if (evt.key === 'Escape') {
+    if (isGamePaused) {
+      console.log('Unpausing Game');
+      document.getElementById("debugText").innerHTML = "";
+
+      runGameLoop();
+    } else {
+      console.log('Pausing Game');
+      document.getElementById("debugText").innerHTML = "Game is paused";
+
+      // this cancels the existing timer interval, effectively pausing the game
+      clearInterval(currentIntervalId);
+      currentIntervalId = null;
+    }
+    isGamePaused = !isGamePaused;
+  }
+}

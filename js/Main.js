@@ -33,6 +33,9 @@ var farmY = 480;
 var goldButtonHovering = false;
 var goldButtonSelected = false;
 
+var isGamePaused = false;
+var currentIntervalId;
+
 window.onload = function() {
   canvas = document.getElementById('gameCanvas');
   canvasContext = canvas.getContext('2d');
@@ -54,13 +57,24 @@ window.onload = function() {
   populateTeam(trees,STARTING_MINES,true, "mines");
 }
 
-function imageLoadingDoneSoStartGame(){
+/**
+ * Use setInterval() to run the game in a loop at a specified frames per second.
+ * Creating the interval timer provides a numeric, non-zero value ID, which gets
+ * stored globally as a side effect.
+ */
+function runGameLoop() {
   var framesPerSecond = 30;
 
-  setInterval(function() {
+  currentIntervalId = setInterval(function() {
       moveEverything();
       drawEverything();
     }, 1000/framesPerSecond);
+}
+
+function imageLoadingDoneSoStartGame(){
+  runGameLoop();
+
+  document.addEventListener('keydown', keydownHandler);
 }
 
 function moveEverything() {
