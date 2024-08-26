@@ -24,6 +24,14 @@ var attackX = 10;
 var attackY = 300;
 var attackButtonHovering = false;
 var attackButtonSelected = false;
+var goldX = 10;
+var goldY = 380;
+var goldButtonHovering = false;
+var goldButtonSelected = false;
+var farmX = 10;
+var farmY = 480;
+var goldButtonHovering = false;
+var goldButtonSelected = false;
 
 window.onload = function() {
   canvas = document.getElementById('gameCanvas');
@@ -80,6 +88,8 @@ function checkMouseInsideBox(xPos, yPos, width, height){
 function checkButtonHandling(){
   lumberButtonHovering = checkMouseInsideBox(lumberX, lumberY, pictureWidth, pictureHeight);    
   attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);
+  goldButtonHovering = checkMouseInsideBox(goldX, goldY, pictureWidth, pictureHeight);
+  farmButtonHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
   if(mouseClicked && lumberButtonHovering){
     lumberButtonSelected = true;
   } else {
@@ -89,6 +99,16 @@ function checkButtonHandling(){
     attackButtonSelected = true;
   } else {
     attackButtonSelected = false;
+  }
+  if(mouseClicked && goldButtonHovering){
+    goldButtonSelected = true;
+  } else {
+    goldButtonSelected = false;
+  }
+  if(mouseClicked && farmButtonHovering){
+    farmButtonSelected = true;
+  } else {
+    farmButtonSelected = false;
   }
 }
 
@@ -151,4 +171,42 @@ function drawUserInterface(){
   if(attackButtonHovering && mouseClicked){ //text
     colorText("ATTACK", 11, attackY+pictureHeight+15, "White", "14px Arial");
   }  
+  //gold mining
+  if(goldButtonHovering && mouseClicked){ //picture
+    drawBitmapAtLocation(lumberPic, 60,240, pictureWidth, pictureHeight, goldX, goldY);
+  } else {
+    drawBitmapAtLocation(lumberPic, 0,240, pictureWidth, pictureHeight, goldX, goldY);
+  }
+  if(goldButtonHovering){ //frame
+    drawBitmapAtLocation(framePic, 60,0, pictureWidth, pictureHeight, goldX, goldY);
+    colorText("MINE", 19, goldY+pictureHeight+15, "Yellow", "14px Arial");
+    colorText("GOLD", 18, goldY+pictureHeight+29, "Yellow", "14px Arial");
+  } else {
+    drawBitmapAtLocation(framePic, 0,0, pictureWidth, pictureHeight, goldX, goldY);
+    colorText("MINE", 19, goldY+pictureHeight+15, "Black", "14px Arial");
+    colorText("GOLD", 18, goldY+pictureHeight+29, "Black", "14px Arial");
+  }
+  if(goldButtonHovering && mouseClicked){ //text
+    colorText("MINE", 19, goldY+pictureHeight+15, "White", "14px Arial");
+    colorText("GOLD", 18, goldY+pictureHeight+29, "White", "14px Arial");
+  }  
+    //farming
+    if(farmButtonHovering && mouseClicked){ //picture
+      drawBitmapAtLocation(lumberPic, 60,300, pictureWidth, pictureHeight, farmX, farmY);
+    } else {
+      drawBitmapAtLocation(lumberPic, 0,300, pictureWidth, pictureHeight, farmX, farmY);
+    }
+    if(farmButtonHovering){ //frame
+      drawBitmapAtLocation(framePic, 60,0, pictureWidth, pictureHeight, farmX, farmY);
+      colorText("FARM", 19, farmY+pictureHeight+15, "Yellow", "14px Arial");
+      colorText("FOOD", 18, farmY+pictureHeight+29, "Yellow", "14px Arial");
+    } else {
+      drawBitmapAtLocation(framePic, 0,0, pictureWidth, pictureHeight, farmX, farmY);
+      colorText("FARM", 19, farmY+pictureHeight+15, "Black", "14px Arial");
+      colorText("FOOD", 18, farmY+pictureHeight+29, "Black", "14px Arial");
+    }
+    if(farmButtonHovering && mouseClicked){ //text
+      colorText("FARM", 19, farmY+pictureHeight+15, "White", "14px Arial");
+      colorText("FOOD", 18, farmY+pictureHeight+29, "White", "14px Arial");
+    }  
 }
