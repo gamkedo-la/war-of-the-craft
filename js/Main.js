@@ -20,6 +20,10 @@ var pictureWidth = 60;
 var pictureHeight = 60;
 var lumberButtonHovering = false;
 var lumberButtonSelected = false;
+var attackX = 10;
+var attackY = 300;
+var attackButtonHovering = false;
+var attackButtonSelected = false;
 
 window.onload = function() {
   canvas = document.getElementById('gameCanvas');
@@ -75,10 +79,16 @@ function checkMouseInsideBox(xPos, yPos, width, height){
 
 function checkButtonHandling(){
   lumberButtonHovering = checkMouseInsideBox(lumberX, lumberY, pictureWidth, pictureHeight);    
+  attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);
   if(mouseClicked && lumberButtonHovering){
     lumberButtonSelected = true;
   } else {
     lumberButtonSelected = false;
+  }
+  if(mouseClicked && attackButtonHovering){
+    attackButtonSelected = true;
+  } else {
+    attackButtonSelected = false;
   }
 }
 
@@ -106,6 +116,7 @@ function drawUserInterface(){
   drawBitmapAtLocation(peasantProfilePic, 0,120, pictureWidth, pictureHeight, 10, 100);
   colorText("PEASANT", 9, 95, "Yellow", "14px Arial");
   colorText("OPTIONS", 9, 180, "Black", "14px Arial");
+  //lumber
   if(lumberButtonHovering && mouseClicked){ //picture
     drawBitmapAtLocation(lumberPic, 60,60, pictureWidth, pictureHeight, lumberX, lumberY);
   } else {
@@ -124,4 +135,20 @@ function drawUserInterface(){
     colorText("GATHER", 9, lumberY+pictureHeight+15, "White", "14px Arial");
     colorText("LUMBER", 9, lumberY+pictureHeight+29, "White", "14px Arial");
   }
+  //attacking
+  if(attackButtonHovering && mouseClicked){ //picture
+    drawBitmapAtLocation(lumberPic, 60,180, pictureWidth, pictureHeight, attackX, attackY);
+  } else {
+    drawBitmapAtLocation(lumberPic, 0,180, pictureWidth, pictureHeight, attackX, attackY);
+  }
+  if(attackButtonHovering){ //frame
+    drawBitmapAtLocation(framePic, 60,0, pictureWidth, pictureHeight, attackX, attackY);
+    colorText("ATTACK", 11, attackY+pictureHeight+15, "Yellow", "14px Arial");
+  } else {
+    drawBitmapAtLocation(framePic, 0,0, pictureWidth, pictureHeight, attackX, attackY);
+    colorText("ATTACK", 11, attackY+pictureHeight+15, "Black", "14px Arial");
+  }
+  if(attackButtonHovering && mouseClicked){ //text
+    colorText("ATTACK", 11, attackY+pictureHeight+15, "White", "14px Arial");
+  }  
 }
