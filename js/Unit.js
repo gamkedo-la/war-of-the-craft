@@ -27,7 +27,9 @@ function unitClass(type) {
         this.showHealthBar = false;
         this.showHealthBarCoolDown = 90;
         this.doneWithTarget = false;
-        console.log("Job: " + this.jobType)
+        this.walking = false;
+        this.frame = 0;
+        this.frameTicks = 0;
 
         if (this.playerControlled == false) {
             this.x = canvas.width - this.x;
@@ -248,6 +250,7 @@ function unitClass(type) {
         if (distToGo > UNIT_PIXELS_MOVE_RATE) {
             this.x += moveX;
             this.y += moveY;
+            this.walking = true;
         } else {
             this.x = this.gotoX;
             this.y = this.gotoY;
@@ -297,10 +300,24 @@ function unitClass(type) {
         this.healthSx = this.health * 15;
     }
 
+    this.walkingAnimation = function(){
+        this.frameTicks++;
+        if(this.frameTicks > 3){
+            this.frame++;
+            this.frameTicks = 0;
+            if(this.frame > 4){
+                this.frame = 1;
+            }
+        }
+        this.sX = this.frame * this.width;
+    }
+
     this.draw = function() {
         if (this.isDead == false) {
-            // colorText(this.iD, this.x+10, this.y-10, this.unitColor);
             this.determinePlayerDirection();
+            if(this.walking){
+                this.walkingAnimation();
+            }
             drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY, this.width, this.height, this.x, this.y);
             this.updateMyHealthBar();
             if (this.showHealthBar ||

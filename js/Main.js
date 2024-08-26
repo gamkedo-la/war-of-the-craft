@@ -1,9 +1,9 @@
 // save the canvas for dimensions, and its 2d context for drawing to it
 var canvas, canvasContext;
-const PLAYER_START_UNITS = 1;
+const PLAYER_START_UNITS = 10;
 const PLAYER_START_BUILDING = 1;
-const ENEMY_GOBLIN_START_UNITS = 1;
-const ENEMY_ORC_START_UNITS = 0;
+const ENEMY_GOBLIN_START_UNITS = 10;
+const ENEMY_ORC_START_UNITS = 1;
 const ENEMY_START_BUILDING = 1;
 const STARTING_TREES = 1000;
 const STARTING_MINES = 0;
@@ -12,7 +12,7 @@ var playerUnits = [];
 var buildingUnits = [];
 var allUnits = [];
 var trees = [];
-var mines = []
+var mines = [];
 
 var lumberX = 10;
 var lumberY = 200;
@@ -204,23 +204,23 @@ function drawUserInterface(){
     colorText("MINE", 19, goldY+pictureHeight+15, "White", "14px Arial");
     colorText("GOLD", 18, goldY+pictureHeight+29, "White", "14px Arial");
   }  
-    //farming
-    if(farmButtonHovering && mouseClicked){ //picture
-      drawBitmapAtLocation(lumberPic, 60,300, pictureWidth, pictureHeight, farmX, farmY);
-    } else {
-      drawBitmapAtLocation(lumberPic, 0,300, pictureWidth, pictureHeight, farmX, farmY);
-    }
-    if(farmButtonHovering){ //frame
-      drawBitmapAtLocation(framePic, 60,0, pictureWidth, pictureHeight, farmX, farmY);
-      colorText("FARM", 19, farmY+pictureHeight+15, "Yellow", "14px Arial");
-      colorText("FOOD", 18, farmY+pictureHeight+29, "Yellow", "14px Arial");
-    } else {
-      drawBitmapAtLocation(framePic, 0,0, pictureWidth, pictureHeight, farmX, farmY);
-      colorText("FARM", 19, farmY+pictureHeight+15, "Black", "14px Arial");
-      colorText("FOOD", 18, farmY+pictureHeight+29, "Black", "14px Arial");
-    }
-    if(farmButtonHovering && mouseClicked){ //text
-      colorText("FARM", 19, farmY+pictureHeight+15, "White", "14px Arial");
-      colorText("FOOD", 18, farmY+pictureHeight+29, "White", "14px Arial");
-    }  
+  //farming
+  if(farmButtonHovering && mouseClicked){ //picture
+    drawBitmapAtLocation(lumberPic, 60,300, pictureWidth, pictureHeight, farmX, farmY);
+  } else {
+    drawBitmapAtLocation(lumberPic, 0,300, pictureWidth, pictureHeight, farmX, farmY);
+  }
+  if(farmButtonHovering){ //frame
+    drawBitmapAtLocation(framePic, 60,0, pictureWidth, pictureHeight, farmX, farmY);
+    colorText("FARM", 19, farmY+pictureHeight+15, "Yellow", "14px Arial");
+    colorText("FOOD", 18, farmY+pictureHeight+29, "Yellow", "14px Arial");
+  } else {
+    drawBitmapAtLocation(framePic, 0,0, pictureWidth, pictureHeight, farmX, farmY);
+    colorText("FARM", 19, farmY+pictureHeight+15, "Black", "14px Arial");
+    colorText("FOOD", 18, farmY+pictureHeight+29, "Black", "14px Arial");
+  }
+  if(farmButtonHovering && mouseClicked){ //text
+    colorText("FARM", 19, farmY+pictureHeight+15, "White", "14px Arial");
+    colorText("FOOD", 18, farmY+pictureHeight+29, "White", "14px Arial");
+  }  
 }
