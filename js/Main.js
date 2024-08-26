@@ -36,6 +36,13 @@ var goldButtonSelected = false;
 var isGamePaused = false;
 var currentIntervalId;
 
+
+const GRID_WIDTH = 16;
+const GRID_HEIGHT = 16;
+const GRID_ROWS = 600/GRID_HEIGHT;
+const GRID_COLUMNS = 800/GRID_WIDTH;
+var showGrid = false;
+
 window.onload = function() {
   canvas = document.getElementById('gameCanvas');
   canvasContext = canvas.getContext('2d');
@@ -140,6 +147,17 @@ function drawEverything() {
   
   if(isMouseDragging) {
     coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'yellow');
+  }
+
+  if(showGrid){
+    for(var i = 0; i < GRID_COLUMNS; i++){
+      console.log(xPos, yPos)
+      for(var ii = 0; ii < GRID_ROWS; ii++){
+        var xPos = i * GRID_WIDTH;
+        var yPos = ii * GRID_HEIGHT;
+        coloredOutlineRectCornerToCorner(xPos, yPos, xPos + GRID_WIDTH, yPos + GRID_HEIGHT, "WHITE");
+      }
+    }
   }
 
   drawUserInterface();
