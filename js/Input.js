@@ -18,8 +18,8 @@ function calculateMousePos(evt) {
   mouseX = Math.floor(evt.clientX - rect.left - root.scrollLeft);
   mouseY = Math.floor(evt.clientY - rect.top - root.scrollTop);
   return {
-    x: mouseX,
-    y: mouseY
+    x: mouseX + camera.x,
+    y: mouseY + camera.y
   };
 }
 
@@ -114,10 +114,10 @@ function keydownHandler(evt) {
 
   // camera scrolling via arrow keys
   // FIXME: smooth scroll while down
-  if (evt.key === 'ArrowLeft') { camera.x -= 16; }
-  if (evt.key === 'ArrowRight') { camera.x += 16; }
-  if (evt.key === 'ArrowUp') { camera.y -= 16; }
-  if (evt.key === 'ArrowDown') { camera.y += 16; }
+  if (evt.key === 'ArrowLeft') { camera.x -= CAMERA_SCROLL_SPEED; }
+  if (evt.key === 'ArrowRight') { camera.x += CAMERA_SCROLL_SPEED; }
+  if (evt.key === 'ArrowUp') { camera.y -= CAMERA_SCROLL_SPEED; }
+  if (evt.key === 'ArrowDown') { camera.y += CAMERA_SCROLL_SPEED; }
   if (camera.x < 0) camera.x = 0;
   if (camera.y < 0) camera.y = 0;
 
