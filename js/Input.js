@@ -3,6 +3,9 @@ var lassoY1 = 0;
 var lassoX2 = 0;
 var lassoY2 = 0;
 var isMouseDragging = false;
+var mouseX = 0;
+var mouseY = 0;
+var mouseClicked = false;
 
 var selectedUnits = [];
 const MIN_DIST_TO_COUNT_DRAG = 10;
@@ -12,8 +15,8 @@ function calculateMousePos(evt) {
   var rect = canvas.getBoundingClientRect(), root = document.documentElement;
 
   // account for the margins, canvas position on page, scroll amount, etc.
-  var mouseX = evt.clientX - rect.left - root.scrollLeft;
-  var mouseY = evt.clientY - rect.top - root.scrollTop;
+  mouseX = Math.floor(evt.clientX - rect.left - root.scrollLeft);
+  mouseY = Math.floor(evt.clientY - rect.top - root.scrollTop);
   return {
     x: mouseX,
     y: mouseY
@@ -46,10 +49,12 @@ function mousedownHandler(evt) {
   lassoX2 = lassoX1;
   lassoY2 = lassoY1;
   isMouseDragging = true;
+  mouseClicked = true;
 }
 
 function mouseupHandler(evt) {
   isMouseDragging = false;
+  mouseClicked = false;
   
   if(mouseMovedEnoughToTreatAsDrag()) {
     selectedUnits = []; // clear the selection array

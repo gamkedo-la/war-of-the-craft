@@ -14,6 +14,13 @@ var allUnits = [];
 var trees = [];
 var mines = []
 
+var lumberX = 10;
+var lumberY = 200;
+var pictureWidth = 60;
+var pictureHeight = 60;
+var lumberButtonHovering = false;
+var lumberButtonSelected = false;
+
 window.onload = function() {
   canvas = document.getElementById('gameCanvas');
   canvasContext = canvas.getContext('2d');
@@ -49,7 +56,30 @@ function moveEverything() {
     allUnits[i].move();
   }
   removeDeadUnits();
+  checkButtonHandling();
   checkAndHandleVictory(); 
+}
+
+function checkMouseInsideBox(xPos, yPos, width, height){
+  var x1 = Math.floor(xPos);
+  var y1 = Math.floor(yPos);
+  var x2 = x1 + width;
+  var y2 = y1 + height
+  if(mouseX > x1 && mouseX < x2 && mouseY > y1 && mouseY < y2){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+function checkButtonHandling(){
+  lumberButtonHovering = checkMouseInsideBox(lumberX, lumberY, pictureWidth, pictureHeight);    
+  if(mouseClicked && lumberButtonHovering){
+    lumberButtonSelected = true;
+  } else {
+    lumberButtonSelected = false;
+  }
 }
 
 function drawEverything() {
@@ -72,7 +102,26 @@ function drawEverything() {
 }
 
 function drawUserInterface(){
-  drawBitmapCenteredAtLocation(lumberPic, 0,60, 60, 60, 40, 40);
-  drawBitmapCenteredAtLocation(framePic, 0,0, 60, 60, 40, 40);
-
+  drawBitmapAtLocation(userInterfaceBackgroundPic, 0, 0, 800, 600, 0, 0);
+  drawBitmapAtLocation(peasantProfilePic, 0,120, pictureWidth, pictureHeight, 10, 100);
+  colorText("PEASANT", 9, 95, "Yellow", "14px Arial");
+  colorText("OPTIONS", 9, 180, "Black", "14px Arial");
+  if(lumberButtonHovering && mouseClicked){ //picture
+    drawBitmapAtLocation(lumberPic, 60,60, pictureWidth, pictureHeight, lumberX, lumberY);
+  } else {
+    drawBitmapAtLocation(lumberPic, 0,60, pictureWidth, pictureHeight, lumberX, lumberY);
+  }
+  if(lumberButtonHovering){ //frame
+    drawBitmapAtLocation(framePic, 60,0, pictureWidth, pictureHeight, lumberX, lumberY);
+    colorText("GATHER", 9, lumberY+pictureHeight+15, "Yellow", "14px Arial");
+    colorText("LUMBER", 9, lumberY+pictureHeight+29, "Yellow", "14px Arial");
+  } else {
+    drawBitmapAtLocation(framePic, 0,0, pictureWidth, pictureHeight, lumberX, lumberY);
+    colorText("GATHER", 9, lumberY+pictureHeight+15, "Black", "14px Arial");
+    colorText("LUMBER", 9, lumberY+pictureHeight+29, "Black", "14px Arial");
+  }
+  if(lumberButtonHovering && mouseClicked){ //text
+    colorText("GATHER", 9, lumberY+pictureHeight+15, "White", "14px Arial");
+    colorText("LUMBER", 9, lumberY+pictureHeight+29, "White", "14px Arial");
+  }
 }

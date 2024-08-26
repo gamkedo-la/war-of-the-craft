@@ -22,6 +22,11 @@ function drawBitmapCenteredAtLocation(graphic, sX,sY, width,height,atX, atY) {
   //img, sx, sy, swidth, sheight, x, y, width, height)
 };
 
+function drawBitmapAtLocation(graphic, sX,sY, width,height,atX, atY) {
+  canvasContext.drawImage(graphic, sX,sY, width, height, atX, atY, width, height);
+  //img, sx, sy, swidth, sheight, x, y, width, height)
+};
+
 function colorText(showWords, textX, textY, fillColor, fontStyle) {
   canvasContext.textAlign = "left";
   canvasContext.fillStyle = fillColor;
