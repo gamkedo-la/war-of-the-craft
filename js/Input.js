@@ -110,5 +110,15 @@ function keydownHandler(evt) {
       currentIntervalId = null;
     }
     isGamePaused = !isGamePaused;
-  }
+  } // esc
+
+  // camera scrolling via arrow keys
+  // FIXME: smooth scroll while down
+  if (evt.key === 'ArrowLeft') { camera.x -= 16; }
+  if (evt.key === 'ArrowRight') { camera.x += 16; }
+  if (evt.key === 'ArrowUp') { camera.y -= 16; }
+  if (evt.key === 'ArrowDown') { camera.y += 16; }
+  if (camera.x < 0) camera.x = 0;
+  if (camera.y < 0) camera.y = 0;
+
 }

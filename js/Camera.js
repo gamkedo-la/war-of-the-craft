@@ -1,4 +1,5 @@
 const DEBUG_CAMERA_SCROLLING = false;
+const CAMERA_SCROLL_SPEED = 50;
 
 var camera = {
     x:0,
