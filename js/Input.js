@@ -43,7 +43,7 @@ function mousemoveHandler(evt) {
     lassoY2 = mousePos.y;
   }
   if (isMouseRightDragging) {
-    console.log("CAMERA PANNING: "+evt.movementX+","+evt.movementY);
+    //console.log("CAMERA PANNING: "+evt.movementX+","+evt.movementY);
     camera.x -= evt.movementX;
     camera.y -= evt.movementY;
   }
@@ -58,6 +58,7 @@ function mousedownHandler(evt) {
   if (evt.button===2) {
     console.log("mouse-right-down: camera scroll mode ON");
     isMouseRightDragging = true;
+    canvas.style.cursor = "grab";
     evt.preventDefault(); 
   } else {
     isMouseDragging = true;
@@ -72,6 +73,7 @@ function mouseupHandler(evt) {
   if (evt.button===2) {
     console.log("mouse-right-up: camera scroll mode OFF");
     isMouseRightDragging = false;
+    canvas.style.cursor = "default";
     evt.preventDefault(); 
     return;
   }
