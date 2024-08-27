@@ -3,6 +3,7 @@ var lassoY1 = 0;
 var lassoX2 = 0;
 var lassoY2 = 0;
 var isMouseDragging = false;
+var isMouseRightDragging = false;
 var mouseX = 0;
 var mouseY = 0;
 var mouseClicked = false;
@@ -11,6 +12,7 @@ var selectedUnits = [];
 const MIN_DIST_TO_COUNT_DRAG = 10;
 const MIN_DIST_FOR_MOUSE_CLICK_SELECTABLE = 12;
 
+// returns WORLD coordinates (offset by camera viewport) not screen coordinates
 function calculateMousePos(evt) {
   var rect = canvas.getBoundingClientRect(), root = document.documentElement;
 
@@ -40,6 +42,11 @@ function mousemoveHandler(evt) {
     lassoX2 = mousePos.x;
     lassoY2 = mousePos.y;
   }
+  if (isMouseRightDragging) {
+    console.log("CAMERA PANNING: "+evt.movementX+","+evt.movementY);
+    camera.x -= evt.movementX;
+    camera.y -= evt.movementY;
+  }
 }
 
 function mousedownHandler(evt) {
@@ -48,14 +55,27 @@ function mousedownHandler(evt) {
   lassoY1 = mousePos.y;
   lassoX2 = lassoX1;
   lassoY2 = lassoY1;
-  isMouseDragging = true;
-  mouseClicked = true;
+  if (evt.button===2) {
+    console.log("mouse-right-down: camera scroll mode ON");
+    isMouseRightDragging = true;
+    evt.preventDefault(); 
+  } else {
+    isMouseDragging = true;
+    mouseClicked = true;
+  }
 }
 
 function mouseupHandler(evt) {
   isMouseDragging = false;
   mouseClicked = false;
-  
+
+  if (evt.button===2) {
+    console.log("mouse-right-up: camera scroll mode OFF");
+    isMouseRightDragging = false;
+    evt.preventDefault(); 
+    return;
+  }
+
   if(mouseMovedEnoughToTreatAsDrag()) {
     selectedUnits = []; // clear the selection array
 
@@ -118,7 +138,5 @@ function keydownHandler(evt) {
   if (evt.key === 'ArrowRight') { camera.x += CAMERA_SCROLL_SPEED; }
   if (evt.key === 'ArrowUp') { camera.y -= CAMERA_SCROLL_SPEED; }
   if (evt.key === 'ArrowDown') { camera.y += CAMERA_SCROLL_SPEED; }
-  if (camera.x < 0) camera.x = 0;
-  if (camera.y < 0) camera.y = 0;
 
 }
