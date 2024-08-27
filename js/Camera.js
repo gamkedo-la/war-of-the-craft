@@ -6,8 +6,9 @@ var camera = {
     y:0,
     update:function() {
 
-        if (this.x < 0) this.x = 0;
-        if (this.y < 0) this.y = 0;
+        // to force it to not go into the negatives? make these 0
+        if (this.x < -500) this.x = -500;
+        if (this.y < -500) this.y = -500;
 
         // this is just a demo of the effect in action =)
         if (DEBUG_CAMERA_SCROLLING) {

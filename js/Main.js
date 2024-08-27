@@ -139,6 +139,10 @@ function drawEverything() {
   canvasContext.save();
   canvasContext.translate(-camera.x,-camera.y);
   
+  canvasContext.drawImage(backGroundPic, -backGroundPic.width,0); 
+  canvasContext.drawImage(backGroundPic, 0,-backGroundPic.height); 
+  canvasContext.drawImage(backGroundPic, -backGroundPic.width,-backGroundPic.height); 
+  canvasContext.drawImage(backGroundPic, -backGroundPic.width,backGroundPic.height); 
   canvasContext.drawImage(backGroundPic, 0,0); 
   canvasContext.drawImage(backGroundPic, backGroundPic.width,0); 
   canvasContext.drawImage(backGroundPic, 0,backGroundPic.height); 
