@@ -139,14 +139,7 @@ function drawEverything() {
   canvasContext.save();
   canvasContext.translate(-camera.x,-camera.y);
   
-  canvasContext.drawImage(backGroundPic, -backGroundPic.width,0); 
-  canvasContext.drawImage(backGroundPic, 0,-backGroundPic.height); 
-  canvasContext.drawImage(backGroundPic, -backGroundPic.width,-backGroundPic.height); 
-  canvasContext.drawImage(backGroundPic, -backGroundPic.width,backGroundPic.height); 
-  canvasContext.drawImage(backGroundPic, 0,0); 
-  canvasContext.drawImage(backGroundPic, backGroundPic.width,0); 
-  canvasContext.drawImage(backGroundPic, 0,backGroundPic.height); 
-  canvasContext.drawImage(backGroundPic, backGroundPic.width,backGroundPic.height); 
+  canvasContext.drawImage(backGroundPic, -800,-600); // offset so we can scroll a little bit past the top left corner of map
   
   for(var i=allUnits.length-1; i >=0;i--) {
     allUnits.sort(function(b, a){return a.y - b.y})
