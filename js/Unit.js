@@ -8,6 +8,11 @@ const UNIT_AI_ORC_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 90;
 const UNIT_PLAYABLE_AREA_MARGIN = 20;
 const UNIT_AI_TREE_RANGE = 200;
 
+var gatherLumber = 0;
+var attackTarget = 15;
+var mineGold = 30;
+var farmFood = 45;
+
 function unitClass(type) {
     this.healthSx = 0;
     this.healthSy = 0;
@@ -17,8 +22,8 @@ function unitClass(type) {
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
         this.playerControlled = playerTeam;
-        this.x = Math.random() * canvas.width / 4;
-        this.y = Math.random() * canvas.height / 4;
+        this.x = Math.random() * 3200 / 4; //game width - lower right
+        this.y = Math.random() * 3200 / 4; //game height
         this.width = 15;
         this.height = 15;
         this.sY = returnRandomInteger(8) * this.height;
@@ -29,11 +34,13 @@ function unitClass(type) {
         this.doneWithTarget = false;
         this.walking = false;
         this.frame = 0;
-        this.frameTicks = 0;
+        this.frameTicks = 0; 
+        this.action = [gatherLumber, attackTarget, mineGold, farmFood]
+        this.showAction = false;
 
         if (this.playerControlled == false) {
-            this.x = canvas.width - this.x;
-            this.y = canvas.height - this.y;
+            this.x = 3200 - this.x;
+            this.y = 3200 - this.y;
             this.unitColor = 'Red';
             if(this.jobType == "goblin"){
                 this.pic = goblinPic;
@@ -328,6 +335,9 @@ function unitClass(type) {
                     this.showHealthBarCoolDown = 90;
                     this.showHealthBar = false;
                 }
+            }
+            if(this.showAction){
+                drawBitmapCenteredAtLocation(jobIndicatorPic, this.action[0], 0, 15, 15, this.x, this.y - 23)
             }
             if (this.myTarget != null) {
                 lineDraw(this.x, this.y, this.myTarget.x, this.myTarget.y, this.unitColor);

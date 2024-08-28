@@ -114,6 +114,12 @@ function checkButtonHandling(){
   farmButtonHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
   if(mouseClicked && lumberButtonHovering){
     lumberButtonSelected = true;
+    for(var i=0;i<selectedUnits.length;i++) {
+      nearestTreeFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees);
+      selectedUnits[i].myTarget = nearestTreeFound;
+      selectedUnits[i].action[0];
+      selectedUnits[i].showAction = true;
+    } 
   } else {
     lumberButtonSelected = false;
   }

@@ -11,6 +11,7 @@ var framePic = document.createElement("img");
 var lumberPic = document.createElement("img");
 var userInterfaceBackgroundPic = document.createElement("img");
 var peasantProfilePic = document.createElement("img");
+var jobIndicatorPic = document.createElement("img");
 
 var picsToLoad = 0;
 
@@ -47,6 +48,7 @@ function loadImages() {
 			{varName: lumberPic, theFile: "buttonPics.png", sX: 0, sY:30},
 			{varName: peasantProfilePic, theFile: "buttonPics.png", sX: 0, sY:30},	
 			{varName: userInterfaceBackgroundPic, theFile: "UserInterfaceBackground.png", sX: 0, sY:180},
+			{varName: jobIndicatorPic, theFile: "jobIndicators.png", sX: 0, sY:0},
 		];
 			
 	picsToLoad = imageList.length;
