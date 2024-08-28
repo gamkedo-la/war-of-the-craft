@@ -6,14 +6,14 @@ function environmentClass(environmentType) {
         this.x = Math.random()*3200; // Game width
         this.y = Math.random()*3200; // Game height
         for(var i = 0; i<buildingUnits.length; i++){
-            var isTreeCloseToBuilding = this.distFrom(buildingUnits[i].x, buildingUnits[i].y);
+            var isTreeCloseToBuilding = this.distFromSq(buildingUnits[i].x, buildingUnits[i].y);
             if(isTreeCloseToBuilding < 70){
                 this.isDead = true;
                 anyNewUnitsToClear = true;
             }
         }
         for(var i = 0; i<mines.length; i++){
-            var isTreeCloseToMines = this.distFrom(mines[i].x, mines[i].y);
+            var isTreeCloseToMines = this.distFromSq(mines[i].x, mines[i].y);
             if(isTreeCloseToMines < 50){
                 this.isDead = true;
                 anyNewUnitsToClear = true;
@@ -42,7 +42,13 @@ function environmentClass(environmentType) {
         var deltaX = otherX-this.x;
         var deltaY = otherY-this.y;
         return Math.sqrt(deltaX*deltaX + deltaY*deltaY);
-      }
+    }
+
+    this.distFromSq = function(otherX, otherY) { //return square distance faster for comparison, not accuracy
+        var deltaX = otherX-this.x;
+        var deltaY = otherY-this.y;
+        return deltaX*deltaX + deltaY*deltaY;
+    } 
 
     this.move = function(){
         //don't move building

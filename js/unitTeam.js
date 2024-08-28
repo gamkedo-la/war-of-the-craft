@@ -32,7 +32,7 @@ function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList) {
     var nearestUnitFound = null;
 
     for(var i=0;i<inUnitList.length;i++) {
-        var distTo = inUnitList[i].distFrom(fromX,fromY); 
+        var distTo = inUnitList[i].distFromSq(fromX,fromY); 
         if(distTo < nearestUnitDist) {
             nearestUnitDist = distTo; 
             nearestUnitFound = inUnitList[i];
