@@ -5,7 +5,7 @@ const PLAYER_START_BUILDING = 1;
 const ENEMY_GOBLIN_START_UNITS = 10;
 const ENEMY_ORC_START_UNITS = 1;
 const ENEMY_START_BUILDING = 1;
-const STARTING_TREES = 1000;
+const STARTING_TREES = 100;
 const STARTING_MINES = 0;
 var enemyUnits = [];
 var playerUnits = [];
@@ -43,7 +43,7 @@ const GRID_WIDTH = 32;
 const GRID_HEIGHT = 32;
 const WORLD_SIZE_PIXELS_W = GRID_ROWS * GRID_WIDTH;
 const WORLD_SIZE_PIXELS_H = GRID_COLUMNS * GRID_HEIGHT;
-var showGrid = false;
+var showGrid = true;
 
 window.onload = function() {
   canvas = document.getElementById('gameCanvas');
@@ -56,6 +56,8 @@ window.onload = function() {
   canvas.addEventListener('mousedown', mousedownHandler);
   
   canvas.addEventListener('mouseup', mouseupHandler);
+
+  initializeWorldGrid();
 
   populateTeam(playerUnits,PLAYER_START_UNITS,true, "peasant");
   populateTeam(enemyUnits,ENEMY_GOBLIN_START_UNITS,false, "goblin");
@@ -162,16 +164,8 @@ function drawEverything() {
     coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'yellow');
   }
 
-  if(showGrid){
-    for(var i = 0; i < GRID_COLUMNS; i++){
-      console.log(xPos, yPos)
-      for(var ii = 0; ii < GRID_ROWS; ii++){
-        var xPos = i * GRID_WIDTH;
-        var yPos = ii * GRID_HEIGHT;
-        coloredOutlineRectCornerToCorner(xPos, yPos, xPos + GRID_WIDTH, yPos + GRID_HEIGHT, "WHITE");
-      }
-    }
-  }
+  drawGridDebug();
+  
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
