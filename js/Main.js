@@ -5,7 +5,7 @@ const PLAYER_START_BUILDING = 1;
 const ENEMY_GOBLIN_START_UNITS = 10;
 const ENEMY_ORC_START_UNITS = 1;
 const ENEMY_START_BUILDING = 1;
-const STARTING_TREES = 100;
+const STARTING_TREES = 4000;
 const STARTING_MINES = 0;
 var enemyUnits = [];
 var playerUnits = [];
@@ -150,16 +150,13 @@ function drawEverything() {
   canvasContext.translate(-camera.x,-camera.y);
   
   canvasContext.drawImage(backGroundPic, -800,-600); // offset so we can scroll a little bit past the top left corner of map
-  
- /* allUnits.sort(function(b, a){return a.y - b.y})
-  
- for(var i=allUnits.length-1; i >=0;i--) { 
-    allUnits[i].draw();
-  } */
 
-  //not yet only drawing screen area tiles, because we are not yet updating tiles as unit moves.
-  for(var i = 0; i < GRID_COLUMNS; i++){
-    for(var ii = 0; ii < GRID_ROWS; ii++){
+  var leftEdgeCol=Math.floor(camera.x/GRID_WIDTH);
+  var topEdgeRow=Math.floor(camera.y/GRID_HEIGHT);
+  var rightEdgeCol=Math.floor((camera.x+canvas.width)/GRID_WIDTH);
+  var bottomEdgeRow=Math.floor((camera.y+canvas.height)/GRID_HEIGHT);
+  for(var i = leftEdgeCol; i < rightEdgeCol; i++){
+    for(var ii = topEdgeRow; ii < bottomEdgeRow; ii++){
       var unitListHere = worldGrid[colRowToIndex (i,ii)];
       if(unitListHere != null){
         unitListHere.sort(function(b, a){return a.y - b.y});
