@@ -3,8 +3,8 @@ function environmentClass(environmentType) {
     this.type = environmentType;
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
-        this.x = Math.random()*3200; // Game width
-        this.y = Math.random()*3200; // Game height
+        this.x = Math.random()*WORLD_SIZE_PIXELS_W; // Game width
+        this.y = Math.random()*WORLD_SIZE_PIXELS_H; // Game height
         for(var i = 0; i<buildingUnits.length; i++){
             var isTreeCloseToBuilding = this.distFromSq(buildingUnits[i].x, buildingUnits[i].y);
             if(isTreeCloseToBuilding < 70){

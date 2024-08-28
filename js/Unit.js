@@ -22,8 +22,8 @@ function unitClass(type) {
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
         this.playerControlled = playerTeam;
-        this.x = Math.random() * 3200 / 4; //game width - lower right
-        this.y = Math.random() * 3200 / 4; //game height
+        this.x = Math.random() * WORLD_SIZE_PIXELS_W / 4; //game width - lower right
+        this.y = Math.random() * WORLD_SIZE_PIXELS_H / 4; //game height
         this.width = 15;
         this.height = 15;
         this.sY = returnRandomInteger(8) * this.height;
@@ -39,8 +39,8 @@ function unitClass(type) {
         this.showAction = false;
 
         if (this.playerControlled == false) {
-            this.x = 3200 - this.x;
-            this.y = 3200 - this.y;
+            this.x = WORLD_SIZE_PIXELS_W - this.x;
+            this.y = WORLD_SIZE_PIXELS_H - this.y;
             this.unitColor = 'Red';
             if(this.jobType == "goblin"){
                 this.pic = goblinPic;

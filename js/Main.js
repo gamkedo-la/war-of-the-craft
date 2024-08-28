@@ -37,10 +37,12 @@ var isGamePaused = false;
 var currentIntervalId;
 
 
-const GRID_WIDTH = 16;
-const GRID_HEIGHT = 16;
-const GRID_ROWS = 600/GRID_HEIGHT;
-const GRID_COLUMNS = 800/GRID_WIDTH;
+const GRID_ROWS = 100;
+const GRID_COLUMNS = 100;
+const GRID_WIDTH = 32;
+const GRID_HEIGHT = 32;
+const WORLD_SIZE_PIXELS_W = GRID_ROWS * GRID_WIDTH;
+const WORLD_SIZE_PIXELS_H = GRID_COLUMNS * GRID_HEIGHT;
 var showGrid = false;
 
 window.onload = function() {
