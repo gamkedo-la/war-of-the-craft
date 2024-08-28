@@ -151,11 +151,25 @@ function drawEverything() {
   
   canvasContext.drawImage(backGroundPic, -800,-600); // offset so we can scroll a little bit past the top left corner of map
   
-  for(var i=allUnits.length-1; i >=0;i--) {
-    allUnits.sort(function(b, a){return a.y - b.y})
-    allUnits[i].draw();
-  }
+ /* allUnits.sort(function(b, a){return a.y - b.y})
   
+ for(var i=allUnits.length-1; i >=0;i--) { 
+    allUnits[i].draw();
+  } */
+
+  //not yet only drawing screen area tiles, because we are not yet updating tiles as unit moves.
+  for(var i = 0; i < GRID_COLUMNS; i++){
+    for(var ii = 0; ii < GRID_ROWS; ii++){
+      var unitListHere = worldGrid[colRowToIndex (i,ii)];
+      if(unitListHere != null){
+        unitListHere.sort(function(b, a){return a.y - b.y});
+        for(var iii = 0; iii < unitListHere.length; iii++){
+          unitListHere[iii].draw();
+        }
+      }
+    }
+  }
+
   for(var i=0;i<selectedUnits.length;i++) {
     selectedUnits[i].drawSelectionBox();
   }

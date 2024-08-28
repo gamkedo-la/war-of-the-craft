@@ -18,7 +18,8 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
       } 
 
       spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, i, type);
-      addNewUnitToTeam(spawnUnit,whichTeam);
+      addNewUnitToTeam(spawnUnit,whichTeam);   
+      addUnitToGrid(spawnUnit);
     }
 }
 
