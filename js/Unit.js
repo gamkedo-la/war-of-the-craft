@@ -146,6 +146,7 @@ function unitClass(type) {
     }
 
     this.move = function() {
+        var wasTileIndex = pixelCoordToIndex(this.x,this.y);
         if (this.myTarget != null) {
             if (this.myTarget.isDead) {
                 this.myTarget = null;
@@ -267,6 +268,10 @@ function unitClass(type) {
         } else {
             this.x = this.gotoX;
             this.y = this.gotoY;
+        }
+        var newTileIndex = pixelCoordToIndex(this.x,this.y);
+        if(wasTileIndex != newTileIndex){
+            worldGrid[wasTileIndex]
         }
     }
 

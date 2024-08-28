@@ -4,6 +4,11 @@ function colRowToIndex (c,r){
     return c+r*GRID_COLUMNS;
 }
 
+function pixelCoordToIndex(x,y){
+    var c = Math.floor(x/GRID_WIDTH);
+    var r = Math.floor(y/GRID_HEIGHT);
+    return c+r*GRID_COLUMNS;
+}
 function initializeWorldGrid(){
     for(var i = 0; i < GRID_COLUMNS; i++){
         for(var ii = 0; ii < GRID_ROWS; ii++){
