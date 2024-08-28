@@ -9,6 +9,7 @@ function pixelCoordToIndex(x,y){
     var r = Math.floor(y/GRID_HEIGHT);
     return c+r*GRID_COLUMNS;
 }
+
 function initializeWorldGrid(){
     for(var i = 0; i < GRID_COLUMNS; i++){
         for(var ii = 0; ii < GRID_ROWS; ii++){
@@ -21,10 +22,19 @@ function addUnitToGrid(unit){
     var unitC = Math.floor(unit.x/GRID_WIDTH);
     var unitR = Math.floor(unit.y/GRID_HEIGHT);
     var unitIndex = colRowToIndex(unitC,unitR);
+    addUnitToGridIndex(unit,unitIndex)
+}
+function addUnitToGridIndex(unit,unitIndex){
     if(worldGrid[unitIndex] == null){
         worldGrid[unitIndex] = [unit];
     } else {
         worldGrid[unitIndex].push(unit);
+    }
+}
+function removeUnitFromGridIndex(unit,unitIndex){
+    worldGrid[unitIndex]=worldGrid[unitIndex].filter(item => item !== unit);
+    if(worldGrid[unitIndex].length==0) {
+        worldGrid[unitIndex]=null;
     }
 }
 

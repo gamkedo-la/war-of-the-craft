@@ -271,7 +271,8 @@ function unitClass(type) {
         }
         var newTileIndex = pixelCoordToIndex(this.x,this.y);
         if(wasTileIndex != newTileIndex){
-            worldGrid[wasTileIndex]
+            removeUnitFromGridIndex(this,wasTileIndex);
+            addUnitToGridIndex(this,newTileIndex);
         }
     }
 
