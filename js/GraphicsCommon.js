@@ -18,7 +18,16 @@ function colorCircle(centerX, centerY, radius, fillColor) {
 }
   
 function drawBitmapCenteredAtLocation(graphic, sX,sY, width,height,atX, atY) {
-  canvasContext.drawImage(graphic, sX,sY, width, height, atX-(width/2), atY-(height/2), width, height);
+  var leftX = atX-(width/2);
+  var topY = atY-(height/2);
+  var rightX = leftX + width;
+  var bottomY = topY + height;
+  
+  if(rightX-camera.x < 0 || leftX-camera.x > canvas.width || bottomY-camera.y < 0 || topY-camera.y > canvas.height){ 
+    //offscreen
+  } else {
+    canvasContext.drawImage(graphic, sX,sY, width, height, leftX, topY, width, height);
+  }
   //img, sx, sy, swidth, sheight, x, y, width, height)
 };
 
