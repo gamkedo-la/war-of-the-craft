@@ -4,12 +4,42 @@
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
 <title>War of the Craft</title>
-
+<style>
+    body { 
+        margin:0; padding:0;
+        background-image:url(images/metalBG.png); 
+    }
+    #gameCanvas {
+        width:800px;
+        height:600px;
+        position:absolute;
+        top:60px;
+        left:50%;
+        margin-left:-400px;
+    }
+    #debugText {
+        width:800px;
+        position:absolute;
+        top:680px;
+        left:50%;
+        margin-left:-400px;
+    }
+    #gui_bezel {
+        display:block;
+        width:840px;
+        height:660px;
+        position:absolute;
+        top:20px;
+        left:50%;
+        margin-left:-420px;
+        background-image:url(images/gui_bezel.png);        
+    }
+</style>
 </head>
 <body>
-    <div class="body-blackout"></div>
 
-    <center><canvas id="gameCanvas" width="800" height="600" oncontextmenu="return false;"></canvas></center>
+    <div id="gui_bezel"></div>
+    <canvas id="gameCanvas" width="800" height="600" oncontextmenu="return false;"></canvas>
 
     <p id="debugText"></p>
 
