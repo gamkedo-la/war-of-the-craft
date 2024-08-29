@@ -71,7 +71,7 @@ function mouseupHandler(evt) {
   mouseClicked = false;
 
   if (evt.button===2) {
-    console.log("mouse-right-up: camera scroll mode OFF");
+    console.log("mouse-right-up: camera scroll mode OFF. camera pos = "+camera.x+","+camera.y);
     isMouseRightDragging = false;
     canvas.style.cursor = "default";
     evt.preventDefault(); 
