@@ -180,6 +180,10 @@ function drawEverything() {
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
+
+  // the shadow around the edges
+  canvasContext.drawImage(viewportShadows,-20,-40);
+
 }
 
 function drawUserInterface(){
