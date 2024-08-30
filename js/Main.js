@@ -5,6 +5,8 @@ const PLAYER_START_BUILDING = 1;
 const ENEMY_GOBLIN_START_UNITS = 10;
 const ENEMY_ORC_START_UNITS = 1;
 const ENEMY_START_BUILDING = 1;
+const ENEMY_START_FARMS = 1;
+const ENEMY_FARM = 1;
 const STARTING_TREES = 4000;
 const STARTING_MINES = 5;
 var enemyUnits = [];
@@ -64,6 +66,7 @@ window.onload = function() {
   populateTeam(enemyUnits,ENEMY_ORC_START_UNITS,false, "orc");
   populateTeam(buildingUnits,PLAYER_START_BUILDING,true, "players hq");
   populateTeam(buildingUnits,ENEMY_START_BUILDING,true, "goblins hq");
+  populateTeam(buildingUnits,ENEMY_START_FARMS,true, "orc farm");
   populateTeam(trees,STARTING_TREES,true, "trees");
   populateTeam(mines,STARTING_MINES,true, "mines");
 }

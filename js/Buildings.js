@@ -27,6 +27,14 @@ function buildingClass(building) {
             this.unitColor = 'White';
             this.pic = goblinHQPic;
             this.health = 50;
+        } else if (this.type == "orc farm") {
+            this.x = canvas.width - this.x;
+            this.y = canvas.height - this.y;
+            this.sX = 0;
+            this.sY = 0;
+            this.unitColor = 'White';
+            this.pic = orcFarmPic;
+            this.health = 10;
         }
     }
 
