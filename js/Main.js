@@ -6,7 +6,7 @@ const ENEMY_GOBLIN_START_UNITS = 10;
 const ENEMY_ORC_START_UNITS = 1;
 const ENEMY_START_BUILDING = 1;
 const STARTING_TREES = 4000;
-const STARTING_MINES = 0;
+const STARTING_MINES = 5;
 var enemyUnits = [];
 var playerUnits = [];
 var buildingUnits = [];
@@ -65,7 +65,7 @@ window.onload = function() {
   populateTeam(buildingUnits,PLAYER_START_BUILDING,true, "players hq");
   populateTeam(buildingUnits,ENEMY_START_BUILDING,true, "goblins hq");
   populateTeam(trees,STARTING_TREES,true, "trees");
-  populateTeam(trees,STARTING_MINES,true, "mines");
+  populateTeam(mines,STARTING_MINES,true, "mines");
 }
 
 /**
@@ -116,27 +116,37 @@ function checkButtonHandling(){
   attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);
   goldButtonHovering = checkMouseInsideBox(goldX, goldY, pictureWidth, pictureHeight);
   farmButtonHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
+  
   if(mouseClicked && lumberButtonHovering){
     lumberButtonSelected = true;
     for(var i=0;i<selectedUnits.length;i++) {
-      nearestTreeFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees);
+      var nearestTreeFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees);
       selectedUnits[i].myTarget = nearestTreeFound;
-      selectedUnits[i].action[0];
+      selectedUnits[i].actionSx = 0;
       selectedUnits[i].showAction = true;
     } 
   } else {
     lumberButtonSelected = false;
   }
+
   if(mouseClicked && attackButtonHovering){
     attackButtonSelected = true;
   } else {
     attackButtonSelected = false;
   }
+
   if(mouseClicked && goldButtonHovering){
     goldButtonSelected = true;
+    for(var i=0;i<selectedUnits.length;i++) {
+      var nearestMineFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_MINE_RANGE, mines);
+      selectedUnits[i].myTarget = nearestMineFound;
+      selectedUnits[i].actionSx = 15*2;
+      selectedUnits[i].showAction = true;
+    } 
   } else {
     goldButtonSelected = false;
   }
+
   if(mouseClicked && farmButtonHovering){
     farmButtonSelected = true;
   } else {
