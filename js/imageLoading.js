@@ -43,7 +43,7 @@ function loadImages() {
 			{varName: peasantPic, theFile: "peasant.png", sX: 0, sY: 0},
 			{varName: healthBarPic, theFile: "healthbar.png", sX: 0, sY: 0},
 			{varName: humanHQPic, theFile: "humanHQ.png", sX: 0, sY: 0},
-			{varName: orcFarmPic, theFile: "orcFarm.png", sX: 0, sY:0},
+			{varName: orcFarmPic, theFile: "farms.png", sX: 0, sY:0},
 			{varName: goblinHQPic, theFile: "goblinHQ.png", sX: 0, sY: 0},
 			{varName: treePic, theFile: "tree.png", sX: 0, sY: 0},
 			{varName: minePic, theFile: "mine.png", sX: 0, sY: 0},
