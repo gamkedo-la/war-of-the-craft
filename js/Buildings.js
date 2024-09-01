@@ -12,24 +12,36 @@ function buildingClass(building) {
         this.lumber = 0;
 
         if(this.type == "players hq") {
-            this.x = canvas.width/4 - this.x;
-            this.y = canvas.height/4 - this.y;
             this.pic = humanHQPic;
             this.sX = 0;
             this.sY = 0;
             this.unitColor = 'Red';
             this.health = 50;
         } else if (this.type == "goblin hq") {
-            this.x = canvas.width - this.x;
-            this.y = canvas.height - this.y;
+            this.x = canvas.width/4 - this.x;
+            this.y = canvas.height/4 - this.y;
             this.sX = 0;
             this.sY = 0;
             this.unitColor = 'White';
             this.pic = goblinHQPic;
             this.health = 50;
+        } else if (this.type == "orc barrack") {
+            this.x = canvas.width/4 - this.x;
+            this.y = canvas.height/4 - this.y;
+            this.sX = 0;
+            this.sY = 0;
+            this.unitColor = 'White';
+            this.pic = goblinHQPic;
+            this.health = 50;
+        } else if (this.type == "peasant farm") {
+            this.sX = 0;
+            this.sY = 100;
+            this.unitColor = 'White';
+            this.pic = orcFarmPic;
+            this.health = 10;
         } else if (this.type == "orc farm") {
-            this.x = canvas.width - this.x;
-            this.y = canvas.height - this.y;
+            this.x = canvas.width/4 - this.x;
+            this.y = canvas.height/4 - this.y;
             this.sX = 0;
             this.sY = 0;
             this.unitColor = 'White';
