@@ -18,32 +18,34 @@ function buildingClass(building) {
             this.unitColor = 'Red';
             this.health = 50;
         } else if (this.type == "goblin hq") {
-            this.x = canvas.width/4 - this.x;
-            this.y = canvas.height/4 - this.y;
+            this.x = WORLD_SIZE_PIXELS_W - this.x - 900;
+            this.y = WORLD_SIZE_PIXELS_H - this.y - 900;
             this.sX = 0;
             this.sY = 0;
             this.unitColor = 'White';
             this.pic = goblinHQPic;
             this.health = 50;
         } else if (this.type == "orc barrack") {
-            this.x = canvas.width/4 - this.x;
-            this.y = canvas.height/4 - this.y;
+            this.x = WORLD_SIZE_PIXELS_W - this.x - 900;
+            this.y = WORLD_SIZE_PIXELS_H - this.y - 900;
             this.sX = 0;
             this.sY = 0;
             this.unitColor = 'White';
-            this.pic = goblinHQPic;
+            this.pic = orcBarrackPic;
             this.health = 50;
         } else if (this.type == "peasant farm") {
             this.sX = 0;
-            this.sY = 100;
+            this.sY = 50;
+            this.height = 75;
             this.unitColor = 'White';
             this.pic = orcFarmPic;
             this.health = 10;
         } else if (this.type == "orc farm") {
-            this.x = canvas.width/4 - this.x;
-            this.y = canvas.height/4 - this.y;
+            this.x = WORLD_SIZE_PIXELS_W - this.x - 900;
+            this.y = WORLD_SIZE_PIXELS_H - this.y - 900;
             this.sX = 0;
             this.sY = 0;
+            this.height = 50;
             this.unitColor = 'White';
             this.pic = orcFarmPic;
             this.health = 10;
