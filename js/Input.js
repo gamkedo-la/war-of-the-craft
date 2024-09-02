@@ -84,6 +84,9 @@ function mouseupHandler(evt) {
     for(var i=0;i<playerUnits.length;i++) {
       if( playerUnits[i].isInBox(lassoX1,lassoY1,lassoX2,lassoY2) ) {
         selectedUnits.push(playerUnits[i]);
+        if(playerUnits[i].jobType == "peasant"){
+          peasantSelected = true;
+        }
       }
     }
     document.getElementById("debugText").innerHTML = "Selected " +

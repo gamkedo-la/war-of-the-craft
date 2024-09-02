@@ -16,47 +16,50 @@ var farmX = 10;
 var farmY = 480;
 var goldButtonHovering = false;
 var goldButtonSelected = false;
+var peasantSelected = false;
 
 function checkButtonHandling(){
-    lumberButtonHovering = checkMouseInsideBox(lumberX, lumberY, pictureWidth, pictureHeight);    
-    attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);
-    goldButtonHovering = checkMouseInsideBox(goldX, goldY, pictureWidth, pictureHeight);
-    farmButtonHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
+  if(peasantSelected){
+      lumberButtonHovering = checkMouseInsideBox(lumberX, lumberY, pictureWidth, pictureHeight);    
+      attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);
+      goldButtonHovering = checkMouseInsideBox(goldX, goldY, pictureWidth, pictureHeight);
+      farmButtonHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
+      
+      if(mouseClicked && lumberButtonHovering){
+        lumberButtonSelected = true;
+        for(var i=0;i<selectedUnits.length;i++) {
+          var nearestTreeFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees);
+          selectedUnits[i].myTarget = nearestTreeFound;
+          selectedUnits[i].actionSx = 0;
+          selectedUnits[i].showAction = true;
+        } 
+      } else {
+        lumberButtonSelected = false;
+      }
     
-    if(mouseClicked && lumberButtonHovering){
-      lumberButtonSelected = true;
-      for(var i=0;i<selectedUnits.length;i++) {
-        var nearestTreeFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees);
-        selectedUnits[i].myTarget = nearestTreeFound;
-        selectedUnits[i].actionSx = 0;
-        selectedUnits[i].showAction = true;
-      } 
-    } else {
-      lumberButtonSelected = false;
-    }
-  
-    if(mouseClicked && attackButtonHovering){
-      attackButtonSelected = true;
-    } else {
-      attackButtonSelected = false;
-    }
-  
-    if(mouseClicked && goldButtonHovering){
-      goldButtonSelected = true;
-      for(var i=0;i<selectedUnits.length;i++) {
-        var nearestMineFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_MINE_RANGE, mines);
-        selectedUnits[i].myTarget = nearestMineFound;
-        selectedUnits[i].actionSx = 15*2;
-        selectedUnits[i].showAction = true;
-      } 
-    } else {
-      goldButtonSelected = false;
-    }
-  
-    if(mouseClicked && farmButtonHovering){
-      farmButtonSelected = true;
-    } else {
-      farmButtonSelected = false;
+      if(mouseClicked && attackButtonHovering){
+        attackButtonSelected = true;
+      } else {
+        attackButtonSelected = false;
+      }
+    
+      if(mouseClicked && goldButtonHovering){
+        goldButtonSelected = true;
+        for(var i=0;i<selectedUnits.length;i++) {
+          var nearestMineFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_MINE_RANGE, mines);
+          selectedUnits[i].myTarget = nearestMineFound;
+          selectedUnits[i].actionSx = 15*2;
+          selectedUnits[i].showAction = true;
+        } 
+      } else {
+        goldButtonSelected = false;
+      }
+    
+      if(mouseClicked && farmButtonHovering){
+        farmButtonSelected = true;
+      } else {
+        farmButtonSelected = false;
+      }
     }
   }
 
@@ -73,6 +76,7 @@ function checkMouseInsideBox(xPos, yPos, width, height){
 }
 
 function drawUserInterface(){
+  if(peasantSelected){
     drawBitmapAtLocation(userInterfaceBackgroundPic, 0, 0, 800, 600, 0, 0);
     drawBitmapAtLocation(peasantProfilePic, 0,120, pictureWidth, pictureHeight, 10, 100);
     colorText("PEASANT", 9, 95, "Yellow", "14px Arial");
@@ -149,5 +153,6 @@ function drawUserInterface(){
     if(farmButtonHovering && mouseClicked){ //text
       colorText("FARM", 19, farmY+pictureHeight+15, "White", "14px Arial");
       colorText("FOOD", 18, farmY+pictureHeight+29, "White", "14px Arial");
-    }  
-  }
+    } 
+  } 
+}
