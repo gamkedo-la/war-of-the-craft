@@ -93,8 +93,8 @@ function drawEverything() {
 
   var leftEdgeCol=Math.floor(camera.x/GRID_WIDTH);
   var topEdgeRow=Math.floor(camera.y/GRID_HEIGHT);
-  var rightEdgeCol=Math.floor((camera.x+canvas.width)/GRID_WIDTH);
-  var bottomEdgeRow=Math.floor((camera.y+canvas.height)/GRID_HEIGHT);
+  var rightEdgeCol=Math.ceil((camera.x+canvas.width)/GRID_WIDTH);
+  var bottomEdgeRow=Math.ceil((camera.y+canvas.height)/GRID_HEIGHT);
   for(var i = leftEdgeCol; i < rightEdgeCol; i++){
     for(var ii = topEdgeRow; ii < bottomEdgeRow; ii++){
       var unitListHere = worldGrid[colRowToIndex (i,ii)];
