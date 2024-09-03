@@ -89,7 +89,7 @@ function drawEverything() {
   canvasContext.save();
   canvasContext.translate(-camera.x,-camera.y);
   
-  canvasContext.drawImage(backGroundPic, -800,-600); // offset so we can scroll a little bit past the top left corner of map
+  canvasContext.drawImage(backGroundPic,-100,-100); // offset so we can scroll a little bit past the top left corner of map
 
   var leftEdgeCol=Math.floor(camera.x/GRID_WIDTH);
   var topEdgeRow=Math.floor(camera.y/GRID_HEIGHT);

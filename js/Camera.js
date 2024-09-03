@@ -7,8 +7,12 @@ var camera = {
     update:function() {
 
         // to force it to not go into the negatives? make these 0
-        if (this.x < -500) this.x = -500;
-        if (this.y < -500) this.y = -500;
+        if (this.x < -100) this.x = -100;
+        if (this.y < -100) this.y = -100;
+        // don't go past the edge of the world bottom right either!
+        if (this.x > 2500) this.x = 2500;
+        if (this.y > 2700) this.y = 2700;
+
 
         // this is just a demo of the effect in action =)
         if (DEBUG_CAMERA_SCROLLING) {
