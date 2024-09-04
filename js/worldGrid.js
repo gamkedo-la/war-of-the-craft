@@ -1,4 +1,7 @@
 var worldGrid = [];
+var collGrid = [];
+const COLL_EMPTY = 0;
+const COLL_SOLID = 1;
 
 function colRowToIndex (c,r){
     return c+r*GRID_COLUMNS;
@@ -13,7 +16,30 @@ function pixelCoordToIndex(x,y){
 function initializeWorldGrid(){
     for(var i = 0; i < GRID_COLUMNS; i++){
         for(var ii = 0; ii < GRID_ROWS; ii++){
-            worldGrid[colRowToIndex (i,ii)] = null;
+            var index = colRowToIndex (i,ii); 
+            worldGrid[index] = null;
+            collGrid[index] = COLL_EMPTY;
+        }
+    }
+}
+
+function refreshCollisionGrid(){
+    var debugSolidCount = 0;
+    for(var i = 0; i < GRID_COLUMNS; i++){
+        for(var ii = 0; ii < GRID_ROWS; ii++){
+            var index = colRowToIndex (i,ii);
+            var sum = 0;
+            if(worldGrid[index] != null){
+                for(var iii = 0; iii < worldGrid[index].length; iii++){
+                    sum += worldGrid[index][iii].collFill;
+                }
+            }
+            if(sum >= 1){
+                debugSolidCount++;
+                collGrid[index] = COLL_SOLID;
+            } else {
+                collGrid[index] = COLL_EMPTY;
+            }
         }
     }
 }
@@ -76,10 +102,8 @@ function drawGridDebug(){
                 var xPos = i * GRID_WIDTH;
                 var yPos = ii * GRID_HEIGHT;
                 var index = colRowToIndex(i,ii);
-                var color = (worldGrid[index] == null ? "white" : "yellow");
-                if(worldGrid[index] != null){
-                    coloredOutlineRectCornerToCorner(xPos, yPos, xPos + GRID_WIDTH-1, yPos + GRID_HEIGHT-1, color);
-                }
+                var color = (collGrid[index] == COLL_SOLID ? "red" : "yellow");
+                coloredOutlineRectCornerToCorner(xPos, yPos, xPos + GRID_WIDTH-1, yPos + GRID_HEIGHT-1, color);
             }
         }
     }

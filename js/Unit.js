@@ -20,6 +20,8 @@ function unitClass(type) {
     this.sX = 0;
     this.lumber = 0;
     this.jobType = type;
+    this.collFill = 0.2;
+    this.collDim = 1;
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
         this.playerControlled = playerTeam;
@@ -162,7 +164,6 @@ function unitClass(type) {
                 console.log("Go to location");
             } else {
                 if(this.attackCoolDown <= 0) {
-                    console.log("My Target is " + this.myTarget.type);
                     if (this.myTarget.type == "trees") {
                         this.lumber++;
                         this.myTarget.lumber--;

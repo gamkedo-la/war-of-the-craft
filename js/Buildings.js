@@ -1,6 +1,8 @@
 function buildingClass(building) {
     this.type = building;
-
+    this.collFill = 1;
+    this.collDim = 2;
+    
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
         this.x = Math.random()*WORLD_SIZE_PIXELS_W/4 + 50; //game width
         this.y = Math.random()*WORLD_SIZE_PIXELS_H/4 + 50; //game height
@@ -10,6 +12,7 @@ function buildingClass(building) {
         this.height = 100;
         this.pic = goblinHQPic;
         this.lumber = 0;
+        
 
         if(this.type == "players hq") {
             this.pic = humanHQPic;

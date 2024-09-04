@@ -1,6 +1,8 @@
 function environmentClass(environmentType) {
     this.isDead = false;
     this.type = environmentType;
+    this.collFill = .5; 
+    this.collDim = 1;
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
         this.x = Math.random()*WORLD_SIZE_PIXELS_W; // Game width

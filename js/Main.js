@@ -82,6 +82,7 @@ function moveEverything() {
   checkButtonHandling();
   checkAndHandleVictory(); 
   camera.update();
+  refreshCollisionGrid();
 }
 
 function drawEverything() {
