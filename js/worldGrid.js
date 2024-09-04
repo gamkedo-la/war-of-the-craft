@@ -38,6 +38,37 @@ function removeUnitFromGridIndex(unit,unitIndex){
     }
 }
 
+function returnUnitsInNearbyTiles(col,row, tileDist){
+    var leftEdge = col-tileDist;
+    var rightEdge = col+tileDist;
+    var topEdge = row-tileDist;
+    var bottomEdge = row+tileDist;
+
+    if(leftEdge < 0){
+        leftEdge = 0;
+    }
+    if(rightEdge >= GRID_COLUMNS){
+        rightEdge = GRID_COLUMNS - 1;
+    }
+    if(topEdge < 0){
+        topEdge = 0;
+    }
+    if(bottomEdge >= GRID_ROWS){
+        bottomEdge = GRID_ROWS - 1;
+    }
+
+    var unitList = [];
+    for (var c = leftEdge; c< rightEdge + 1; c++){
+       for(var r = topEdge; r < bottomEdge + 1; r++){
+        var index = colRowToIndex(c,r);
+        if(worldGrid[index] != null){
+            unitList.push(...worldGrid[index]); //... spills the array elements
+        }
+       } 
+    }
+    return unitList;
+}
+
 function drawGridDebug(){
     if(showGrid){
         for(var i = 0; i < GRID_COLUMNS; i++){
@@ -45,8 +76,10 @@ function drawGridDebug(){
                 var xPos = i * GRID_WIDTH;
                 var yPos = ii * GRID_HEIGHT;
                 var index = colRowToIndex(i,ii);
-                var color = (worldGrid[index] == null ? "white" : "lime");
-                coloredOutlineRectCornerToCorner(xPos, yPos, xPos + GRID_WIDTH-1, yPos + GRID_HEIGHT-1, color);
+                var color = (worldGrid[index] == null ? "white" : "yellow");
+                if(worldGrid[index] != null){
+                    coloredOutlineRectCornerToCorner(xPos, yPos, xPos + GRID_WIDTH-1, yPos + GRID_HEIGHT-1, color);
+                }
             }
         }
     }
