@@ -76,8 +76,14 @@ function checkMouseInsideBox(xPos, yPos, width, height){
 }
 
 function drawUserInterface(){
-  if(peasantSelected){
+  if(peasantSelected){ //will change this shortly to a different requirement
     drawBitmapAtLocation(userInterfaceBackgroundPic, 0, 0, 800, 600, 0, 0);
+    colorRect(10, 5, 200, 70, "white");
+    drawBitmapAtLocation(peasantPic, 0,60, 15, 15, 15, 10);
+    colorText(" = " + playerUnits.length, 30, 22, "black", "14px Arial");
+  }
+
+  if(peasantSelected){
     drawBitmapAtLocation(peasantProfilePic, 0,120, pictureWidth, pictureHeight, 10, 100);
     colorText("PEASANT", 9, 95, "Yellow", "14px Arial");
     colorText("OPTIONS", 9, 180, "Black", "14px Arial");

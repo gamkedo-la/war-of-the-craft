@@ -357,6 +357,7 @@ function unitClass(type) {
             }
             if (this.myTarget != null) {
                 lineDraw(this.x, this.y, this.myTarget.x, this.myTarget.y, this.unitColor);
+                console.log("Target:" + this.myTarget)
             }
         } else {
             colorCircle(this.x + 5, this.y, UNIT_PLACEHOLDER_RADIUS, "yellow", "10px Arial Black");
