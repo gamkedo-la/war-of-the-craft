@@ -1,9 +1,15 @@
+var constructionX = 10;
+var constructionY = 120;
+
+
 var lumberX = 10;
 var lumberY = 200;
 var pictureWidth = 60;
 var pictureHeight = 60;
 var lumberButtonHovering = false;
 var lumberButtonSelected = false;
+var constructionButtonHovering = false;
+var constructionButtonSelected = false;
 var attackX = 10;
 var attackY = 300;
 var attackButtonHovering = false;
@@ -14,6 +20,7 @@ var goldButtonHovering = false;
 var goldButtonSelected = false;
 var farmX = 10;
 var farmY = 480;
+
 var goldButtonHovering = false;
 var goldButtonSelected = false;
 var peasantSelected = false;
@@ -77,19 +84,33 @@ function checkMouseInsideBox(xPos, yPos, width, height){
 
 function drawUserInterface(){
   if(peasantSelected){ //will change this shortly to a different requirement
-    drawBitmapAtLocation(peasantPic, 0,60, 15, 15, 15, 10);
-    colorText(" = " + playerUnits.length, 30, 22, "black", "14px Arial");
+    drawBitmapAtLocation(peasantPic, 0,60, 15, 15, 100, 10);
+    colorText(" = " + playerUnits.length, 120, 22, "black", "14px Arial");
   }
 
   if(peasantSelected){
-    drawBitmapAtLocation(peasantProfilePic, 0,120, pictureWidth, pictureHeight, 10, 100);
-    colorText("PEASANT", 9, 95, "Yellow", "14px Arial");
-    colorText("OPTIONS", 9, 180, "Black", "14px Arial");
+    drawBitmapAtLocation(peasantProfilePic, 0,120, pictureWidth, pictureHeight, 10, 36);
+    colorText("PEASANT", 9, 20, "Yellow", "14px Arial");
+    colorText("OPTIONS", 9, 116, "Yellow", "14px Arial");
+    //construction
+    if(constructionButtonHovering && mouseClicked){ //picture
+      drawBitmapAtLocation(lumberPic, 60,60, pictureWidth, pictureHeight, constructionX, constructionY);
+    } else {
+      drawBitmapAtLocation(lumberPic, 0,60, pictureWidth, pictureHeight, constructionX, constructionY);
+    }
     //lumber
     if(lumberButtonHovering && mouseClicked){ //picture
       drawBitmapAtLocation(lumberPic, 60,60, pictureWidth, pictureHeight, lumberX, lumberY);
     } else {
       drawBitmapAtLocation(lumberPic, 0,60, pictureWidth, pictureHeight, lumberX, lumberY);
+    }
+    //construction
+    if(constructionButtonHovering){ //frame
+      drawBitmapAtLocation(framePic, 60,0, pictureWidth, pictureHeight, lumberX, lumberY);
+      colorText("BUILD", 18, constructionY+pictureHeight+15, "Yellow", "14px Arial");
+    } else {
+      drawBitmapAtLocation(framePic, 0,0, pictureWidth, pictureHeight, lumberX, lumberY);
+      colorText("BUILD", 18, constructionY+pictureHeight+15, "Black", "14px Arial");
     }
     if(lumberButtonHovering){ //frame
       drawBitmapAtLocation(framePic, 60,0, pictureWidth, pictureHeight, lumberX, lumberY);
