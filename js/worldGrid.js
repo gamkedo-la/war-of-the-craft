@@ -3,6 +3,14 @@ var collGrid = [];
 const COLL_EMPTY = 0;
 const COLL_SOLID = 1;
 
+const GRID_ROWS = 100;
+const GRID_COLUMNS = 100;
+const GRID_WIDTH = 32;
+const GRID_HEIGHT = 32;
+const WORLD_SIZE_PIXELS_W = GRID_ROWS * GRID_WIDTH;
+const WORLD_SIZE_PIXELS_H = GRID_COLUMNS * GRID_HEIGHT;
+var showGrid = true;
+
 function colRowToIndex (c,r){
     return c+r*GRID_COLUMNS;
 }
