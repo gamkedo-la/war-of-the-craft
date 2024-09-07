@@ -31,6 +31,7 @@ function checkButtonHandling(){
       attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);
       goldButtonHovering = checkMouseInsideBox(goldX, goldY, pictureWidth, pictureHeight);
       farmButtonHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
+      constructionButtonHovering = checkMouseInsideBox(constructionX, constructionY, pictureWidth, pictureHeight);
       
       if(mouseClicked && lumberButtonHovering){
         lumberButtonSelected = true;
@@ -46,6 +47,10 @@ function checkButtonHandling(){
     
       if(mouseClicked && attackButtonHovering){
         attackButtonSelected = true;
+        for(var i=0;i<selectedUnits.length;i++) {
+          selectedUnits[i].actionSx = 15*1;
+          selectedUnits[i].showAction = true;
+        }
       } else {
         attackButtonSelected = false;
       }
@@ -64,8 +69,22 @@ function checkButtonHandling(){
     
       if(mouseClicked && farmButtonHovering){
         farmButtonSelected = true;
+        for(var i=0;i<selectedUnits.length;i++) {
+          selectedUnits[i].actionSx = 15*3;
+          selectedUnits[i].showAction = true;
+        }
       } else {
         farmButtonSelected = false;
+      }
+
+      if(mouseClicked && constructionButtonHovering){
+        constructionButtonSelected = true;
+        for(var i=0;i<selectedUnits.length;i++) {
+          selectedUnits[i].actionSx = 15*4;
+          selectedUnits[i].showAction = true;
+        }
+      } else {
+        constructionButtonSelected = false;
       }
     }
   }
@@ -106,10 +125,10 @@ function drawUserInterface(){
     }
     //construction
     if(constructionButtonHovering){ //frame
-      drawBitmapAtLocation(framePic, 60,0, pictureWidth, pictureHeight, lumberX, lumberY);
+      drawBitmapAtLocation(framePic, 60,360, pictureWidth, pictureHeight, constructionX, constructionY);
       colorText("BUILD", 18, constructionY+pictureHeight+15, "Yellow", "14px Arial");
     } else {
-      drawBitmapAtLocation(framePic, 0,0, pictureWidth, pictureHeight, lumberX, lumberY);
+      drawBitmapAtLocation(framePic, 0,360, pictureWidth, pictureHeight, constructionX, constructionY);
       colorText("BUILD", 18, constructionY+pictureHeight+15, "Black", "14px Arial");
     }
     if(lumberButtonHovering){ //frame
