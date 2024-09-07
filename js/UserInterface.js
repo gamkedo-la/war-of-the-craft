@@ -25,8 +25,13 @@ var goldButtonHovering = false;
 var goldButtonSelected = false;
 var peasantSelected = false;
 
+var wallButtonHovering = false;
+var wallButtonSelected = false;
+var wallButtonX = 10;
+var wallButtonY = 120;
+
 function checkButtonHandling(){
-  if(peasantSelected){
+  if(peasantSelected && !constructionButtonSelected){
       lumberButtonHovering = checkMouseInsideBox(lumberX, lumberY, pictureWidth, pictureHeight);    
       attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);
       goldButtonHovering = checkMouseInsideBox(goldX, goldY, pictureWidth, pictureHeight);
@@ -86,8 +91,10 @@ function checkButtonHandling(){
       } else {
         constructionButtonSelected = false;
       }
+    } else if (constructionButtonSelected){
+
     }
-  }
+  } 
 
 function checkMouseInsideBox(xPos, yPos, width, height){
     var x1 = Math.floor(xPos);
@@ -107,7 +114,7 @@ function drawUserInterface(){
     colorText(" = " + playerUnits.length, 120, 22, "black", "14px Arial");
   }
 
-  if(peasantSelected){
+  if(peasantSelected && !constructionButtonSelected){
     drawBitmapAtLocation(peasantProfilePic, 0,120, pictureWidth, pictureHeight, 10, 36);
     colorText("PEASANT", 9, 20, "Yellow", "14px Arial");
     colorText("OPTIONS", 9, 116, "Yellow", "14px Arial");
@@ -198,5 +205,17 @@ function drawUserInterface(){
       colorText("FARM", 19, farmY+pictureHeight+15, "White", "14px Arial");
       colorText("FOOD", 18, farmY+pictureHeight+29, "White", "14px Arial");
     } 
-  } 
+  } else if (constructionButtonSelected){  //// Construction Screen
+    drawBitmapAtLocation(peasantProfilePic, 0,120, pictureWidth, pictureHeight, 10, 36);
+    colorText("PEASANT", 9, 20, "Yellow", "14px Arial");
+    colorText("OPTIONS", 9, 116, "Yellow", "14px Arial");
+
+    if(wallButtonHovering){ 
+      drawBitmapAtLocation(framePic, 60,420, pictureWidth, pictureHeight, wallButtonX, wallButtonY);
+      colorText("WALL", 21, wallButtonY+pictureHeight+15, "Yellow", "14px Arial");
+    } else {
+      drawBitmapAtLocation(framePic, 0,420, pictureWidth, pictureHeight, wallButtonX, wallButtonY);
+      colorText("WALL", 21, wallButtonY+pictureHeight+15, "Black", "14px Arial");
+    }
+  }
 }
