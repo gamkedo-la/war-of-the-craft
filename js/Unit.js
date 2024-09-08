@@ -8,6 +8,7 @@ const UNIT_AI_ORC_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 90;
 const UNIT_PLAYABLE_AREA_MARGIN = 20;
 const UNIT_AI_TREE_RANGE = 200;
 const UNIT_AI_MINE_RANGE = 300;
+const UNIT_AI_FARM_RANGE = 400;
 
 var gatherLumber = 0;
 var attackTarget = 15;
@@ -19,6 +20,7 @@ function unitClass(type) {
     this.healthSy = 0;
     this.sX = 0;
     this.lumber = 0;
+    this.food = 0;
     this.jobType = type;
     this.collFill = 0.2;
     this.collDim = 1;
@@ -164,37 +166,17 @@ function unitClass(type) {
                 this.gotoX = this.x;
                 this.gotoY = this.y;
             } else if (this.myTarget.type == "goblin hq" && this.lumber  == 0){
-                nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees);
+                nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, null);
             } else if (this.distFromSq(this.myTarget.x, this.myTarget.y) > UNIT_ATTACK_RANGE * UNIT_AI_TREE_RANGE) {
                 this.gotoX = this.myTarget.x;
                 this.gotoY = this.myTarget.y;
                 console.log("Go to location");
             } else {
                 if(this.attackCoolDown <= 0) {
-                    if (this.myTarget.type == "trees") {
-                        this.lumber++;
-                        this.myTarget.lumber--;
-                        this.attackCoolDown = 600;
-                        if (this.myTarget.lumber <= 0) {
-                            this.myTarget.isDead = true;
-                            soonCheckUnitsToClear();
-                            this.myTarget == null;
-                        }
-                        if(this.lumber > 2){
-                            this.myTarget == null;
-                        }  
+                    if (this.myTarget.type == "trees" || this.myTarget.type == "peasant farm") {
+                        this.collectResourse(this.myTarget.type, 600);//maybe we can make a variable for this.myTarget.attackCooldown
                     } else if (this.myTarget.type == "goblin hq"){
-                        this.attackCoolDown = 60;
-                        if (this.lumber > 0) {
-                            this.lumber--;
-                            this.myTarget.lumber++;
-                            console.log("Lumber delivered: " + this.myTarget.lumber + " My Lumber: " + this.lumber);
-                            if(this.lumber == 0){ //dropped off last piece of lumber
-                              console.log("Last of lumber dropped off");
-                              nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees);
-                              this.myTarget = nearestTreeFound;
-                            }
-                        }
+                        this.returnResourse();
                     } else {
                         this.myTarget.health--;
                     }
@@ -216,13 +198,13 @@ function unitClass(type) {
             var nearestMindFound = null;
             var nearestHQFound = null;
             var nearestOpponentFound = null;
-            nearestOpponentFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_ORC_ATTACK_INITIATE, playerUnits);
+            nearestOpponentFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_ORC_ATTACK_INITIATE, playerUnits, null);
 
             if(this.lumber <= 2 && this.jobType == "goblin" && nearestOpponentFound == null){
-                nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees);
+                nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, null);
                 this.myTarget = nearestTreeFound;
             } else if (this.lumber == 3 && this.jobType == "goblin") {
-                nearestHQFound = findClosestUnitInRange(this.x,this.y,1000, buildingUnits);
+                nearestHQFound = findClosestUnitInRange(this.x,this.y,1000, buildingUnits, null);
                 this.myTarget = nearestHQFound;
                 this.attackCoolDown = 60;
             } else {
@@ -241,11 +223,11 @@ function unitClass(type) {
                 if(this.myTarget.type == "goblin hq" && this.jobType == "goblin"){
                     console.log(this.idNumber + " HQ + " + this.lumber)
                     if(this.lumber > 0){
-                        nearestHQFound = findClosestUnitInRange(this.x,this.y,600, buildingUnits);
+                        nearestHQFound = findClosestUnitInRange(this.x,this.y,600, buildingUnits, null);
                         this.myTarget = nearestHQFound;
                         this.attackCoolDown = 60;
                     } else {
-                        nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees);
+                        nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, null);
                         this.myTarget = nearestTreeFound;
                     }
                 } else if (this.myTarget.type == "trees" && this.jobType == "goblin"){
@@ -253,11 +235,11 @@ function unitClass(type) {
                         nearestHQFound = findClosestUnitInRange(this.x,this.y,5600, buildingUnits);
                         this.myTarget = nearestHQFound;
                     } else {
-                        nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees);
+                        nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, null);
                         this.myTarget = nearestTreeFound;
                     }
                 } else if (this.myTarget.type == "peasant"){
-                    nearestOpponentFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_ATTACK_INITIATE, playerUnits);
+                    nearestOpponentFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_ATTACK_INITIATE, playerUnits, null);
                 } else {
                     this.gotoX = this.x - Math.random() * 70;
                     this.gotoY = this.y - Math.random() * 70;
@@ -284,6 +266,64 @@ function unitClass(type) {
         if(wasTileIndex != newTileIndex){
             removeUnitFromGridIndex(this,wasTileIndex);
             addUnitToGridIndex(this,newTileIndex);
+        }
+    }
+
+    this.collectResourse = function (type, attackCooldown) {
+        switch (type) {
+            case "trees":
+                this.lumber++;
+                this.myTarget.lumber--;
+                if (this.myTarget.lumber <= 0) {
+                    this.myTarget.isDead = true;
+                    soonCheckUnitsToClear();
+                    this.myTarget == null;
+                }
+                if (this.lumber > 2) {
+                    this.myTarget == null;
+                }
+                break;
+            case "peasant farm":
+                this.food++;
+                this.myTarget.food--;
+                //console.log(this.food);
+                if (this.myTarget.food <= 0) {
+                    this.myTarget.isDead = true;
+                    soonCheckUnitsToClear();
+                    this.myTarget == null;
+                }
+                if (this.food > 2) {
+                    this.myTarget == null;
+                }
+                break;
+
+            default:
+                break;
+        }
+        this.attackCoolDown = attackCooldown;
+    }
+
+    this.returnResourse = function() {
+        this.attackCoolDown = 60;
+        if (this.lumber > 0) {
+            this.lumber--;
+            this.myTarget.lumber++;
+            console.log("Lumber delivered: " + this.myTarget.lumber + " My Lumber: " + this.lumber);
+            if(this.lumber == 0){ //dropped off last piece of lumber
+              console.log("Last of lumber dropped off");
+              var nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, null);
+              this.myTarget = nearestTreeFound;
+            }
+        }
+        else if (this.food > 0) {
+            this.food--;
+            this.myTarget.food++;
+            console.log("Food delivered: " + this.myTarget.food + " My Food: " + this.food);
+            if(this.food == 0){ //dropped off last piece of lumber
+              console.log("Last of food dropped off");
+              var nearestFarmFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_FARM_RANGE, buildingUnits, "peasant farm");
+              this.myTarget = nearestFarmFound;
+            }
         }
     }
 

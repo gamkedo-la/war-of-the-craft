@@ -46,7 +46,7 @@ function checkButtonHandling(){
     if(mouseClicked && lumberButtonHovering){
       lumberButtonSelected = true;
       for(var i=0;i<selectedUnits.length;i++) {
-        var nearestTreeFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees);
+        var nearestTreeFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees, null);
         selectedUnits[i].myTarget = nearestTreeFound;
         selectedUnits[i].actionSx = 0;
         selectedUnits[i].showAction = true;
@@ -68,7 +68,7 @@ function checkButtonHandling(){
     if(mouseClicked && goldButtonHovering){
       goldButtonSelected = true;
       for(var i=0;i<selectedUnits.length;i++) {
-        var nearestMineFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_MINE_RANGE, mines);
+        var nearestMineFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_MINE_RANGE, mines, null);
         selectedUnits[i].myTarget = nearestMineFound;
         selectedUnits[i].actionSx = 15*2;
         selectedUnits[i].showAction = true;
@@ -80,6 +80,9 @@ function checkButtonHandling(){
     if(mouseClicked && farmButtonHovering){
       farmButtonSelected = true;
       for(var i=0;i<selectedUnits.length;i++) {
+          debugger;
+          var nearestFarmFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_FARM_RANGE, buildingUnits, "peasant farm");
+          selectedUnits[i].myTarget = nearestFarmFound;
         selectedUnits[i].actionSx = 15*3;
         selectedUnits[i].showAction = true;
       }

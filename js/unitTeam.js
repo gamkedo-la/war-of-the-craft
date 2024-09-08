@@ -35,9 +35,21 @@ function addNewUnitToTeam(spawnUnit,fightsForTeam){
     allUnits.push(spawnUnit);
 }
 
-function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList) {
+function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList, type) {
     var nearestUnitDist = maxRange; 
     var nearestUnitFound = null;
+    var unitlist;
+
+    if (type) {
+      console.log(type);
+      unitlist = inUnitList.filter(function (item) {
+        return item.type == type;
+      });
+      console.log(unitlist.length);
+    }
+    else{
+      unitlist = inUnitList;
+    }
 
     for(var i=0;i<inUnitList.length;i++) {
         var distTo = inUnitList[i].distFromSq(fromX,fromY); 
