@@ -57,10 +57,17 @@ function unitClass(type) {
             }
         } else {
             this.unitColor = 'White';
-            this.pic = peasantPic;
-            this.health = 4;
-            this.jobType = "peasant";
-            this.type = "peasant";
+            if(this.jobType == "peasant"){
+                this.pic = peasantPic;
+                this.health = 4;
+                this.type = "peasant";
+            } else if (this.jobType == "warrior"){
+                this.pic = warriorPic;
+                this.health = 10;
+                this.width = 20;
+                this.height = 20;
+                this.type = "warrior";
+            }
         }
 
         for (var i = 0; i < buildingUnits.length; i++) {

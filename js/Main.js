@@ -1,9 +1,10 @@
 // save the canvas for dimensions, and its 2d context for drawing to it
 var canvas, canvasContext;
-const PLAYER_START_UNITS = 10;
+const PLAYER_PEASANT_START_UNITS = 10;
+const PLAYER_WARRIOR_START_UNITS = 10;
 const PLAYER_START_BUILDING = 1;
 const ENEMY_GOBLIN_START_UNITS = 10;
-const ENEMY_ORC_START_UNITS = 1;
+const ENEMY_ORC_START_UNITS = 2;
 const ENEMY_START_BUILDING = 1;
 const ENEMY_START_FARMS = 1;
 const ENEMY_START_ORC_BARRACK = 1;
@@ -34,7 +35,8 @@ window.onload = function() {
 
   initializeWorldGrid();
 
-  populateTeam(playerUnits,PLAYER_START_UNITS,true, "peasant");
+  populateTeam(playerUnits,PLAYER_PEASANT_START_UNITS,true, "peasant");
+  populateTeam(playerUnits,PLAYER_WARRIOR_START_UNITS,true, "warrior");
   populateTeam(enemyUnits,ENEMY_GOBLIN_START_UNITS,false, "goblin");
   populateTeam(enemyUnits,ENEMY_ORC_START_UNITS,false, "orc");
   populateTeam(buildingUnits,PLAYER_START_BUILDING,true, "players hq");

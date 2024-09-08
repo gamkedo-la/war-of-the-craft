@@ -4,7 +4,8 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
     for(var i=0;i<howMany;i++){
       if(type == "goblin" || 
          type == "orc" ||
-         type == "peasant"
+         type == "peasant" ||
+         type == "warrior"
       ){
         var spawnUnit = new unitClass(type);
       } else if (type == "players hq"){
@@ -81,6 +82,7 @@ function removeDeadUnits() {
 
 function soonCheckUnitsToClear() { 
     anyNewUnitsToClear = true;
+    refreshCollisionGrid();
 }
 
     
