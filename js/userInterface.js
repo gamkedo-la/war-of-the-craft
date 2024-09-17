@@ -18,16 +18,20 @@ var goldButtonHovering = false;
 var goldButtonSelected = false;
 var farmX = 10;
 var farmY = 480;
+var wallX = 10;
+var wallY = 120;
+var buildWallHoovering = false;
+var buildWallSelected = false;
 
 var goldButtonHovering = false;
 var goldButtonSelected = false;
 var peasantSelected = false;
 var warriorSelected = false;
 
-var wallButtonHovering = false;
-var wallButtonSelected = false;
-var wallButtonX = 10;
-var wallButtonY = 120;
+var buttonDelayTicks = 60;
+var buttonDelayTimer = false;
+var startDelayTimer = false;
+
 
 function checkButtonHandling(){
   if(peasantSelected && !constructionButtonSelected){
@@ -92,12 +96,26 @@ function checkButtonHandling(){
 
     if(mouseClicked && constructionButtonHovering){
       constructionButtonSelected = true;
+      buttonDelayTicks = 60;
+      startDelayTimer = true;
+      buttonDelayTimer = false;
       for(var i=0;i<selectedUnits.length;i++) {
         selectedUnits[i].actionSx = 15*4;
         selectedUnits[i].showAction = true;
       }
     } else {
       constructionButtonSelected = false;
+    }
+  } else if (peasantSelected && constructionButtonSelected){
+    buildWallHoovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
+    if(mouseClicked && buildWallHoovering && buttonDelayTimer){
+      buildWallSelected = true;
+      for(var i=0;i<selectedUnits.length;i++) {
+        selectedUnits[i].actionSx = 15*4;
+        selectedUnits[i].showAction = true;
+      }
+    } else {
+      buildWallSelected = false;
     }
   } else if (warriorSelected){
     attackY = 120;
@@ -130,6 +148,14 @@ function checkMouseInsideBox(xPos, yPos, width, height){
 }
 
 function drawUserInterface(){
+  if(startDelayTimer){
+    buttonDelayTicks--;
+    if(buttonDelayTicks <= 0){
+      buttonDelayTimer = true;
+      startDelayTimer = false;
+    }
+  }
+
   if(peasantSelected || warriorSelected){ //will change this shortly to a different requirement
     drawBitmapAtLocation(peasantPic, 0,60, 15, 15, 100, 10);
     drawBitmapAtLocation(warriorPic, 0,60, 20, 20, 160, 8);
@@ -233,12 +259,12 @@ function drawUserInterface(){
     colorText("PEASANT", 9, 20, "Yellow", "14px Arial");
     colorText("OPTIONS", 9, 116, "Yellow", "14px Arial");
 
-    if(wallButtonHovering){ 
-      drawBitmapAtLocation(framePic, 60,420, pictureWidth, pictureHeight, wallButtonX, wallButtonY);
-      colorText("WALL", 21, wallButtonY+pictureHeight+15, "Yellow", "14px Arial");
+    if(buildWallHoovering){ 
+      drawBitmapAtLocation(framePic, 60,420, pictureWidth, pictureHeight, wallX, wallY);
+      colorText("WALL", 21, wallY+pictureHeight+15, "Yellow", "14px Arial");
     } else {
-      drawBitmapAtLocation(framePic, 0,420, pictureWidth, pictureHeight, wallButtonX, wallButtonY);
-      colorText("WALL", 21, wallButtonY+pictureHeight+15, "White", "14px Arial");
+      drawBitmapAtLocation(framePic, 0,420, pictureWidth, pictureHeight, wallX, wallY);
+      colorText("WALL", 21, wallY+pictureHeight+15, "White", "14px Arial");
     }
   } else if(warriorSelected) {
     drawBitmapAtLocation(peasantProfilePic, pictureWidth*2,120, pictureWidth, pictureHeight, 10, 36);//warrior
@@ -246,7 +272,7 @@ function drawUserInterface(){
     colorText("OPTIONS", 9, 116, "Yellow", "14px Arial");
 
     //attacking
-    if(attackButtonHovering && mouseClicked){ //picture
+    if(attackButtonHovering && mouseClicked && buttonDelayTimer){ //picture
       drawBitmapAtLocation(lumberPic, 60,180, pictureWidth, pictureHeight, attackX, attackY);
     } else {
       drawBitmapAtLocation(lumberPic, 0,180, pictureWidth, pictureHeight, attackX, attackY);
