@@ -1,3 +1,28 @@
+var backgroundSoundLoop, musicLowEnergy, musicHighEnergy;
+
+function startBackgroundAudio() {
+    
+    backgroundSoundLoop = new Audio("audio/forest-ambience.mp3");
+    backgroundSoundLoop.volume = 0.25;
+    backgroundSoundLoop.loop = true;
+    backgroundSoundLoop.play();
+
+    musicLowEnergy = new Audio("audio/music-low-energy.mp3");
+    musicLowEnergy.volume = 0.5;
+    musicLowEnergy.loop = true;
+    musicLowEnergy.play();
+
+    musicHighEnergy = new Audio("audio/music-high-energy.mp3");
+    musicHighEnergy.volume = 0;
+    musicHighEnergy.loop = true;
+    musicHighEnergy.play(); // play silenty so both tracks are synched
+
+}
+
+
+
+
+
 var audioFormat;
 var isMuted = false;
 var soundSetforMeetings = false; //make false to hear at normal level
@@ -74,3 +99,6 @@ function BackgroundMusicClass(filenameWithPath) {
 		}
     }
 }
+
+
+

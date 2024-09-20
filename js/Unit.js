@@ -184,7 +184,7 @@ function unitClass(type) {
                 } else {
                     this.attackCoolDown--;
                 }
-                if (this.myTarget.health <= 0) {
+                if (this.myTarget && this.myTarget.health <= 0) {
                     this.myTarget.isDead = true;
                     this.myTarget.sX = this.myTarget.health * 15;
                 }

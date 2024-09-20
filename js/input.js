@@ -49,7 +49,16 @@ function mousemoveHandler(evt) {
   }
 }
 
+var waitingForFirstClick = true; // until sounds are allowed
+
 function mousedownHandler(evt) {
+  
+  if (waitingForFirstClick) {
+    console.log("first click! starting background ambience and music.");
+    startBackgroundAudio();
+    waitingForFirstClick = false;
+  }
+
   var mousePos = calculateMousePos(evt);
   lassoX1 = mousePos.x;
   lassoY1 = mousePos.y;
