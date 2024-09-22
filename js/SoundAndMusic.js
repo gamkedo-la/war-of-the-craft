@@ -7,12 +7,12 @@ function startBackgroundAudio() {
     backgroundSoundLoop.loop = true;
     backgroundSoundLoop.play();
 
-    musicLowEnergy = new Audio("audio/music-low-energy.mp3");
+    musicLowEnergy = new Audio("audio/music-low-energy.wav");
     musicLowEnergy.volume = 0.5;
     musicLowEnergy.loop = true;
     musicLowEnergy.play();
 
-    musicHighEnergy = new Audio("audio/music-high-energy.mp3");
+    musicHighEnergy = new Audio("audio/music-high-energy.wav");
     musicHighEnergy.volume = 0;
     musicHighEnergy.loop = true;
     musicHighEnergy.play(); // play silenty so both tracks are synched
