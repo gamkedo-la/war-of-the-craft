@@ -111,7 +111,6 @@ function drawEverything() {
   }
 
   if(showWallToBuild){
-    console.log("Show Wall")
     drawBitmapCenteredAtLocation(wallPic, 32*3, 0,32,32, mouseX,mouseY)
   }
 

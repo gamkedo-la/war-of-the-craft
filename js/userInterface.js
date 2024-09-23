@@ -36,6 +36,7 @@ var showWallToBuild = false;
 
 
 function checkButtonHandling(){
+  console.log(showWallToBuild, mouseClicked, buttonDelayTimer)  ///this combination doesn't trigger place wall.  Need to troubleshoot
   if(peasantSelected && !constructionButtonSelected){
     constructionY = 120;
     lumberY = 200;
@@ -108,14 +109,21 @@ function checkButtonHandling(){
     } else {
       constructionButtonSelected = false;
     }
-  } else if (showWallToBuild && mouseClicked){
+  }
+  if (showWallToBuild && mouseClicked && !buttonDelayTimer){
     showWallToBuild = false;
     peasantSelected = false;
     buildWallSelected = false;
     constructionButtonSelected = false;
+    console.log("Wall Placed")
     populateTeam(buildingUnits,0,true, "wall");
   } else if (peasantSelected && buildWallSelected){
     showWallToBuild = true;
+    buttonDelayTicks = 60;
+    startDelayTimer = true;
+    buttonDelayTimer = true;
+    buildWallSelected = false;
+    console.log("Place Wall")
   } else if (peasantSelected && constructionButtonSelected){
     buildWallHoovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
     if(mouseClicked && buildWallHoovering && buttonDelayTimer){
