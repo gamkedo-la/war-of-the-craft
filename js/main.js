@@ -110,6 +110,11 @@ function drawEverything() {
     coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'yellow');
   }
 
+  if(showWallToBuild){
+    console.log("Show Wall")
+    drawBitmapCenteredAtLocation(wallPic, 32*3, 0,32,32, mouseX,mouseY)
+  }
+
   drawGridDebug();
   
   canvasContext.restore(); // unshift camera pos

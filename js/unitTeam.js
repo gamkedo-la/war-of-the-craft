@@ -5,7 +5,8 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
       if(type == "goblin" || 
          type == "orc" ||
          type == "peasant" ||
-         type == "warrior"
+         type == "warrior" ||
+         type == "walls"
       ){
         var spawnUnit = new unitClass(type);
       } else if (type == "players hq"){
@@ -22,8 +23,11 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
         var spawnUnit = new environmentClass("trees");
       } else if (type == "mines"){
         var spawnUnit = new environmentClass("mines");
-      } 
+      } else if (type == "walls"){
+        var spawnUnit = new buildingClass("walls");
+      }
 
+      console.log(isPlayerControlled, i, type);
       spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, i, type);
       addNewUnitToTeam(spawnUnit,whichTeam);   
       addUnitToGrid(spawnUnit);

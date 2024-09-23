@@ -52,6 +52,15 @@ function buildingClass(building) {
             this.unitColor = 'White';
             this.pic = orcFarmPic;
             this.health = 10;
+        } else if (this.type == "walls"){
+            this.x = mouseX;
+            this.y = mouseY;
+            this.sX = 32*3;
+            this.sY = 0;
+            this.height = 50;
+            this.unitColor = 'White';
+            this.pic = wallPic;
+            this.health = 1;
         }
     }
 

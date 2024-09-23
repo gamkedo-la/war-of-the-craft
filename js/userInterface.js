@@ -32,6 +32,8 @@ var buttonDelayTicks = 60;
 var buttonDelayTimer = false;
 var startDelayTimer = false;
 
+var showWallToBuild = false;
+
 
 function checkButtonHandling(){
   if(peasantSelected && !constructionButtonSelected){
@@ -106,6 +108,14 @@ function checkButtonHandling(){
     } else {
       constructionButtonSelected = false;
     }
+  } else if (showWallToBuild && mouseClicked){
+    showWallToBuild = false;
+    peasantSelected = false;
+    buildWallSelected = false;
+    constructionButtonSelected = false;
+    populateTeam(buildingUnits,0,true, "wall");
+  } else if (peasantSelected && buildWallSelected){
+    showWallToBuild = true;
   } else if (peasantSelected && constructionButtonSelected){
     buildWallHoovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
     if(mouseClicked && buildWallHoovering && buttonDelayTimer){
