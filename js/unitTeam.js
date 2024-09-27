@@ -22,8 +22,8 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
         var spawnUnit = new environmentClass("trees");
       } else if (type == "mines"){
         var spawnUnit = new environmentClass("mines");
-      } else if (type == "melon"){
-        var spawnUnit = new buildingClass("melon");
+      } else if (type == "wall"){
+        var spawnUnit = new buildingClass("wall");
       } else {
         console.log("Unidentified type:" + type);
       }

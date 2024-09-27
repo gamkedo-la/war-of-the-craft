@@ -41,7 +41,7 @@ window.onload = function() {
   populateTeam(enemyUnits,ENEMY_GOBLIN_START_UNITS,false, "goblin");
   populateTeam(enemyUnits,ENEMY_ORC_START_UNITS,false, "orc");
   populateTeam(buildingUnits,PLAYER_START_BUILDING,true, "players hq");
-  populateTeam(buildingUnits,PLAYER_START_BUILDING,true, "melon");
+  populateTeam(buildingUnits,PLAYER_START_BUILDING,true, "wall");
   populateTeam(buildingUnits,ENEMY_START_BUILDING,true, "goblins hq");
   populateTeam(buildingUnits,ENEMY_START_ORC_BARRACK,true, "orc barrack");
   populateTeam(buildingUnits,ENEMY_START_FARMS,true, "orc farm");

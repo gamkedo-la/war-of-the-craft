@@ -117,7 +117,7 @@ function checkButtonHandling() {
       buildWallSelected = false;
       constructionButtonSelected = false;
       console.log("Wall Created")
-      populateTeam(buildingUnits, 1, true, "melon");
+      populateTeam(buildingUnits, 1, true, "wall");
   } else if (peasantSelected && buildWallSelected) {
       showWallToBuild = true;
       buttonDelayTicks = 60;

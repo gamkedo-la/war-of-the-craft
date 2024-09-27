@@ -49,7 +49,7 @@ function buildingClass(building) {
             this.unitColor = 'White';
             this.pic = orcFarmPic;
             this.health = 10;
-        } else if (this.type == "melon"){
+        } else if (this.type == "wall"){
             this.x = mouseX;
             this.y = mouseY;
             this.pic = wallPic;
