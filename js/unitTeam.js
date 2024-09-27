@@ -26,7 +26,7 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
       } else if (type == "wall"){
         var spawnUnit = new buildingClass("wall");
       }
-      console.log(isPlayerControlled, i, type)
+      // console.log(isPlayerControlled, i, type)
       spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, i, type);
       addNewUnitToTeam(spawnUnit,whichTeam);   
       addUnitToGrid(spawnUnit);

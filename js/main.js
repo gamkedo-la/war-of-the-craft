@@ -111,7 +111,7 @@ function drawEverything() {
   }
 
   if(showWallToBuild){
-    drawBitmapCenteredAtLocation(wallPic, 32*3, 0,32,32, mouseX,mouseY)
+    drawBitmapCenteredAtLocation(minePic, 32*3, 0,32,32, mouseX,mouseY)
   }
 
   drawGridDebug();
@@ -119,7 +119,7 @@ function drawEverything() {
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
-  canvas.drawImage(wallPic, 100,100)
+  canvasContext.drawImage(wallPic, 100,100)
 
   // the shadow around the edges
   canvasContext.drawImage(viewportShadows,-20,-40);
