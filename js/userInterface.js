@@ -152,8 +152,6 @@ function checkButtonHandling() {
   }
 }
 
-
-
 function checkMouseInsideBox(xPos, yPos, width, height) {
     var x1 = Math.floor(xPos);
     var y1 = Math.floor(yPos);
@@ -267,12 +265,14 @@ function drawUserInterface() {
     } else {
         drawBitmapAtLocation(framePic, 0, 0, pictureWidth, pictureHeight, farmX, farmY);
         colorText("FARM", 19, farmY + pictureHeight + 15, "White", "14px Arial");
-        colorText("FOOD", 18, farmY + pictureHeight + 29, "White", "14px Arial");
+        col
+        orText("FOOD", 18, farmY + pictureHeight + 29, "White", "14px Arial");
     }
     if (farmButtonHovering && mouseClicked) { //text
         colorText("FARM", 19, farmY + pictureHeight + 15, "Green", "14px Arial");
         colorText("FOOD", 18, farmY + pictureHeight + 29, "Green", "14px Arial");
     }
+
   } else if (constructionButtonSelected) { //// Construction Screen
       drawBitmapAtLocation(peasantProfilePic, 0, 120, pictureWidth, pictureHeight, 10, 36);
       colorText("PEASANT", 9, 20, "Yellow", "14px Arial");

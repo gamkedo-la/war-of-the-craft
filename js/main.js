@@ -119,6 +119,7 @@ function drawEverything() {
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
+  canvas.drawImage(wallPic, 100,100)
 
   // the shadow around the edges
   canvasContext.drawImage(viewportShadows,-20,-40);
