@@ -11,6 +11,7 @@ const ENEMY_START_ORC_BARRACK = 1;
 const PLAYER_START_FARMS = 1;
 const STARTING_TREES = 7000;
 const STARTING_MINES = 5;
+
 var enemyUnits = [];
 var playerUnits = [];
 var buildingUnits = [];
@@ -40,12 +41,13 @@ window.onload = function() {
   populateTeam(enemyUnits,ENEMY_GOBLIN_START_UNITS,false, "goblin");
   populateTeam(enemyUnits,ENEMY_ORC_START_UNITS,false, "orc");
   populateTeam(buildingUnits,PLAYER_START_BUILDING,true, "players hq");
+  populateTeam(buildingUnits,PLAYER_START_BUILDING,true, "melon");
   populateTeam(buildingUnits,ENEMY_START_BUILDING,true, "goblins hq");
   populateTeam(buildingUnits,ENEMY_START_ORC_BARRACK,true, "orc barrack");
   populateTeam(buildingUnits,ENEMY_START_FARMS,true, "orc farm");
   populateTeam(buildingUnits,PLAYER_START_FARMS,true, "peasant farm");
   populateTeam(trees,STARTING_TREES,true, "trees");
-  populateTeam(mines,STARTING_MINES,true, "mines");
+  populateTeam(mines,STARTING_MINES,true, "mine");
 }
 
 /**
@@ -119,7 +121,6 @@ function drawEverything() {
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
-  canvasContext.drawImage(wallPic, 100,100)
 
   // the shadow around the edges
   canvasContext.drawImage(viewportShadows,-20,-40);

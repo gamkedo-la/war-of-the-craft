@@ -5,8 +5,7 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
       if(type == "goblin" || 
          type == "orc" ||
          type == "peasant" ||
-         type == "warrior" ||
-         type == "wall"
+         type == "warrior" 
       ){
         var spawnUnit = new unitClass(type);
       } else if (type == "players hq"){
@@ -23,8 +22,10 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
         var spawnUnit = new environmentClass("trees");
       } else if (type == "mines"){
         var spawnUnit = new environmentClass("mines");
-      } else if (type == "wall"){
-        var spawnUnit = new buildingClass("wall");
+      } else if (type == "melon"){
+        var spawnUnit = new buildingClass("melon");
+      } else {
+        console.log("Unidentified type:" + type);
       }
       // console.log(isPlayerControlled, i, type)
       spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, i, type);
