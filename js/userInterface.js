@@ -118,6 +118,7 @@ function checkButtonHandling() {
       constructionButtonSelected = false;
       console.log("Wall Created")
       populateTeam(buildingUnits, 1, true, "wall");
+      buttonDelayTimer = true;
   } else if (peasantSelected && buildWallSelected) {
       showWallToBuild = true;
       buttonDelayTicks = 60;
