@@ -117,7 +117,7 @@ function checkButtonHandling() {
       buildWallSelected = false;
       constructionButtonSelected = false;
       console.log("Wall Created")
-      populateTeam(buildingUnits, 1, true, "wall");
+      populateTeam(buildingUnits, 1, true, "melon");
   } else if (peasantSelected && buildWallSelected) {
       showWallToBuild = true;
       buttonDelayTicks = 60;
@@ -265,8 +265,7 @@ function drawUserInterface() {
     } else {
         drawBitmapAtLocation(framePic, 0, 0, pictureWidth, pictureHeight, farmX, farmY);
         colorText("FARM", 19, farmY + pictureHeight + 15, "White", "14px Arial");
-        col
-        orText("FOOD", 18, farmY + pictureHeight + 29, "White", "14px Arial");
+        colorText("FOOD", 18, farmY + pictureHeight + 29, "White", "14px Arial");
     }
     if (farmButtonHovering && mouseClicked) { //text
         colorText("FARM", 19, farmY + pictureHeight + 15, "Green", "14px Arial");

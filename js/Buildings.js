@@ -50,8 +50,8 @@ function buildingClass(building) {
             this.pic = orcFarmPic;
             this.health = 10;
         } else if (this.type == "melon"){
-            //this.x = mouseX;
-            //this.y = mouseY;
+            this.x = mouseX;
+            this.y = mouseY;
             this.pic = wallPic;
             this.height = 32;
             this.width = 32;
