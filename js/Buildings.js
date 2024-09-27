@@ -53,11 +53,19 @@ function buildingClass(building) {
             //this.x = mouseX;
             //this.y = mouseY;
             this.pic = wallPic;
-            this.sX = 0;
+            this.height = 32;
+            this.width = 32;
+            this.sX = 32*3;
             this.sY = 0;
             this.unitColor = 'Red';
             this.health = 50;
+            this.snapNearestGridCenter();
         }
+    }
+
+    this.snapNearestGridCenter = function (){
+        this.x = Math.floor(this.x/GRID_WIDTH)*GRID_WIDTH + GRID_WIDTH/2;
+        this.y = Math.floor(this.y/GRID_HEIGHT)*GRID_HEIGHT + GRID_HEIGHT/2;
     }
 
     this.distFrom = function(otherX, otherY) {
