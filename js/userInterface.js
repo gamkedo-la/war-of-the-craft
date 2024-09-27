@@ -22,6 +22,10 @@ var wallX = 10;
 var wallY = 120;
 var buildWallHoovering = false;
 var buildWallSelected = false;
+var farmBuildX = 10;
+var farmBuildY = 200;
+var farmBuildHoovering = false;
+var farmBuildSelected = false;
 
 var goldButtonHovering = false;
 var goldButtonSelected = false;
@@ -285,6 +289,14 @@ function drawUserInterface() {
           drawBitmapAtLocation(framePic, 0, 420, pictureWidth, pictureHeight, wallX, wallY);
           colorText("WALL", 21, wallY + pictureHeight + 15, "White", "14px Arial");
       }
+      if (farmBuildHoovering) {
+        drawBitmapAtLocation(framePic, 60, 480, pictureWidth, pictureHeight, farmBuildX, farmBuildY);
+        colorText("FARM", 21, farmBuildY + pictureHeight + 15, "Yellow", "14px Arial");
+    } else {
+        drawBitmapAtLocation(framePic, 0, 480, pictureWidth, pictureHeight, farmBuildX, farmBuildY);
+        colorText("FARM", 21, farmBuildY + pictureHeight + 15, "White", "14px Arial");
+    }
+      
   } else if (warriorSelected) {
       drawBitmapAtLocation(peasantProfilePic, pictureWidth * 2, 120, pictureWidth, pictureHeight, 10, 36); //warrior
       colorText("WARRIOR", 9, 20, "Yellow", "14px Arial");
