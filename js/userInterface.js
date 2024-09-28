@@ -37,6 +37,7 @@ var buttonDelayTimer = false;
 var startDelayTimer = false;
 
 var showWallToBuild = false;
+var showFarmToBuild = false;
 
 
 function checkButtonHandling() {
@@ -123,6 +124,14 @@ function checkButtonHandling() {
       console.log("Wall Created")
       populateTeam(buildingUnits, 1, true, "wall");
       buttonDelayTimer = true;
+  if (showFarmToBuild && mouseClicked && buttonDelayTimer) {
+        showFarmToBuild = false;
+        peasantSelected = false;
+        buildFarmSelected = false;
+        constructionButtonSelected = false;
+        console.log("Farm Created")
+        populateTeam(buildingUnits, 1, true, "wall"); // change to farm
+        buttonDelayTimer = true;
   } else if (peasantSelected && buildWallSelected) {
       showWallToBuild = true;
       buttonDelayTicks = 60;
@@ -132,8 +141,10 @@ function checkButtonHandling() {
       console.log("Place Wall")
   } else if (peasantSelected && constructionButtonSelected) {
       buildWallHoovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
+      farmBuildHoovering = checkMouseInsideBox(farmBuildX, farmBuildY, pictureWidth, pictureHeight);
       if (mouseClicked && buildWallHoovering && buttonDelayTimer) {
           buildWallSelected = true;
+          startDelayTimer = true;
           for (var i = 0; i < selectedUnits.length; i++) {
               selectedUnits[i].actionSx = 15 * 4;
               selectedUnits[i].showAction = true;
@@ -141,6 +152,17 @@ function checkButtonHandling() {
       } else {
           buildWallSelected = false;
       }
+      if(mouseClicked && farmBuildHoovering && buttonDelayTimer){
+        farmBuildSelected = true;
+        startDelayTimer = true;
+        for (var i = 0; i < selectedUnits.length; i++) {
+            selectedUnits[i].actionSx = 15 * 4;
+            selectedUnits[i].showAction = true;
+        }
+      } else {
+        farmBuildSelected = false
+      }
+    
   } else if (warriorSelected) {
       attackY = 120;
       attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);

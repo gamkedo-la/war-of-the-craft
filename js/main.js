@@ -115,6 +115,10 @@ function drawEverything() {
     drawBitmapCenteredAtLocation(wallPic, 32*3, 0,32,32, mouseX,mouseY)
   }
 
+  if(showFarmToBuild){
+    drawBitmapCenteredAtLocation(orcFarmPic, 0, 50,100,75, mouseX,mouseY)
+  }
+
   drawGridDebug();
   
   canvasContext.restore(); // unshift camera pos
