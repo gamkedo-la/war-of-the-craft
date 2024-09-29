@@ -28,9 +28,11 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
         console.log("Unidentified type:" + type);
       }
       // console.log(isPlayerControlled, i, type)
-      spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, i, type);
-      addNewUnitToTeam(spawnUnit,whichTeam);   
-      addUnitToGrid(spawnUnit);
+      if (spawnUnit) { 
+        spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, i, type);
+        addNewUnitToTeam(spawnUnit,whichTeam);   
+        addUnitToGrid(spawnUnit);
+      }
     }
 }
 
