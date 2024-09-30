@@ -112,7 +112,7 @@ function checkButtonHandling() {
         selectedUnits[i].showAction = true;
       }
     } else {
-      constructionButtonSelected = false;
+     // constructionButtonSelected = false;
     }
   }
 
@@ -124,58 +124,61 @@ function checkButtonHandling() {
     console.log("Wall Created")
     populateTeam(buildingUnits, 1, true, "wall");
     buttonDelayTimer = true;
-    if (showFarmToBuild && mouseClicked && buttonDelayTimer) {
-      showFarmToBuild = false;
-      peasantSelected = false;
-      buildFarmSelected = false;
-      constructionButtonSelected = false;
-      console.log("Farm Created")
-      populateTeam(buildingUnits, 1, true, "wall"); // change to farm
-      buttonDelayTimer = true;
-    } else if (peasantSelected && buildWallSelected) {
-      showWallToBuild = true;
-      buttonDelayTicks = 60;
-      startDelayTimer = true;
-      buttonDelayTimer = true;
-      buildWallSelected = false;
-      console.log("Place Wall")
-    } else if (peasantSelected && constructionButtonSelected) {
-      buildWallHoovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
-      farmBuildHoovering = checkMouseInsideBox(farmBuildX, farmBuildY, pictureWidth, pictureHeight);
-      if (mouseClicked && buildWallHoovering && buttonDelayTimer) {
-        buildWallSelected = true;
-        startDelayTimer = true;
-        for (var i = 0; i < selectedUnits.length; i++) {
-          selectedUnits[i].actionSx = 15 * 4;
-          selectedUnits[i].showAction = true;
-        }
-      } else {
-        buildWallSelected = false;
-      }
-      if (mouseClicked && farmBuildHoovering && buttonDelayTimer) {
-        farmBuildSelected = true;
-        startDelayTimer = true;
-        for (var i = 0; i < selectedUnits.length; i++) {
-          selectedUnits[i].actionSx = 15 * 4;
-          selectedUnits[i].showAction = true;
-        }
-      } else {
-        farmBuildSelected = false
-      }
+  }
+  if (showFarmToBuild && mouseClicked && buttonDelayTimer) {
+    showFarmToBuild = false;
+    peasantSelected = false;
+    buildFarmSelected = false;
+    constructionButtonSelected = false;
+    console.log("Farm Created")
+    populateTeam(buildingUnits, 1, true, "wall"); // change to farm
+    buttonDelayTimer = true;
+  }
+  if (peasantSelected && buildWallSelected) {
+    showWallToBuild = true;
+    buttonDelayTicks = 60;
+    startDelayTimer = true;
+    buttonDelayTimer = true;
+    buildWallSelected = false;
+    console.log("Place Wall")
+  }
+  if (peasantSelected && constructionButtonSelected) {
+    buildWallHoovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
+    farmBuildHoovering = checkMouseInsideBox(farmBuildX, farmBuildY, pictureWidth, pictureHeight);
+    console.log("Made it to build wall")
+  }
+  if (mouseClicked && buildWallHoovering && buttonDelayTimer) {
+    buildWallSelected = true;
+    startDelayTimer = true;
+    for (var i = 0; i < selectedUnits.length; i++) {
+      selectedUnits[i].actionSx = 15 * 4;
+      selectedUnits[i].showAction = true;
+    }
+  } else {
+    buildWallSelected = false;
+  }
+  if (mouseClicked && farmBuildHoovering && buttonDelayTimer) {
+    farmBuildSelected = true;
+    startDelayTimer = true;
+    for (var i = 0; i < selectedUnits.length; i++) {
+      selectedUnits[i].actionSx = 15 * 4;
+      selectedUnits[i].showAction = true;
+    }
+  } else {
+    farmBuildSelected = false
+  }
+  if (warriorSelected) {
+    attackY = 120;
+    attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);
 
-    } else if (warriorSelected) {
-      attackY = 120;
-      attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);
-
-      if (mouseClicked && attackButtonHovering) {
-        attackButtonSelected = true;
-        for (var i = 0; i < selectedUnits.length; i++) {
-          selectedUnits[i].actionSx = 15 * 1;
-          selectedUnits[i].showAction = true;
-        }
-      } else {
-        attackButtonSelected = false;
+    if (mouseClicked && attackButtonHovering) {
+      attackButtonSelected = true;
+      for (var i = 0; i < selectedUnits.length; i++) {
+        selectedUnits[i].actionSx = 15 * 1;
+        selectedUnits[i].showAction = true;
       }
+    } else {
+      attackButtonSelected = false;
     }
   }
 
