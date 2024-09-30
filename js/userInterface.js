@@ -32,16 +32,14 @@ var goldButtonSelected = false;
 var peasantSelected = false;
 var warriorSelected = false;
 
-var buttonDelayTicks = 60;
+var buttonDelayTicks = 10;
 var buttonDelayTimer = false;
 var startDelayTimer = false;
 
 var showWallToBuild = false;
 var showFarmToBuild = false;
 
-
 function checkButtonHandling() {
-  // console.log(showWallToBuild, mouseClicked, buttonDelayTimer) ///this combination doesn't trigger place wall.  Need to troubleshoot
   if (peasantSelected && !constructionButtonSelected) {
     constructionY = 120;
     lumberY = 200;
@@ -128,24 +126,31 @@ function checkButtonHandling() {
   if (showFarmToBuild && mouseClicked && buttonDelayTimer) {
     showFarmToBuild = false;
     peasantSelected = false;
-    buildFarmSelected = false;
+    farmBuildSelected = false;
     constructionButtonSelected = false;
     console.log("Farm Created")
-    populateTeam(buildingUnits, 1, true, "wall"); // change to farm
+    populateTeam(buildingUnits, 1, true, "peasant farm");
     buttonDelayTimer = true;
   }
   if (peasantSelected && buildWallSelected) {
     showWallToBuild = true;
-    buttonDelayTicks = 60;
+    buttonDelayTicks = 10;
     startDelayTimer = true;
     buttonDelayTimer = true;
     buildWallSelected = false;
     console.log("Place Wall")
   }
+  if (peasantSelected && farmBuildSelected) {
+    showFarmToBuild = true;
+    buttonDelayTicks = 10;
+    startDelayTimer = true;
+    buttonDelayTimer = true;
+    farmBuildSelected = false;
+    console.log("Place Farm")
+  }
   if (peasantSelected && constructionButtonSelected) {
     buildWallHoovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
     farmBuildHoovering = checkMouseInsideBox(farmBuildX, farmBuildY, pictureWidth, pictureHeight);
-    console.log("Made it to build wall")
   }
   if (mouseClicked && buildWallHoovering && buttonDelayTimer) {
     buildWallSelected = true;
@@ -160,6 +165,7 @@ function checkButtonHandling() {
   if (mouseClicked && farmBuildHoovering && buttonDelayTimer) {
     farmBuildSelected = true;
     startDelayTimer = true;
+    console.log("farm selected")
     for (var i = 0; i < selectedUnits.length; i++) {
       selectedUnits[i].actionSx = 15 * 4;
       selectedUnits[i].showAction = true;

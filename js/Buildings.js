@@ -40,6 +40,7 @@ function buildingClass(building) {
             this.unitColor = 'White';
             this.pic = orcFarmPic;
             this.health = 10;
+            console.log("Peasant Farm created")
         } else if (this.type == "orc farm") {
             this.x = WORLD_SIZE_PIXELS_W - this.x - 900;
             this.y = WORLD_SIZE_PIXELS_H - this.y - 900;
