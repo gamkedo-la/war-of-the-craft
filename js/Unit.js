@@ -8,7 +8,7 @@ const UNIT_AI_ORC_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 90;
 const UNIT_PLAYABLE_AREA_MARGIN = 20;
 const UNIT_AI_TREE_RANGE = 200;
 const UNIT_AI_MINE_RANGE = 300;
-const UNIT_AI_FARM_RANGE = 400;
+const UNIT_AI_FARM_RANGE = 1000;
 
 var gatherLumber = 0;
 var attackTarget = 15;
@@ -176,7 +176,7 @@ function unitClass(type) {
                     if (this.myTarget.type == "trees" || this.myTarget.type == "peasant farm") {
                         this.collectResourse(this.myTarget.type, 600);//maybe we can make a variable for this.myTarget.attackCooldown
                     } else if (this.myTarget.type == "goblin hq"){
-                        this.returnResourse();
+                        this.returnResource();
                     } else {
                         this.myTarget.health--;
                     }
@@ -303,7 +303,7 @@ function unitClass(type) {
         this.attackCoolDown = attackCooldown;
     }
 
-    this.returnResourse = function() {
+    this.returnResource = function() {
         this.attackCoolDown = 60;
         if (this.lumber > 0) {
             this.lumber--;

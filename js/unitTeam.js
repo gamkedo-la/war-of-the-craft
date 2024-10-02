@@ -47,11 +47,10 @@ function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList, type) {
     var unitlist;
 
     if (type) {
-      console.log(type);
       unitlist = inUnitList.filter(function (item) {
+        console.log(item)
         return item.type == type;
       });
-      console.log(unitlist.length);
     }
     else{
       unitlist = inUnitList;

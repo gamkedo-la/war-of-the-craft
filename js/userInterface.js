@@ -90,9 +90,11 @@ function checkButtonHandling() {
     if (mouseClicked && farmButtonHovering) {
       farmButtonSelected = true;
       for (var i = 0; i < selectedUnits.length; i++) {
-        debugger;
+      //  debugger;
+        console.log("Inputs: " + selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_FARM_RANGE, buildingUnits)
         var nearestFarmFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_FARM_RANGE, buildingUnits, "peasant farm");
         selectedUnits[i].myTarget = nearestFarmFound;
+        console.log("Nearest Unit: " + nearestFarmFound)
         selectedUnits[i].actionSx = 15 * 3;
         selectedUnits[i].showAction = true;
       }

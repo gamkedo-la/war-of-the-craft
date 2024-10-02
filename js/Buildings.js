@@ -85,6 +85,10 @@ function buildingClass(building) {
         //don't move building
     }
 
+    this.determineWallPosition = function(){
+        
+    }
+
     this.draw = function(){
         drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY,this.width,this.height, this.x,this.y);
     }
