@@ -5,6 +5,7 @@ var goldX = 10, goldY = 380;
 var farmX = 10, farmY = 480;
 var wallX = 10, wallY = 120;
 var farmBuildX = 10, farmBuildY = 200;
+var peasantMainMenuX = 10, peasantMainMenuY = 300;
 var pictureWidth = 60, pictureHeight = 60;
 
 var peasantSelected = false, warriorSelected = false;
@@ -17,6 +18,7 @@ var goldButtonHovering = false, goldButtonSelected = false;
 var buildWallHovering = false, buildWallSelected = false;
 var farmBuildHovering = false, farmBuildSelected = false;
 var farmButtonHovering = false, farmButtonSelected = false;
+var peasantReturnMenuHovering = false, peasantReturnMenuSelected = false;
 
 var buttonDelayTicks = 10, buttonDelayTimer = false, startDelayTimer = false;
 var showWallToBuild = false, showFarmToBuild = false;
@@ -46,6 +48,7 @@ function lumberAction() {
     selectedUnits[i].actionSx = 0;
     selectedUnits[i].showAction = true;
   }
+  selectedUnits = [];
 }
 
 function attackAction() {
@@ -53,6 +56,7 @@ function attackAction() {
     selectedUnits[i].actionSx = 15 * 1;
     selectedUnits[i].showAction = true;
   }
+  selectedUnits = [];
 }
 
 function goldAction() {
@@ -62,6 +66,8 @@ function goldAction() {
     selectedUnits[i].actionSx = 15 * 2;
     selectedUnits[i].showAction = true;
   }
+  selectedUnits = [];
+
 }
 
 function farmAction() {
@@ -71,6 +77,7 @@ function farmAction() {
     selectedUnits[i].actionSx = 15 * 3;
     selectedUnits[i].showAction = true;
   }
+  selectedUnits = [];
 }
 
 // Construction-related actions
@@ -107,6 +114,13 @@ function placeFarm() {
   }
 }
 
+function returnToPeasantMainMenu(){
+  if(peasantSelected && peasantReturnMenuSelected){
+    peasantConstructionMenu = false;
+    peasantMainMenu = true;
+  }
+}
+
 function checkButtonHandling(){
   if (peasantSelected && peasantMainMenu) {
     lumberButtonHovering = checkMouseInsideBox(lumberX, lumberY, pictureWidth, pictureHeight);
@@ -121,6 +135,17 @@ function checkButtonHandling(){
     handleButtonClick(mouseClicked, farmButtonHovering, farmButtonSelected, farmAction);
     handleButtonClick(mouseClicked, constructionButtonHovering, constructionButtonSelected, constructionAction);
   }
+
+  if (peasantSelected && peasantConstructionMenu) {
+    buildWallHovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
+    farmBuildHovering = checkMouseInsideBox(farmBuildX, farmBuildY, pictureWidth, pictureHeight);
+    peasantReturnMenuHovering = checkMouseInsideBox(peasantMainMenuX, peasantMainMenuY, pictureWidth, pictureHeight);
+
+    handleButtonClick(mouseClicked, buildWallHovering, buildWallSelected, placeWall);
+    handleButtonClick(mouseClicked, farmBuildHovering, farmBuildSelected, placeFarm);
+    handleButtonClick(mouseClicked, peasantReturnMenuHovering, peasantReturnMenuSelected, returnToPeasantMainMenu);
+  }
+
 }
 
 function drawButton(x, y, image, sY,text1, text2, hovering, selected) {
@@ -174,5 +199,6 @@ function drawUserInterface() {
 
     drawButton(wallX, wallY, userInterfacePic, 420, "BUILD", "WALL", buildWallHovering, buildWallSelected);
     drawButton(farmBuildX, farmBuildY, userInterfacePic, 480, "BUILD", "FARM", farmBuildHovering, farmBuildSelected);
+    drawButton(peasantMainMenuX, peasantMainMenuY, userInterfacePic, 540, "BACK TO", "MAIN MENU", peasantReturnMenuHovering, peasantReturnMenuSelected);
   }
 }
