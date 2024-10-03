@@ -34,6 +34,8 @@ function buildingClass(building) {
             this.pic = orcBarrackPic;
             this.health = 50;
         } else if (this.type == "peasant farm") {
+            this.x = mouseX;
+            this.y = mouseY;
             this.sX = 0;
             this.sY = 50;
             this.height = 75;

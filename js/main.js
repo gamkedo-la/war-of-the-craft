@@ -44,7 +44,6 @@ window.onload = function() {
   populateTeam(buildingUnits,ENEMY_START_BUILDING,true, "goblins hq");
   populateTeam(buildingUnits,ENEMY_START_ORC_BARRACK,true, "orc barrack");
   populateTeam(buildingUnits,ENEMY_START_FARMS,true, "orc farm");
-  populateTeam(buildingUnits,PLAYER_START_FARMS,true, "peasant farm");
   populateTeam(trees,STARTING_TREES,true, "trees");
   populateTeam(mines,STARTING_MINES,true, "mine");
 }

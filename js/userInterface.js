@@ -17,11 +17,11 @@ var attackButtonHovering = false, attackButtonSelected = false;
 var goldButtonHovering = false, goldButtonSelected = false;
 var buildWallHovering = false, buildWallSelected = false;
 var farmBuildHovering = false, farmBuildSelected = false;
-var farmButtonHovering = false, farmButtonSelected = false;
+var farmButtonHovering = false, farmButtonSelected = false, farmReadyToBePlaced = false;
 var peasantReturnMenuHovering = false, peasantReturnMenuSelected = false;
 
-var buttonDelayTicks = 10, buttonDelayTimer = false, startDelayTimer = false;
-var showWallToBuild = false, showFarmToBuild = false;
+var buttonDelayTicks = 1, buttonDelayTimer = false, startDelayTimer = false;
+var showWallToBuild = false, showFarmToBuild = false, wallReadyToBePlace = false;
 
 // Check if mouse is inside a given box
 function checkMouseInsideBox(xPos, yPos, width, height) {
@@ -31,8 +31,8 @@ function checkMouseInsideBox(xPos, yPos, width, height) {
 }
 
 // Handle button click actions
-function handleButtonClick(mouseClicked, buttonHovering, buttonSelected, actionCallback) {
-    if (mouseClicked && buttonHovering) {
+function handleButtonClick(mouseClicked, buttonHovering, buttonSelected, actionCallback) {  
+  if (mouseClicked && buttonHovering) {
         buttonSelected = true;
         actionCallback();
     } else {
@@ -94,23 +94,46 @@ function constructionAction() {
 }
 
 // Handle wall and farm construction placement
-function placeWall() {
-  if (peasantSelected && buildWallSelected) {
+function showWall() {
+  if(buttonDelayTimer){
     showWallToBuild = true;
     buttonDelayTicks = 10;
     startDelayTimer = true;
-    buttonDelayTimer = true;
+    buttonDelayTimer = false;
     buildWallSelected = false;
+    peasantConstructionMenu = false;
+    wallReadyToBePlace = true;
+  }
+}
+
+function placeWall(){
+  if(mouseClicked && buttonDelayTimer){
+    populateTeam(buildingUnits,1,true, "wall");
+    wallReadyToBePlace = false;
+    buttonDelayTimer = false;
+    showWallToBuild = false;
+  }
+}
+
+function displayFarmToBuild(){
+  if(buttonDelayTimer){
+    showFarmToBuild = true;
+    buttonDelayTicks = 10;
+    startDelayTimer = true;
+    buttonDelayTimer = false;
+    farmBuildSelected = false;
+    peasantConstructionMenu = false;
+    farmReadyToBePlaced = true;
+    peasantMainMenu = false;
   }
 }
 
 function placeFarm() {
-  if (peasantSelected && farmBuildSelected) {
-    showFarmToBuild = true;
-    buttonDelayTicks = 10;
-    startDelayTimer = true;
-    buttonDelayTimer = true;
-    farmBuildSelected = false;
+  if(buttonDelayTimer && mouseClicked){
+    populateTeam(buildingUnits,1,true, "peasant farm");
+    farmReadyToBePlaced = false;
+    buttonDelayTimer = false;
+    showFarmToBuild = false;
   }
 }
 
@@ -129,23 +152,30 @@ function checkButtonHandling(){
     farmBuildHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
     constructionButtonHovering = checkMouseInsideBox(constructionX, constructionY, pictureWidth, pictureHeight);
 
-    handleButtonClick(mouseClicked, lumberButtonHovering, lumberButtonSelected, lumberAction);
-    handleButtonClick(mouseClicked, attackButtonHovering, attackButtonSelected, attackAction);  
-    handleButtonClick(mouseClicked, goldButtonHovering, goldButtonSelected, goldAction);
-    handleButtonClick(mouseClicked, farmButtonHovering, farmButtonSelected, farmAction);
+    //handleButtonClick(mouseClicked, lumberButtonHovering, lumberButtonSelected, lumberAction);
+    //handleButtonClick(mouseClicked, attackButtonHovering, attackButtonSelected, attackAction);  
+    //handleButtonClick(mouseClicked, goldButtonHovering, goldButtonSelected, goldAction);
+    //handleButtonClick(mouseClicked, farmButtonHovering, farmButtonSelected, farmAction);
     handleButtonClick(mouseClicked, constructionButtonHovering, constructionButtonSelected, constructionAction);
   }
 
   if (peasantSelected && peasantConstructionMenu) {
     buildWallHovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
     farmBuildHovering = checkMouseInsideBox(farmBuildX, farmBuildY, pictureWidth, pictureHeight);
-    peasantReturnMenuHovering = checkMouseInsideBox(peasantMainMenuX, peasantMainMenuY, pictureWidth, pictureHeight);
+    //peasantReturnMenuHovering = checkMouseInsideBox(peasantMainMenuX, peasantMainMenuY, pictureWidth, pictureHeight);
 
-    handleButtonClick(mouseClicked, buildWallHovering, buildWallSelected, placeWall);
-    handleButtonClick(mouseClicked, farmBuildHovering, farmBuildSelected, placeFarm);
+    handleButtonClick(mouseClicked, buildWallHovering, buildWallSelected, showWall);
+    handleButtonClick(mouseClicked, farmBuildHovering, farmBuildSelected, displayFarmToBuild);
     handleButtonClick(mouseClicked, peasantReturnMenuHovering, peasantReturnMenuSelected, returnToPeasantMainMenu);
   }
 
+  if(wallReadyToBePlace){
+    placeWall();
+  }
+
+  if(farmReadyToBePlaced){
+    placeFarm();
+  }
 }
 
 function drawButton(x, y, image, sY,text1, text2, hovering, selected) {
