@@ -10,8 +10,7 @@ var orcBarrackPic = document.createElement("img");
 var orcPic = document.createElement("img");
 var treePic = document.createElement("img");
 var minePic = document.createElement("img");
-var framePic = document.createElement("img");
-var lumberPic = document.createElement("img");
+var userInterfacePic = document.createElement("img");
 var userInterfaceBackgroundPic = document.createElement("img");
 var peasantProfilePic = document.createElement("img");
 var jobIndicatorPic = document.createElement("img");
@@ -52,9 +51,7 @@ function loadImages() {
 			{varName: goblinHQPic, theFile: "goblinHQ.png", sX: 0, sY: 0},
 			{varName: treePic, theFile: "tree.png", sX: 0, sY: 0},
 			{varName: minePic, theFile: "mine.png", sX: 0, sY: 0},
-			{varName: framePic, theFile: "buttonPics.png", sX: 0, sY: 0},
-			{varName: lumberPic, theFile: "buttonPics.png", sX: 0, sY:30},
-			{varName: peasantProfilePic, theFile: "buttonPics.png", sX: 0, sY:30},	
+			{varName: userInterfacePic, theFile: "buttonPics.png", sX: 0, sY: 0},	
 			{varName: userInterfaceBackgroundPic, theFile: "UserInterfaceBackground.png", sX: 0, sY:180},
 			{varName: jobIndicatorPic, theFile: "jobIndicators.png", sX: 0, sY:0},
             {varName: viewportShadows, theFile: "gui_bezel.png", sX: 0, sY:0},
