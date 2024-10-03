@@ -78,6 +78,8 @@ function constructionAction() {
   buttonDelayTicks = 60;
   startDelayTimer = true;
   buttonDelayTimer = false;
+  peasantMainMenu = false;
+  peasantConstructionMenu = true;
   for (var i = 0; i < selectedUnits.length; i++) {
     selectedUnits[i].actionSx = 15 * 4;
     selectedUnits[i].showAction = true;
@@ -163,5 +165,14 @@ function drawUserInterface() {
     drawButton(attackX, attackY, userInterfacePic, 180, "ATTACK", null, attackButtonHovering, attackButtonSelected);
     drawButton(goldX, goldY, userInterfacePic, 240, "MINE", "GOLD", goldButtonHovering, goldButtonSelected);
     drawButton(farmX, farmY, userInterfacePic, 300, "FARM", "FOOD", farmButtonHovering, farmButtonSelected);
+  }
+
+  if (peasantSelected && peasantConstructionMenu) {
+    drawBitmapAtLocation(userInterfacePic, 0, 120, pictureWidth, pictureHeight, 10, 36);
+    colorText("PEASANT", 9, 20, "Yellow", "14px Arial");
+    colorText("OPTIONS", 9, 116, "Yellow", "14px Arial");
+
+    drawButton(wallX, wallY, userInterfacePic, 420, "BUILD", "WALL", buildWallHovering, buildWallSelected);
+    drawButton(farmBuildX, farmBuildY, userInterfacePic, 480, "BUILD", "FARM", farmBuildHovering, farmBuildSelected);
   }
 }
