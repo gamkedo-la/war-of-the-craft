@@ -10,7 +10,7 @@ var pictureWidth = 60, pictureHeight = 60;
 
 var peasantSelected = false, warriorSelected = false;
 var peasantConstructionMenu = false, peasantMainMenu = true;
-
+var uIButtonClicked = false;
 var lumberButtonHovering = false, lumberButtonSelected = false;
 var constructionButtonHovering = false, constructionButtonSelected = false;
 var attackButtonHovering = false, attackButtonSelected = false;
@@ -34,9 +34,11 @@ function checkMouseInsideBox(xPos, yPos, width, height) {
 function handleButtonClick(mouseClicked, buttonHovering, buttonSelected, actionCallback) {  
   if (mouseClicked && buttonHovering) {
         buttonSelected = true;
+        uIButtonClicked = true;
         actionCallback();
     } else {
         buttonSelected = false;
+        uIButtonClicked = false;
     }
 }
 
@@ -63,8 +65,10 @@ function checkForPlayersSelected(){
 
 // Various actions for units (lumber, attack, gold, farm)
 function lumberAction() {
+  console.log("Tree: ")
   for (var i = 0; i < selectedUnits.length; i++) {
     var nearestTree = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees, null);
+    console.log("Tree: " + nearestTree)
     selectedUnits[i].myTarget = nearestTree;
     selectedUnits[i].actionSx = 0;
     selectedUnits[i].showAction = true;
@@ -181,7 +185,7 @@ function checkButtonHandling(){
     farmBuildHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
     constructionButtonHovering = checkMouseInsideBox(constructionX, constructionY, pictureWidth, pictureHeight);
 
-    //handleButtonClick(mouseClicked, lumberButtonHovering, lumberButtonSelected, lumberAction);
+    handleButtonClick(mouseClicked, lumberButtonHovering, lumberButtonSelected, lumberAction);
     //handleButtonClick(mouseClicked, attackButtonHovering, attackButtonSelected, attackAction);  
     //handleButtonClick(mouseClicked, goldButtonHovering, goldButtonSelected, goldAction);
     //handleButtonClick(mouseClicked, farmButtonHovering, farmButtonSelected, farmAction);

@@ -101,7 +101,7 @@ function mouseupHandler(evt) {
     var mousePos = calculateMousePos(evt);
     var clickedUnit = getUnitUnderMouse(mousePos);
 
-    if(clickedUnit != null && clickedUnit.playerControlled == false) { 
+    if(clickedUnit != null && clickedUnit.playerControlled == false && !uIButtonClicked) { 
       // then command units to attack it!
       for(var i=0;i<selectedUnits.length;i++) {
         selectedUnits[i].setTarget(clickedUnit); 
@@ -111,8 +111,10 @@ function mouseupHandler(evt) {
     } else {
       // didn't click an enemy unit, so direct any currently selected units to this location
       var unitsAlongSide = Math.floor(Math.sqrt(selectedUnits.length+2));
-      for(var i=0;i<selectedUnits.length;i++) {
-        selectedUnits[i].gotoNear(mousePos.x, mousePos.y, i, unitsAlongSide);
+      if(!uIButtonClicked){
+        for(var i=0;i<selectedUnits.length;i++) {
+          selectedUnits[i].gotoNear(mousePos.x, mousePos.y, i, unitsAlongSide);
+        }
       }
       document.getElementById("debugText").innerHTML =
                 "Moving to ("+mousePos.x+","+mousePos.y+")";
