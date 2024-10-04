@@ -5,8 +5,16 @@ function environmentClass(environmentType) {
     this.collDim = 1;
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
-        this.x = Math.random()*WORLD_SIZE_PIXELS_W; // Game width
-        this.y = Math.random()*WORLD_SIZE_PIXELS_H; // Game height
+        
+        let validLocation = false;
+        while (!validLocation) {
+            this.x = Math.random()*WORLD_SIZE_PIXELS_W; // Game width
+            this.y = Math.random()*WORLD_SIZE_PIXELS_H; // Game height
+            // check to see if this tile is NOT "water" etc 
+            let index = colRowToIndex (this.x,this.y);
+            validLocation = presetUnwalkableTiles.indexOf(index)==-1;
+        }
+
         for(var i = 0; i<buildingUnits.length; i++){
             var isTreeCloseToBuilding = this.distFromSq(buildingUnits[i].x, buildingUnits[i].y);
             if(isTreeCloseToBuilding < 70){

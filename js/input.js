@@ -12,6 +12,10 @@ var selectedUnits = [];
 const MIN_DIST_TO_COUNT_DRAG = 10;
 const MIN_DIST_FOR_MOUSE_CLICK_SELECTABLE = 12;
 
+// concole log tile clicking array used to fill "hardcoded_unwalkabale_tiles[]"
+const debugListTilesClicked = true;
+var allTilesClicked = "";
+
 // returns WORLD coordinates (offset by camera viewport) not screen coordinates
 function calculateMousePos(evt) {
   var rect = canvas.getBoundingClientRect(), root = document.documentElement;
@@ -65,7 +69,7 @@ function mousedownHandler(evt) {
   lassoX2 = lassoX1;
   lassoY2 = lassoY1;
   if (evt.button===2) {
-    console.log("mouse-right-down: camera scroll mode ON");
+    //console.log("mouse-right-down: camera scroll mode ON");
     isMouseRightDragging = true;
     canvas.style.cursor = "grab";
     evt.preventDefault(); 
@@ -80,7 +84,7 @@ function mouseupHandler(evt) {
   mouseClicked = false;
 
   if (evt.button===2) {
-    console.log("mouse-right-up: camera scroll mode OFF. camera pos = "+camera.x+","+camera.y);
+    //console.log("mouse-right-up: camera scroll mode OFF. camera pos = "+camera.x+","+camera.y);
     isMouseRightDragging = false;
     canvas.style.cursor = "default";
     evt.preventDefault(); 
@@ -112,6 +116,12 @@ function mouseupHandler(evt) {
       }
       document.getElementById("debugText").innerHTML =
                 "Moving to ("+mousePos.x+","+mousePos.y+")";
+
+      // used just for debug and level design checks
+      if (debugListTilesClicked) {
+        allTilesClicked += pixelCoordToIndex(mousePos.x,mousePos.y)+",";
+        console.log("const presetUnwalkableTiles = ["+allTilesClicked+"];");
+      }
     }
   }
 }

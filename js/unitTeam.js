@@ -1,34 +1,53 @@
 var anyNewUnitsToClear = false;
 
 function populateTeam(whichTeam,howMany,isPlayerControlled, type){
+    
+    var spawnUnit = null;
+
     for(var i=0;i<howMany;i++){
       if(type == "goblin" || 
          type == "orc" ||
          type == "peasant" ||
          type == "warrior" 
       ){
-        var spawnUnit = new unitClass(type);
+        spawnUnit = new unitClass(type);
       } else if (type == "players hq"){
-        var spawnUnit = new buildingClass("players hq");
+        spawnUnit = new buildingClass("players hq");
       } else if (type == "goblins hq"){
-        var spawnUnit = new buildingClass("orc barrack");
+        spawnUnit = new buildingClass("orc barrack");
       } else if (type == "orc barrack"){
-        var spawnUnit = new buildingClass("goblin hq");
+        spawnUnit = new buildingClass("goblin hq");
       } else if (type == "peasant farm"){
-        var spawnUnit = new buildingClass("peasant farm");
+        spawnUnit = new buildingClass("peasant farm");
       } else if (type == "orc farm"){
-        var spawnUnit = new buildingClass("orc farm");
+        spawnUnit = new buildingClass("orc farm");
       } else if (type == "trees"){
-        var spawnUnit = new environmentClass("trees");
+        spawnUnit = new environmentClass("trees");
       } else if (type == "mines"){
-        var spawnUnit = new environmentClass("mines");
+        spawnUnit = new environmentClass("mines");
       } else if (type == "wall"){
-        var spawnUnit = new buildingClass("wall");
+        spawnUnit = new buildingClass("wall");
       } else {
         console.log("Unidentified type:" + type);
       }
+
       // console.log(isPlayerControlled, i, type)
       if (spawnUnit) { 
+
+         /*
+         // FIXME: this has no effect????
+         // is the new unit standing on water?
+        let index = colRowToIndex (spawnUnit.x,spawnUnit.y);
+        let validLocation = presetUnwalkableTiles.indexOf(index)==-1;
+        while (!validLocation) {
+            console.log("need to move a "+type);
+            spawnUnit.x = Math.random()*WORLD_SIZE_PIXELS_W;
+            spawnUnit.y = Math.random()*WORLD_SIZE_PIXELS_H;
+            index = colRowToIndex (spawnUnit.x,spawnUnit.y);
+            validLocation = presetUnwalkableTiles.indexOf(index)==-1;
+        }
+        */
+
         spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, i, type);
         addNewUnitToTeam(spawnUnit,whichTeam);   
         addUnitToGrid(spawnUnit);

@@ -16,6 +16,8 @@ var mineGold = 30;
 var farmFood = 45;
 
 function unitClass(type) {
+    this.x = 0;
+    this.y = 0;
     this.healthSx = 0;
     this.healthSy = 0;
     this.sX = 0;
