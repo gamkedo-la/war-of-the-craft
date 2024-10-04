@@ -89,19 +89,8 @@ function mouseupHandler(evt) {
 
   if(mouseMovedEnoughToTreatAsDrag()) {
     selectedUnits = []; // clear the selection array
-
-    for(var i=0;i<playerUnits.length;i++) {
-      if( playerUnits[i].isInBox(lassoX1,lassoY1,lassoX2,lassoY2) ) {
-        selectedUnits.push(playerUnits[i]);
-        if(selectedUnits[0].jobType == "peasant"){
-          peasantSelected = true;
-          warriorSelected = false;
-        } else if (selectedUnits[0].jobType == "warrior"){
-          peasantSelected = false;
-          warriorSelected = true;
-        }
-      }
-    }
+    checkForPlayersSelected();
+    
     document.getElementById("debugText").innerHTML = "Selected " +
                                   selectedUnits.length + " units";
   } else { // mouse didn’t move far, treat as click for move or attack command

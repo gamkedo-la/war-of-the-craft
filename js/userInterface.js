@@ -40,6 +40,27 @@ function handleButtonClick(mouseClicked, buttonHovering, buttonSelected, actionC
     }
 }
 
+function checkForPlayersSelected(){
+  for(var i=0;i<playerUnits.length;i++) {
+    if( playerUnits[i].isInBox(lassoX1,lassoY1,lassoX2,lassoY2) ) {
+      selectedUnits.push(playerUnits[i]);
+      console.log(selectedUnits[0].jobType)
+      if(selectedUnits[0].jobType == "peasant"){
+        peasantSelected = true;
+        warriorSelected = false;
+      } else if (selectedUnits[0].jobType == "warrior"){
+        peasantSelected = false;
+        warriorSelected = true;
+      } 
+    }
+
+    if(selectedUnits.length == 0){
+      peasantSelected = false;
+      warriorSelected = false;
+    }
+  }
+}
+
 // Various actions for units (lumber, attack, gold, farm)
 function lumberAction() {
   for (var i = 0; i < selectedUnits.length; i++) {
@@ -49,6 +70,7 @@ function lumberAction() {
     selectedUnits[i].showAction = true;
   }
   selectedUnits = [];
+  checkForPlayersSelected();
 }
 
 function attackAction() {
@@ -57,6 +79,7 @@ function attackAction() {
     selectedUnits[i].showAction = true;
   }
   selectedUnits = [];
+  checkForPlayersSelected();
 }
 
 function goldAction() {
@@ -67,7 +90,7 @@ function goldAction() {
     selectedUnits[i].showAction = true;
   }
   selectedUnits = [];
-
+  checkForPlayersSelected();
 }
 
 function farmAction() {
@@ -78,6 +101,7 @@ function farmAction() {
     selectedUnits[i].showAction = true;
   }
   selectedUnits = [];
+  checkForPlayersSelected();
 }
 
 // Construction-related actions
@@ -112,7 +136,11 @@ function placeWall(){
     wallReadyToBePlace = false;
     buttonDelayTimer = false;
     showWallToBuild = false;
+    peasantMainMenu = true;
+    selectedUnits = [];
+    checkForPlayersSelected();
   }
+
 }
 
 function displayFarmToBuild(){
@@ -134,14 +162,15 @@ function placeFarm() {
     farmReadyToBePlaced = false;
     buttonDelayTimer = false;
     showFarmToBuild = false;
+    peasantMainMenu = true;
+    selectedUnits = [];
+    checkForPlayersSelected();
   }
 }
 
 function returnToPeasantMainMenu(){
-  if(peasantSelected && peasantReturnMenuSelected){
-    peasantConstructionMenu = false;
-    peasantMainMenu = true;
-  }
+  peasantConstructionMenu = false;
+  peasantMainMenu = true;
 }
 
 function checkButtonHandling(){
@@ -162,7 +191,7 @@ function checkButtonHandling(){
   if (peasantSelected && peasantConstructionMenu) {
     buildWallHovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
     farmBuildHovering = checkMouseInsideBox(farmBuildX, farmBuildY, pictureWidth, pictureHeight);
-    //peasantReturnMenuHovering = checkMouseInsideBox(peasantMainMenuX, peasantMainMenuY, pictureWidth, pictureHeight);
+    peasantReturnMenuHovering = checkMouseInsideBox(peasantMainMenuX, peasantMainMenuY, pictureWidth, pictureHeight);
 
     handleButtonClick(mouseClicked, buildWallHovering, buildWallSelected, showWall);
     handleButtonClick(mouseClicked, farmBuildHovering, farmBuildSelected, displayFarmToBuild);
