@@ -4,8 +4,14 @@ function buildingClass(building) {
     this.collDim = 2;
     
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
-        this.x = Math.random()*WORLD_SIZE_PIXELS_W/4 + 50; //game width
-        this.y = Math.random()*WORLD_SIZE_PIXELS_H/4 + 50; //game height
+        // ensure the unit is not standing on water etc
+        let validLocation = false;
+        while (!validLocation) {
+            this.x = Math.random()*WORLD_SIZE_PIXELS_W;
+            this.y = Math.random()*WORLD_SIZE_PIXELS_H;
+            let index = colRowToIndex (this.x,this.y);
+            validLocation = presetUnwalkableTiles.indexOf(index)==-1;
+        }
         this.width = 100;
         this.height = 100;
         this.pic = goblinHQPic;

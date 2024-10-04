@@ -29,8 +29,14 @@ function unitClass(type) {
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
         this.playerControlled = playerTeam;
-        this.x = Math.random() * WORLD_SIZE_PIXELS_W / 4; //game width - lower right
-        this.y = Math.random() * WORLD_SIZE_PIXELS_H / 4; //game height
+        // ensure the unit is not standing on water etc
+        let validLocation = false;
+        while (!validLocation) {
+            this.x = Math.random()*WORLD_SIZE_PIXELS_W;
+            this.y = Math.random()*WORLD_SIZE_PIXELS_H;
+            let index = colRowToIndex (this.x,this.y);
+            validLocation = presetUnwalkableTiles.indexOf(index)==-1;
+        }
         this.width = 15;
         this.height = 15;
         this.sY = returnRandomInteger(8) * this.height;

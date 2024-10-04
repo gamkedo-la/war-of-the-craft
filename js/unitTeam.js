@@ -33,22 +33,13 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
 
       // console.log(isPlayerControlled, i, type)
       if (spawnUnit) { 
-
-         /*
-         // FIXME: this has no effect????
-         // is the new unit standing on water?
-        let index = colRowToIndex (spawnUnit.x,spawnUnit.y);
-        let validLocation = presetUnwalkableTiles.indexOf(index)==-1;
+        // make sure trees don't spawn on water!
+        let validLocation = false;
         while (!validLocation) {
-            console.log("need to move a "+type);
-            spawnUnit.x = Math.random()*WORLD_SIZE_PIXELS_W;
-            spawnUnit.y = Math.random()*WORLD_SIZE_PIXELS_H;
-            index = colRowToIndex (spawnUnit.x,spawnUnit.y);
+            spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, i, type);
+            let index = colRowToIndex (spawnUnit.x,spawnUnit.y);
             validLocation = presetUnwalkableTiles.indexOf(index)==-1;
         }
-        */
-
-        spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, i, type);
         addNewUnitToTeam(spawnUnit,whichTeam);   
         addUnitToGrid(spawnUnit);
       }

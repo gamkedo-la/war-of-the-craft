@@ -6,11 +6,11 @@ function environmentClass(environmentType) {
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
         
+        // ensure the unit is not standing on water etc
         let validLocation = false;
         while (!validLocation) {
-            this.x = Math.random()*WORLD_SIZE_PIXELS_W; // Game width
-            this.y = Math.random()*WORLD_SIZE_PIXELS_H; // Game height
-            // check to see if this tile is NOT "water" etc 
+            this.x = Math.random()*WORLD_SIZE_PIXELS_W;
+            this.y = Math.random()*WORLD_SIZE_PIXELS_H;
             let index = colRowToIndex (this.x,this.y);
             validLocation = presetUnwalkableTiles.indexOf(index)==-1;
         }
