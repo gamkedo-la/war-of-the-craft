@@ -7,14 +7,7 @@ const mapYSize = GRID_COLUMNS * GRID_HEIGHT;
 const MINIMAPXRELATIVESIZE = mapXSize / MINIMAP_WIDTH;
 const MINIMAPYRELATIVESIZE = mapYSize / MINIMAP_HEIGHT;
 
-//ilk başta 800 e 600 ü 100 e 75 göre scale et. Mesela 1-1 1-2 1-3 1-4 2-1 gibi pixellerin hepsi 100 e 75 te 1e1 e denk gelir.
-//bunu 100 e 75lik bir forla dön ilk başta. her pixel için daha büyük scalede denk gelen world unitleri bir arraye at.
-//Bu arrayda bulunan elemanların bir çiziş sırası olmalı.
-//ağaçlar en son, sonra madenler, sonra binalar, en büyük öncelik de unitler.
-//bunu başarmak için, çizilebilecek bütün classlara çizilmeSırası alanı eklenip, ona göre array sortlanabilir.
-
 function drawMinimap() {
-    console.log('world grid minimap:');
     colorRect(MINIMAP_X, MINIMAP_Y, MINIMAP_WIDTH, MINIMAP_HEIGHT, 'Brown');
 
     drawArrayOfUnits(trees);
