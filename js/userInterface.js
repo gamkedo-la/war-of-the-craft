@@ -46,7 +46,6 @@ function checkForPlayersSelected(){
   for(var i=0;i<playerUnits.length;i++) {
     if( playerUnits[i].isInBox(lassoX1,lassoY1,lassoX2,lassoY2) ) {
       selectedUnits.push(playerUnits[i]);
-      console.log(selectedUnits[0].jobType)
       if(selectedUnits[0].jobType == "peasant"){
         peasantSelected = true;
         warriorSelected = false;
@@ -65,13 +64,14 @@ function checkForPlayersSelected(){
 
 // Various actions for units (lumber, attack, gold, farm)
 function lumberAction() {
-  console.log("Tree: ")
   for (var i = 0; i < selectedUnits.length; i++) {
-    var nearestTree = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees, null);
-    console.log("Tree: " + nearestTree)
-    selectedUnits[i].myTarget = nearestTree;
+    var nearestTreeFoundForPeasant = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees, trees);
+    selectedUnits[i].myTarget = nearestTreeFoundForPeasant;
     selectedUnits[i].actionSx = 0;
     selectedUnits[i].showAction = true;
+   // selectedUnits[i].attackCoolDown = 6000;
+    console.log(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
+    selectedUnits[i].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
   }
   selectedUnits = [];
   checkForPlayersSelected();

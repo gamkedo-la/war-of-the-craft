@@ -122,7 +122,7 @@ function mouseupHandler(evt) {
       // used just for debug and level design checks
       if (debugListTilesClicked) {
         allTilesClicked += pixelCoordToIndex(mousePos.x,mousePos.y)+",";
-        console.log("const presetUnwalkableTiles = ["+allTilesClicked+"];");
+       // console.log("const presetUnwalkableTiles = ["+allTilesClicked+"];");
       }
     }
   }

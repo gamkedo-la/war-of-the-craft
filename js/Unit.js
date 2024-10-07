@@ -6,7 +6,7 @@ const UNIT_ATTACK_RANGE = 15;
 const UNIT_AI_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 10;
 const UNIT_AI_ORC_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 90;
 const UNIT_PLAYABLE_AREA_MARGIN = 20;
-const UNIT_AI_TREE_RANGE = 200;
+const UNIT_AI_TREE_RANGE = 2000000;
 const UNIT_AI_MINE_RANGE = 300;
 const UNIT_AI_FARM_RANGE = 1000;
 
@@ -177,11 +177,16 @@ function unitClass(type) {
                 this.gotoY = this.y;
             } else if (this.myTarget.type == "goblin hq" && this.lumber  == 0){
                 nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, null);
+                console.log("Goblin: " +nearestMindFound)
+            } else if (this.myTarget.type == "trees"){
+                this.gotoX = this.myTarget.x;
+                this.gotoY = this.myTarget.y;
             } else if (this.distFromSq(this.myTarget.x, this.myTarget.y) > UNIT_ATTACK_RANGE * UNIT_AI_TREE_RANGE) {
                 this.gotoX = this.myTarget.x;
                 this.gotoY = this.myTarget.y;
                 console.log("Go to location");
             } else {
+                console.log("Cool Down: " + this.attackCoolDown)
                 if(this.attackCoolDown <= 0) {
                     if (this.myTarget.type == "trees" || this.myTarget.type == "peasant farm") {
                         this.collectResourse(this.myTarget.type, 600);//maybe we can make a variable for this.myTarget.attackCooldown
@@ -395,6 +400,7 @@ function unitClass(type) {
     this.draw = function() {
         if (this.isDead == false) {
             this.determinePlayerDirection();
+            drawBitmapCenteredAtLocation(playerPic, 0, 0, 20, 5, this.x, this.y+6);
             if(this.walking){
                 this.walkingAnimation();
             }
@@ -414,7 +420,7 @@ function unitClass(type) {
             }
             if (this.myTarget != null) {
                 lineDraw(this.x, this.y, this.myTarget.x, this.myTarget.y, this.unitColor);
-                console.log("Target:" + this.myTarget)
+               // console.log("Target:" + this.myTarget)
             }
         } else {
             colorCircle(this.x + 5, this.y, UNIT_PLACEHOLDER_RADIUS, "yellow", "10px Arial Black");

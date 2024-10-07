@@ -58,11 +58,9 @@ function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList, type) {
 
     if (type) {
       unitlist = inUnitList.filter(function (item) {
-        console.log(item)
         return item.type == type;
-      });
-    }
-    else{
+      })
+    } else {
       unitlist = inUnitList;
     }
 
@@ -73,6 +71,7 @@ function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList, type) {
             nearestUnitFound = inUnitList[i];
         }
     }
+   // console.log(nearestUnitFound)
     return nearestUnitFound;
 }
     

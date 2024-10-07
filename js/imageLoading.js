@@ -1,5 +1,6 @@
 var backGroundPic = document.createElement("img");
 var goblinPic = document.createElement("img");
+var playerPic = document.createElement("img");
 var peasantPic = document.createElement("img");
 var warriorPic = document.createElement("img");
 var healthBarPic = document.createElement("img");
@@ -55,7 +56,8 @@ function loadImages() {
 			{varName: userInterfaceBackgroundPic, theFile: "UserInterfaceBackground.png", sX: 0, sY:180},
 			{varName: jobIndicatorPic, theFile: "jobIndicators.png", sX: 0, sY:0},
             {varName: viewportShadows, theFile: "gui_bezel.png", sX: 0, sY:0},
-			{varName: wallPic, theFile: "walls.png", sX: 0, sY:0}
+			{varName: wallPic, theFile: "walls.png", sX: 0, sY:0},
+			{varName: playerPic, theFile: "player.png", sX: 0, sY:0},
 		];
 			
 	picsToLoad = imageList.length;

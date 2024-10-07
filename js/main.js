@@ -1,16 +1,16 @@
 // save the canvas for dimensions, and its 2d context for drawing to it
 var canvas, canvasContext;
-const PLAYER_PEASANT_START_UNITS = 10;
-const PLAYER_WARRIOR_START_UNITS = 10;
+const PLAYER_PEASANT_START_UNITS = 1;
+const PLAYER_WARRIOR_START_UNITS = 0;
 const PLAYER_START_BUILDING = 1;
-const ENEMY_GOBLIN_START_UNITS = 10;
-const ENEMY_ORC_START_UNITS = 2;
-const ENEMY_START_BUILDING = 1;
-const ENEMY_START_FARMS = 1;
-const ENEMY_START_ORC_BARRACK = 1;
-const PLAYER_START_FARMS = 1;
-const STARTING_TREES = 7000;
-const STARTING_MINES = 5;
+const ENEMY_GOBLIN_START_UNITS = 0;
+const ENEMY_ORC_START_UNITS = 0
+const ENEMY_START_BUILDING = 0;
+const ENEMY_START_FARMS = 0;
+const ENEMY_START_ORC_BARRACK = 0;
+const PLAYER_START_FARMS = 0;
+const STARTING_TREES = 500;
+const STARTING_MINES = 1;
 
 var enemyUnits = [];
 var playerUnits = [];
