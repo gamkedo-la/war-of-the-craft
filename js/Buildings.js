@@ -23,6 +23,7 @@ function buildingClass(building) {
             this.sY = 0;
             this.unitColor = 'Red';
             this.health = 50;
+            this.minimapDrawPriority = 1;
         } else if (this.type == "goblin hq") {
             this.x = WORLD_SIZE_PIXELS_W - this.x - 900;
             this.y = WORLD_SIZE_PIXELS_H - this.y - 900;
@@ -31,6 +32,7 @@ function buildingClass(building) {
             this.unitColor = 'White';
             this.pic = goblinHQPic;
             this.health = 50;
+            this.minimapDrawPriority = 1;
         } else if (this.type == "orc barrack") {
             this.x = WORLD_SIZE_PIXELS_W - this.x - 900;
             this.y = WORLD_SIZE_PIXELS_H - this.y - 900;
@@ -39,6 +41,7 @@ function buildingClass(building) {
             this.unitColor = 'White';
             this.pic = orcBarrackPic;
             this.health = 50;
+            this.minimapDrawPriority = 2;
         } else if (this.type == "peasant farm") {
             this.x = mouseX;
             this.y = mouseY;
@@ -48,6 +51,7 @@ function buildingClass(building) {
             this.unitColor = 'White';
             this.pic = orcFarmPic;
             this.health = 10;
+            this.minimapDrawPriority = 2;
             console.log("Peasant Farm created")
         } else if (this.type == "orc farm") {
             this.x = WORLD_SIZE_PIXELS_W - this.x - 900;
@@ -58,6 +62,7 @@ function buildingClass(building) {
             this.unitColor = 'White';
             this.pic = orcFarmPic;
             this.health = 10;
+            this.minimapDrawPriority = 2;
         } else if (this.type == "wall"){
             this.x = mouseX;
             this.y = mouseY;
@@ -68,6 +73,7 @@ function buildingClass(building) {
             this.sY = 0;
             this.unitColor = 'Red';
             this.health = 50;
+            this.minimapDrawPriority = 3;
             this.snapNearestGridCenter();
         }
     }
@@ -99,5 +105,8 @@ function buildingClass(building) {
 
     this.draw = function(){
         drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY,this.width,this.height, this.x,this.y);
+    }
+    this.drawOnMinimap = function(x,y){
+        colorRect(x, y, this.width / MINIMAPXRELATIVESIZE, this.height / MINIMAPYRELATIVESIZE, this.unitColor);
     }
 }

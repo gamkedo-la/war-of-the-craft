@@ -123,6 +123,7 @@ function drawEverything() {
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
+  drawMinimap();
 
   // the shadow around the edges
   canvasContext.drawImage(viewportShadows,-20,-40);

@@ -37,6 +37,7 @@ function environmentClass(environmentType) {
             this.sY = 0;
             this.sX = returnRandomInteger(this.treeVariances) * this.width;
             this.lumber = 1;
+            this.minimapDrawPriority = 10;
         } else if (this.type == "mines"){
             this.mineVariances = 1;
             this.pic = minePic;
@@ -45,6 +46,7 @@ function environmentClass(environmentType) {
             this.sY = 0;
             this.sX = returnRandomInteger(this.mineVariances) * this.width;
             this.gold = 25;
+            this.minimapDrawPriority = 9;
             }
     }
 
@@ -66,5 +68,8 @@ function environmentClass(environmentType) {
 
     this.draw = function(){
         drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY,this.width,this.height, this.x,this.y);
+    }
+    this.drawOnMinimap = function(x,y){
+        colorRect(x, y, this.width / MINIMAPXRELATIVESIZE, this.height / MINIMAPYRELATIVESIZE, 'Green');    
     }
 }

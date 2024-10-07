@@ -24,8 +24,9 @@ function unitClass(type) {
     this.lumber = 0;
     this.food = 0;
     this.jobType = type;
-    this.collFill = 0.2;
+    this.collFill = 0.2; 
     this.collDim = 1;
+    this.minimapDrawPriority = 5;
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
         this.playerControlled = playerTeam;
@@ -51,6 +52,7 @@ function unitClass(type) {
         this.action = [gatherLumber, attackTarget, mineGold, farmFood]
         this.actionSx = 0;
         this.showAction = false;
+        
 
         if (this.playerControlled == false) {
             this.x = WORLD_SIZE_PIXELS_W - this.x;
@@ -418,5 +420,8 @@ function unitClass(type) {
             colorCircle(this.x + 5, this.y, UNIT_PLACEHOLDER_RADIUS, "yellow", "10px Arial Black");
             //  colorText(this.iD, this.x+10, this.y-10, "yellow")
         }
+    }
+    this.drawOnMinimap = function(x,y){
+        colorRect(x, y, this.width / MINIMAPXRELATIVESIZE, this.height / MINIMAPYRELATIVESIZE, 'Yellow');    
     }
 }
