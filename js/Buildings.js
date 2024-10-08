@@ -75,7 +75,7 @@ function buildingClass(building) {
             this.health = 50;
             this.minimapDrawPriority = 3;
             this.snapNearestGridCenter();
-        }
+        } 
     }
 
     this.snapNearestGridCenter = function (){

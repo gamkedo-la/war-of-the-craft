@@ -69,8 +69,6 @@ function lumberAction() {
     selectedUnits[i].myTarget = nearestTreeFoundForPeasant;
     selectedUnits[i].actionSx = 0;
     selectedUnits[i].showAction = true;
-   // selectedUnits[i].attackCoolDown = 6000;
-    console.log(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
     selectedUnits[i].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
   }
   selectedUnits = [];
@@ -88,10 +86,11 @@ function attackAction() {
 
 function goldAction() {
   for (var i = 0; i < selectedUnits.length; i++) {
-    var nearestMine = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_MINE_RANGE, mines, null);
+    var nearestMine = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_MINE_RANGE, mines, mines);
     selectedUnits[i].myTarget = nearestMine;
     selectedUnits[i].actionSx = 15 * 2;
     selectedUnits[i].showAction = true;
+    selectedUnits[i].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
   }
   selectedUnits = [];
   checkForPlayersSelected();
@@ -103,6 +102,7 @@ function farmAction() {
     selectedUnits[i].myTarget = nearestFarm;
     selectedUnits[i].actionSx = 15 * 3;
     selectedUnits[i].showAction = true;
+    selectedUnits[i].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
   }
   selectedUnits = [];
   checkForPlayersSelected();
@@ -182,13 +182,14 @@ function checkButtonHandling(){
     lumberButtonHovering = checkMouseInsideBox(lumberX, lumberY, pictureWidth, pictureHeight);
     attackButtonHovering = checkMouseInsideBox(attackX, attackY, pictureWidth, pictureHeight);
     goldButtonHovering = checkMouseInsideBox(goldX, goldY, pictureWidth, pictureHeight);
-    farmBuildHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
+    farmButtonHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
+    farmBuildHovering = checkMouseInsideBox(farmBuildX, farmBuildY, pictureWidth, pictureHeight);
     constructionButtonHovering = checkMouseInsideBox(constructionX, constructionY, pictureWidth, pictureHeight);
 
     handleButtonClick(mouseClicked, lumberButtonHovering, lumberButtonSelected, lumberAction);
     //handleButtonClick(mouseClicked, attackButtonHovering, attackButtonSelected, attackAction);  
-    //handleButtonClick(mouseClicked, goldButtonHovering, goldButtonSelected, goldAction);
-    //handleButtonClick(mouseClicked, farmButtonHovering, farmButtonSelected, farmAction);
+    handleButtonClick(mouseClicked, goldButtonHovering, goldButtonSelected, goldAction);
+    handleButtonClick(mouseClicked, farmButtonHovering, farmButtonSelected, farmAction);
     handleButtonClick(mouseClicked, constructionButtonHovering, constructionButtonSelected, constructionAction);
   }
 

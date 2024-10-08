@@ -1,6 +1,6 @@
 // save the canvas for dimensions, and its 2d context for drawing to it
 var canvas, canvasContext;
-const PLAYER_PEASANT_START_UNITS = 1;
+const PLAYER_PEASANT_START_UNITS = 15;
 const PLAYER_WARRIOR_START_UNITS = 0;
 const PLAYER_START_BUILDING = 1;
 const ENEMY_GOBLIN_START_UNITS = 0;
@@ -8,9 +8,9 @@ const ENEMY_ORC_START_UNITS = 0
 const ENEMY_START_BUILDING = 0;
 const ENEMY_START_FARMS = 0;
 const ENEMY_START_ORC_BARRACK = 0;
-const PLAYER_START_FARMS = 0;
+const PLAYER_START_FARMS = 2;
 const STARTING_TREES = 500;
-const STARTING_MINES = 1;
+const STARTING_MINES = 2;
 
 var enemyUnits = [];
 var playerUnits = [];
@@ -18,6 +18,7 @@ var buildingUnits = [];
 var allUnits = [];
 var trees = [];
 var mines = [];
+var peasantFarm = [];
 
 var isGamePaused = false;
 var currentIntervalId;
@@ -45,7 +46,7 @@ window.onload = function() {
   populateTeam(buildingUnits,ENEMY_START_ORC_BARRACK,true, "orc barrack");
   populateTeam(buildingUnits,ENEMY_START_FARMS,true, "orc farm");
   populateTeam(trees,STARTING_TREES,true, "trees");
-  populateTeam(mines,STARTING_MINES,true, "mine");
+  populateTeam(mines,STARTING_MINES,true, "mines");
 }
 
 /**

@@ -7,8 +7,8 @@ const UNIT_AI_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 10;
 const UNIT_AI_ORC_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 90;
 const UNIT_PLAYABLE_AREA_MARGIN = 20;
 const UNIT_AI_TREE_RANGE = 2000000;
-const UNIT_AI_MINE_RANGE = 300;
-const UNIT_AI_FARM_RANGE = 1000;
+const UNIT_AI_MINE_RANGE = 2000000;
+const UNIT_AI_FARM_RANGE = 2000000;
 
 var gatherLumber = 0;
 var attackTarget = 15;
@@ -181,10 +181,12 @@ function unitClass(type) {
             } else if (this.myTarget.type == "trees"){
                 this.gotoX = this.myTarget.x;
                 this.gotoY = this.myTarget.y;
+            } else if (this.myTarget.type == "mines"){
+                this.gotoX = this.myTarget.x;
+                this.gotoY = this.myTarget.y;
             } else if (this.distFromSq(this.myTarget.x, this.myTarget.y) > UNIT_ATTACK_RANGE * UNIT_AI_TREE_RANGE) {
                 this.gotoX = this.myTarget.x;
                 this.gotoY = this.myTarget.y;
-                console.log("Go to location");
             } else {
                 console.log("Cool Down: " + this.attackCoolDown)
                 if(this.attackCoolDown <= 0) {

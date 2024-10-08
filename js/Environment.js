@@ -37,7 +37,7 @@ function environmentClass(environmentType) {
             this.sY = 0;
             this.sX = returnRandomInteger(this.treeVariances) * this.width;
             this.lumber = 1;
-            this.minimapDrawPriority = 10;
+            this.minimapDrawPriority = 10;        
         } else if (this.type == "mines"){
             this.mineVariances = 1;
             this.pic = minePic;
@@ -46,7 +46,7 @@ function environmentClass(environmentType) {
             this.sY = 0;
             this.sX = returnRandomInteger(this.mineVariances) * this.width;
             this.gold = 25;
-            this.minimapDrawPriority = 9;
+            this.minimapDrawPriority = 9;            
             }
     }
 
