@@ -235,6 +235,8 @@ function drawUserInterface() {
     }
   }
 
+  drawAssignmentsGUI();
+
   //indicator top of screen
   if (peasantSelected || warriorSelected) {
     drawBitmapAtLocation(peasantPic, 0, 60, 15, 15, 100, 10);
@@ -265,4 +267,23 @@ function drawUserInterface() {
     drawButton(farmBuildX, farmBuildY, userInterfacePic, 480, "BUILD", "FARM", farmBuildHovering, farmBuildSelected);
     drawButton(peasantMainMenuX, peasantMainMenuY, userInterfacePic, 540, "BACK TO", "MAIN MENU", peasantReturnMenuHovering, peasantReturnMenuSelected);
   }
+}
+
+// an area on the right side of the screen
+// for quests and battle assignments
+function drawAssignmentsGUI() {
+    const tx = 500;
+    const ty = 400;
+    const th = 14;
+    const rgb = "white";
+    const fnt = "14px Arial";
+    let lines = 0;
+    
+    //drawBitmapAtLocation(assignmentsGUIPic, 0, 120, pictureWidth, pictureHeight, 10, 36);
+    colorText("ASSIGNMENTS:",tx+1,ty+(lines*th)+1,"black",fnt);
+    colorText("ASSIGNMENTS:",tx,ty+(lines++*th),rgb,fnt);
+    colorText("Chop 15 wood",tx,ty+(lines++*th),rgb,fnt);
+    colorText("Mine 25 gold",tx,ty+(lines++*th),rgb,fnt);
+    colorText("Build 2 farms",tx,ty+(lines++*th),rgb,fnt);
+    colorText("Win 10 battles",tx,ty+(lines++*th),rgb,fnt);
 }
