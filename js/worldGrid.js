@@ -143,7 +143,7 @@ function drawGridDebug(){
                 if (collGrid[index] == COLL_SOLID) {
                     colorRect(xPos, yPos, GRID_WIDTH, GRID_HEIGHT, "rgba(255,0,0,0.4)");
                 } else {
-                    coloredOutlineRectCornerToCorner(xPos, yPos, xPos + GRID_WIDTH-1, yPos + GRID_HEIGHT-1, "yellow");
+                    coloredOutlineRectCornerToCorner(xPos, yPos, xPos + GRID_WIDTH-1, yPos + GRID_HEIGHT-1, "rgba(255,255,255,0.15)");
                 }
             }
         }
