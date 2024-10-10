@@ -5,51 +5,46 @@ function environmentClass(environmentType) {
     this.collDim = 1;
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
-        
-        // ensure the unit is not standing on water etc
+        // Ensure the unit is not standing on water, etc.
         let validLocation = false;
         while (!validLocation) {
-            this.x = Math.random()*WORLD_SIZE_PIXELS_W;
-            this.y = Math.random()*WORLD_SIZE_PIXELS_H;
-            let index = colRowToIndex (this.x,this.y);
-            validLocation = presetUnwalkableTiles.indexOf(index)==-1;
+            this.x = Math.random() * WORLD_SIZE_PIXELS_W;
+            this.y = Math.random() * WORLD_SIZE_PIXELS_H;
+            let index = colRowToIndex(this.x, this.y);
+            validLocation = presetUnwalkableTiles.indexOf(index) === -1;
         }
+    
+        // Proximity check for units
+        var checkProximity = function(units, threshold) {
+            for (var i = 0; i < units.length; i++) {
+                if (this.distFromSq(units[i].x, units[i].y) < threshold) {
+                    this.isDead = true;
+                    anyNewUnitsToClear = true;
+                    return;
+                }
+            }
+        }.bind(this); 
+    
+        checkProximity(buildingUnits, 70);
+        checkProximity(mines, 50);
 
-        for(var i = 0; i<buildingUnits.length; i++){
-            var isTreeCloseToBuilding = this.distFromSq(buildingUnits[i].x, buildingUnits[i].y);
-            if(isTreeCloseToBuilding < 70){
-                this.isDead = true;
-                anyNewUnitsToClear = true;
-            }
+        var configureUnit = function(variances, pic, width, height, sY, resourceKey, resourceValue, minimapPriority) {
+            this[resourceKey] = resourceValue;
+            this.pic = pic;
+            this.width = width;
+            this.height = height;
+            this.sY = sY;
+            this.sX = returnRandomInteger(variances) * this.width;
+            this.minimapDrawPriority = minimapPriority;
+        }.bind(this); // Explicitly bind 'this' here too
+    
+        if (this.type == "trees") {
+            configureUnit(4, treePic, 15, 20, 0, 'lumber', 1, 10);
+        } else if (this.type == "mines") {
+            configureUnit(1, minePic, 50, 45, 0, 'gold', 25, 9);
         }
-        for(var i = 0; i<mines.length; i++){
-            var isTreeCloseToMines = this.distFromSq(mines[i].x, mines[i].y);
-            if(isTreeCloseToMines < 50){
-                this.isDead = true;
-                anyNewUnitsToClear = true;
-            }
-        }
-        if(this.type == "trees"){
-            this.treeVariances = 4;
-            this.pic = treePic;
-            this.width = 15;
-            this.height = 20;
-            this.sY = 0;
-            this.sX = returnRandomInteger(this.treeVariances) * this.width;
-            this.lumber = 1;
-            this.minimapDrawPriority = 10;        
-        } else if (this.type == "mines"){
-            this.mineVariances = 1;
-            this.pic = minePic;
-            this.width = 50;
-            this.height = 45;
-            this.sY = 0;
-            this.sX = returnRandomInteger(this.mineVariances) * this.width;
-            this.gold = 25;
-            this.minimapDrawPriority = 9;            
-            }
-    }
-
+    };
+    
     this.distFrom = function(otherX, otherY) {
         var deltaX = otherX-this.x;
         var deltaY = otherY-this.y;
