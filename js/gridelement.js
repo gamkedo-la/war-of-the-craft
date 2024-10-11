@@ -19,7 +19,7 @@ function GridElement() {
 	this.elementType = this.isNotPassible(elementTypeConsideration);
 	var pathFinderX = whichPathFinder.x;
 	var pathFinderY = whichPathFinder.y;
-	var playersLocation = getTileIndexAtPixelCoord(pathFinderX,pathFinderY);
+	var playersLocation = pixelCoordToIndex(playerUnits[0].x,playerUnits[0].y);
 	if(this.tilIdx == playersLocation){
 		this.elementType = SOURCE;
 		this.setDistIfLess(0,null);
@@ -72,9 +72,9 @@ function GridElement() {
     canvasContext.fillStyle = 'white';
     canvasContext.fillText(pieceName, tileLeftEdgeX + GRID_WIDTH / 2, tileTopEdgeY + GRID_HEIGHT / 2);
 
-    if (tileOverIdx == this.tilIdx) { // mouseover?
+    /*if (tileOverIdx == this.tilIdx) { // mouseover?
         outlineRect(tileLeftEdgeX, tileTopEdgeY, GRID_WIDTH, GRID_HEIGHT, 'green');
-    }
+    }*/
   }
   
   this.setGoal = function () {
@@ -82,40 +82,24 @@ function GridElement() {
   }
   
   this.isNotPassible = function(elementType){
-	updatedElementType = elementType;
-  if(tileTypeWalkable(updatedElementType)){ //if player can walk on it, so can the enemy
-    return NOTHING;
+    updatedElementType = elementType;
+    if(tileTypeWalkable(updatedElementType)){ //if player can walk on it, so can the enemy
+      return NOTHING;
   }
-	if(	updatedElementType == TILE_DOOR ||
-		updatedElementType == GRID_WIDTHALL_1 ||
-		updatedElementType == GRID_WIDTHALL_2 ||
-		updatedElementType == GRID_WIDTHALL_3 ||
-		updatedElementType == GRID_WIDTHALL_4 ||
-		updatedElementType == GRID_WIDTHALL_5 ||
-		updatedElementType == GRID_WIDTHALL_6 ||
-		updatedElementType == GRID_WIDTHALL_7 ||
-		updatedElementType == GRID_WIDTHALL_8 ||
-		updatedElementType == GRID_WIDTHALL_9 ||
-		updatedElementType == GRID_WIDTHALL_10 ||
-		updatedElementType == GRID_WIDTHALL_11 ||
-		updatedElementType == GRID_WIDTHALL_12 ||
-		updatedElementType == GRID_WIDTHALL_13 ||
-		updatedElementType == GRID_WIDTHALL_14 ||
-		updatedElementType == TILE_DOOR_YELLOW_FRONT_BOTTOM ||
-    updatedElementType == TILE_DOOR_YELLOW_FRONT_TOP 
+	if(	updatedElementType == presetUnwalkableTiles[0] //This can expand for all unwalkable tiles
 		){
 			return WALL;		
-    } else if (updatedElementType == TILE_PLAYER){
+    } else if (updatedElementType == playerUnits[0]){
 		return SOURCE;
-	} else if (
+	/*} else if (
 		updatedElementType == TILE_KEY ||
     updatedElementType == TILE_DOOR_YELLOW_FRONT_TOP_OPEN ||
     updatedElementType == TILE_DOOR_YELLOW_FRONT_BOTTOM_OPEN ||
     updatedElementType == TILE_PRISON_GATE_TOP_OPEN ||
     updatedElementType == TILE_PRISON_GATE_BOTTOM_OPEN ||
-		updatedElementType == TILE_GROUND 
+		updatedElementType == TILE_GROUND  
 		){
-		return NOTHING;
+		return NOTHING; */
 	} else {
 		return elementType;
 	}

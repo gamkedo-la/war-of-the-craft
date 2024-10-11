@@ -10,6 +10,7 @@ const GRID_HEIGHT = 32;
 const WORLD_SIZE_PIXELS_W = GRID_ROWS * GRID_WIDTH;
 const WORLD_SIZE_PIXELS_H = GRID_COLUMNS * GRID_HEIGHT;
 var showGrid = true;
+var  walkableTiles = [];
 
 // these are tiles that have water on them in the background.png
 const presetUnwalkableTiles = [400,401,500,501,600,601,700,49,50,51,65,66,67,68,69,70,
@@ -54,6 +55,10 @@ function initializeWorldGrid(){
         }
     }
 }
+
+function tileTypeWalkable(checkTileType){
+    return walkableTiles.includes(checkTileType);
+  }
 
 function refreshCollisionGrid(){
     var debugSolidCount = 0;

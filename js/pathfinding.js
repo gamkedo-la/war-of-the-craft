@@ -1,4 +1,6 @@
 var unvisitedList = [];
+const TILE_WATER = 2; //Temp used for unwalkable tile
+const TILE_GOAL = 3; //Temp used for end tile
 
 function SetupPathfindingGridData(whichPathfinder) {
     var endR = -1;

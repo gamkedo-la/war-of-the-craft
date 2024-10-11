@@ -127,7 +127,7 @@ function drawEverything() {
 
   drawUserInterface();
   drawMinimap();
-  drawPathingFindingTiles();
+  //drawPathingFindingTiles();
 
   // the shadow around the edges
   canvasContext.drawImage(viewportShadows,-20,-40);
