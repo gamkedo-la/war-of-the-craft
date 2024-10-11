@@ -47,6 +47,8 @@ window.onload = function() {
   populateTeam(buildingUnits,ENEMY_START_FARMS,true, "orc farm");
   populateTeam(trees,STARTING_TREES,true, "trees");
   populateTeam(mines,STARTING_MINES,true, "mines");
+
+  SetupPathfindingGridData(playerUnits[0]);
 }
 
 /**
@@ -125,6 +127,7 @@ function drawEverything() {
 
   drawUserInterface();
   drawMinimap();
+  drawPathingFindingTiles();
 
   // the shadow around the edges
   canvasContext.drawImage(viewportShadows,-20,-40);
