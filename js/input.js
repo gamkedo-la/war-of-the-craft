@@ -7,6 +7,7 @@ var isMouseRightDragging = false;
 var mouseX = 0;
 var mouseY = 0;
 var mouseClicked = false;
+var KEY_1 = 49;
 
 var selectedUnits = [];
 const MIN_DIST_TO_COUNT_DRAG = 10;
@@ -157,5 +158,8 @@ function keydownHandler(evt) {
   if (evt.key === 'ArrowRight') { camera.x += CAMERA_SCROLL_SPEED; }
   if (evt.key === 'ArrowUp') { camera.y -= CAMERA_SCROLL_SPEED; }
   if (evt.key === 'ArrowDown') { camera.y += CAMERA_SCROLL_SPEED; }
+  if (evt.key === '1') { 
+    startPath(100, playerUnits[0]);
+  }
 
 }

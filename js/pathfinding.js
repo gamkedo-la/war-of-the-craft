@@ -72,7 +72,7 @@ function hValCal(atColumn,atRow, toColumn,toRow, multWeight, geometric) { /////
 
 function startPath(toTile, pathFor){
 	
-    if (toTile< 0 || toTile >= roomGrid.floor.length) { // invalid or off board
+    if (toTile< 0 || toTile >= collGrid.length) { // invalid or off board
         console.log("Not a valid location");
 		return;
     }
