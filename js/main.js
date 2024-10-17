@@ -123,12 +123,12 @@ function drawEverything() {
   }
 
   //drawGridDebug();
-  
+  drawPathingFindingTiles();  
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
   drawMinimap();
-  drawPathingFindingTiles();
+
 
   // the shadow around the edges
   canvasContext.drawImage(viewportShadows,-20,-40);
