@@ -120,6 +120,7 @@ function unitClass(type) {
         this.gotoY = aroundY + rowNum * UNIT_RANKS_SPACING;
     }
 
+
     this.isInBox = function(x1, y1, x2, y2) {
         var leftX = Math.min(x1, x2);
         var rightX = Math.max(x1, x2);

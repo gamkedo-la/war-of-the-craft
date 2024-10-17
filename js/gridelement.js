@@ -15,15 +15,15 @@ function GridElement() {
     this.tilR=myR;
     this.tilIdx=myIdx;
     this.elementType = myElement;
-	var elementTypeConsideration = this.elementType;
-	this.elementType = this.isNotPassible(elementTypeConsideration);
-	var pathFinderX = whichPathFinder.x;
-	var pathFinderY = whichPathFinder.y;
-	var playersLocation = pixelCoordToIndex(playerUnits[0].x,playerUnits[0].y);
-	if(this.tilIdx == playersLocation){
-		this.elementType = SOURCE;
-		this.setDistIfLess(0,null);
-	}
+    var elementTypeConsideration = this.elementType;
+    this.elementType = this.isNotPassible(elementTypeConsideration);
+    var pathFinderX = whichPathFinder.x;
+    var pathFinderY = whichPathFinder.y;
+    var playersLocation = pixelCoordToIndex(playerUnits[0].x,playerUnits[0].y);
+    if(this.tilIdx == playersLocation){
+      this.elementType = SOURCE;
+      this.setDistIfLess(0,null);
+    }
   }
 
   this.reset = function() {
@@ -83,26 +83,35 @@ function GridElement() {
   
   this.isNotPassible = function(elementType){
     updatedElementType = elementType;
+
+    if(elementType == COLL_EMPTY){
+      return NOTHING;
+    } else {
+      return WALL;
+    } 
+
+    // Trying approach above based on Coll Grid versus World Grid
+
     if(tileTypeWalkable(updatedElementType)){ //if player can walk on it, so can the enemy
       return NOTHING;
-  }
-	if(	updatedElementType == presetUnwalkableTiles[0] //This can expand for all unwalkable tiles
-		){
-			return WALL;		
-    } else if (updatedElementType == playerUnits[0]){
-		return SOURCE;
-	/*} else if (
-		updatedElementType == TILE_KEY ||
-    updatedElementType == TILE_DOOR_YELLOW_FRONT_TOP_OPEN ||
-    updatedElementType == TILE_DOOR_YELLOW_FRONT_BOTTOM_OPEN ||
-    updatedElementType == TILE_PRISON_GATE_TOP_OPEN ||
-    updatedElementType == TILE_PRISON_GATE_BOTTOM_OPEN ||
-		updatedElementType == TILE_GROUND  
-		){
-		return NOTHING; */
-	} else {
-		return elementType;
-	}
+    }
+    if(	updatedElementType == presetUnwalkableTiles[0] //This can expand for all unwalkable tiles
+      ){
+        return WALL;		
+      } else if (updatedElementType == playerUnits[0]){
+      return SOURCE;
+    /*} else if (
+      updatedElementType == TILE_KEY ||
+      updatedElementType == TILE_DOOR_YELLOW_FRONT_TOP_OPEN ||
+      updatedElementType == TILE_DOOR_YELLOW_FRONT_BOTTOM_OPEN ||
+      updatedElementType == TILE_PRISON_GATE_TOP_OPEN ||
+      updatedElementType == TILE_PRISON_GATE_BOTTOM_OPEN ||
+      updatedElementType == TILE_GROUND  
+      ){
+      return NOTHING; */
+    } else {
+      return elementType;
+    }
   }
   
   this.setTile = function(toType) {

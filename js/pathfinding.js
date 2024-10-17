@@ -8,6 +8,7 @@ function SetupPathfindingGridData(whichPathfinder) {
 
     unvisitedList = [];
 	var pathfinder = whichPathfinder;
+  console.log("Pathfinder: " + pathfinder)
 
     if(grid.length > 0) { // non-zero, copy over player set walls into tileGrid for reset
         for (var eachCol = 0; eachCol < GRID_COLUMNS; eachCol++) {
@@ -30,15 +31,15 @@ function SetupPathfindingGridData(whichPathfinder) {
             var idxHere = tileCoordToIndex(eachCol, eachRow);
 
             grid[idxHere] = new GridElement();
-			grid[idxHere].name = "" + eachCol + "," + eachRow;
-			grid[idxHere].idx = idxHere;
-			grid[idxHere].pathfinder = pathfinder;
+            grid[idxHere].name = "" + eachCol + "," + eachRow;
+            grid[idxHere].idx = idxHere;
+            grid[idxHere].pathfinder = pathfinder;
             unvisitedList.push( grid[idxHere] );
 
-            grid[idxHere].setup(eachCol, eachRow, idxHere, worldGrid[idxHere], pathfinder);
+            grid[idxHere].setup(eachCol, eachRow, idxHere, collGrid[idxHere], pathfinder);
 
             //if(grid[idxHere].elementType == DEST) { ///// found end!
-			if(grid[idxHere].elementType == TILE_GOAL) { ///// found end!
+			      if(grid[idxHere].elementType == TILE_GOAL) { ///// found end!
                 endR = eachRow; ///// save tile coords for use with
                 endC = eachCol; ///// computing h value of each tiles
             } /////
@@ -82,7 +83,7 @@ function startPath(toTile, pathFor){
 }
 
 function PathfindingNextStep(whichPathfinder) {
-    var tentativeDistance = 0;
+  var tentativeDistance = 0;
 	var pathfinder = whichPathfinder;
 	var safetyBreak = 1000;
 	var endTile = null;
@@ -91,13 +92,14 @@ function PathfindingNextStep(whichPathfinder) {
         //// "u := vertex in Q with min dist[u]"
         var currentTile = null;
         var ctDistWithH; ///// a* with hVal heuristic added
-        // console.log(unvisitedList.length);
+        console.log(unvisitedList.length);
         for (var i=0; i < unvisitedList.length; i++) {
           var compareTile = unvisitedList[i];
         
           if(currentTile == null || compareTile.distance + compareTile.hVal < ctDistWithH) { /////
             currentTile = compareTile;
             ctDistWithH = currentTile.distance + currentTile.hVal; /////
+            console.log(`Current Tile: ${currentTile.name}, Distance: ${currentTile.distance}, Heuristic: ${currentTile.hVal}`);
           }
         }
         
@@ -163,3 +165,4 @@ function arrayRemove(arr, obj) {
         }
     }
 }
+

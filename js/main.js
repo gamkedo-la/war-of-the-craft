@@ -48,6 +48,7 @@ window.onload = function() {
   populateTeam(trees,STARTING_TREES,true, "trees");
   populateTeam(mines,STARTING_MINES,true, "mines");
 
+  refreshCollisionGrid(); //needs to be called after populate, but before pathfinding
   SetupPathfindingGridData(playerUnits[0]);
 }
 
@@ -121,13 +122,13 @@ function drawEverything() {
     drawBitmapCenteredAtLocation(orcFarmPic, 0, 50,100,75, mouseX,mouseY)
   }
 
-  drawGridDebug();
+  //drawGridDebug();
   
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
   drawMinimap();
-  //drawPathingFindingTiles();
+  drawPathingFindingTiles();
 
   // the shadow around the edges
   canvasContext.drawImage(viewportShadows,-20,-40);
