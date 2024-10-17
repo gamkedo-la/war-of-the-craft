@@ -46,6 +46,16 @@ function pixelCoordToIndex(x,y){
     return c+r*GRID_COLUMNS;
 }
 
+function indexToPixelX (tile){
+    var col = tile%GRID_COLUMNS;
+    return col * GRID_WIDTH + 0.5 * GRID_WIDTH;
+}
+
+function indexToPixelY (tile){
+    var row = Math.floor(tile/GRID_COLUMNS);
+    return row * GRID_HEIGHT + 0.5 * GRID_HEIGHT;
+}
+
 function initializeWorldGrid(){
     for(var i = 0; i < GRID_COLUMNS; i++){
         for(var ii = 0; ii < GRID_ROWS; ii++){

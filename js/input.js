@@ -161,5 +161,5 @@ function keydownHandler(evt) {
   if (evt.key === '1') { 
     startPath(100, playerUnits[0]);
   }
-
+  evt.preventDefault();
 }

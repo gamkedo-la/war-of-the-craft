@@ -52,7 +52,7 @@ function unitClass(type) {
         this.action = [gatherLumber, attackTarget, mineGold, farmFood]
         this.actionSx = 0;
         this.showAction = false;
-        
+        this.tilePath = [100,115,200];
 
         if (this.playerControlled == false) {
             this.x = WORLD_SIZE_PIXELS_W - this.x;
@@ -405,6 +405,22 @@ function unitClass(type) {
             //  colorText(this.iD, this.x+10, this.y-10, "yellow")
         }
     }
+        
+    this.debugDrawPath = function(){
+        if(this.tilePath.length > 0){
+            var pixelX = indexToPixelX(this.tilePath[0]);
+            var pixelY = indexToPixelY(this.tilePath[0]); 
+            lineDraw(this.x, this.y, pixelX, pixelY, "lime");
+            for(var i = 0; i < this.tilePath.length; i++){
+                var prevX = pixelX;
+                var prevY = pixelY;
+                pixelX = indexToPixelX(this.tilePath[i]);
+                pixelY = indexToPixelY(this.tilePath[i]);
+                lineDraw(prevX, prevY, pixelX, pixelY, "orange");
+            }
+        }
+    }
+
     this.drawOnMinimap = function(x,y){
         colorRect(x, y, this.width / MINIMAPXRELATIVESIZE, this.height / MINIMAPYRELATIVESIZE, 'Yellow');    
     }

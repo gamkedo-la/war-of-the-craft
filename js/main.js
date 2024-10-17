@@ -124,6 +124,11 @@ function drawEverything() {
 
   //drawGridDebug();
   drawPathingFindingTiles();  
+  
+  for(var i=0;i<playerUnits.length;i++) {
+    playerUnits[i].debugDrawPath();
+  }
+
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
