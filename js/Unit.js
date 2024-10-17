@@ -52,7 +52,7 @@ function unitClass(type) {
         this.action = [gatherLumber, attackTarget, mineGold, farmFood]
         this.actionSx = 0;
         this.showAction = false;
-        this.tilePath = [100,115,200];
+        this.tilePath = [];
 
         if (this.playerControlled == false) {
             this.x = WORLD_SIZE_PIXELS_W - this.x;

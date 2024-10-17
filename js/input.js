@@ -160,6 +160,8 @@ function keydownHandler(evt) {
   if (evt.key === 'ArrowDown') { camera.y += CAMERA_SCROLL_SPEED; }
   if (evt.key === '1') { 
     startPath(100, playerUnits[0]);
+    //note to do:  pathfinding.tilePath may not exist until Pathfinding complete, PathfindingNextStep is done?
+    playerUnits[0].tilePath = JSON.parse(JSON.stringify(pathfinder.tilePath));
   }
   evt.preventDefault();
 }
