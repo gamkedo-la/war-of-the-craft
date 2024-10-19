@@ -43,6 +43,9 @@ function unitClass(type) {
         this.sY = returnRandomInteger(8) * this.height;
         this.myTarget = null;
         this.attackCoolDown = 90;
+        this.treeDist = 100;
+        this.playerHQDist = 100;
+        this.choppingWood = false;
         this.showHealthBar = false;
         this.showHealthBarCoolDown = 90;
         this.doneWithTarget = false;
@@ -120,6 +123,25 @@ function unitClass(type) {
         this.gotoY = aroundY + rowNum * UNIT_RANKS_SPACING;
     }
 
+    this.chopTreeAction = function(){
+        this.choppingWood = true;
+        this.myTarget.effort--;
+        if(this.myTarget.effort == 0){
+            this.choppingWood = false;
+            this.myTarget.isDead = true;
+            soonCheckUnitsToClear();
+            this.returntoHQAction();
+        }
+    }
+
+    this.returntoHQAction = function() {
+        var nearestPlayerHQFound = findClosestUnitInRange(this.x, this.y, 1000000000, buildingUnits, buildingUnits);
+        this.myTarget = nearestPlayerHQFound;
+        this.actionSx = 3;
+        this.showAction = true;
+        this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
+      }
+
 
     this.isInBox = function(x1, y1, x2, y2) {
         var leftX = Math.min(x1, x2);
@@ -155,8 +177,19 @@ function unitClass(type) {
                 nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, null);
                 console.log("Goblin: " +nearestMindFound)
             } else if (this.myTarget.type == "trees"){
-                this.gotoX = this.myTarget.x;
-                this.gotoY = this.myTarget.y;
+                this.gotoX = this.myTarget.x-10;
+                this.gotoY = this.myTarget.y+5;
+                this.treeDist = this.distFrom(this.gotoX, this.gotoY);
+                if(this.treeDist < 3){
+                    this.chopTreeAction();
+                }
+            } else if (this.myTarget.type == "player hq"){
+                this.gotoX = this.myTarget.x-10;
+                this.gotoY = this.myTarget.y+5;
+                this.playerHQ = this.distFrom(this.gotoX, this.gotoY);
+                if(this.playerHQ < 3){
+                    console.log("At HQ");
+                }
             } else if (this.myTarget.type == "mines"){
                 this.gotoX = this.myTarget.x;
                 this.gotoY = this.myTarget.y;
@@ -342,6 +375,10 @@ function unitClass(type) {
         } else if (this.gotoX > this.x) {
             this.moveEast = true;
             this.sY = this.height * 6;
+        }
+
+        if(this.choppingWood){
+            this.sY = this.height * 8;
         }
 
         if(this.lumber > 0){

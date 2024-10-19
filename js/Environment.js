@@ -28,7 +28,7 @@ function environmentClass(environmentType) {
         checkProximity(buildingUnits, 70);
         checkProximity(mines, 50);
 
-        var configureUnit = function(variances, pic, width, height, sY, resourceKey, resourceValue, minimapPriority) {
+        var configureUnit = function(variances, pic, width, height, sY, resourceKey, resourceValue, minimapPriority, effort, total) {
             this[resourceKey] = resourceValue;
             this.pic = pic;
             this.width = width;
@@ -36,12 +36,14 @@ function environmentClass(environmentType) {
             this.sY = sY;
             this.sX = returnRandomInteger(variances) * this.width;
             this.minimapDrawPriority = minimapPriority;
+            this.effort = effort;
+            this.total = total;
         }.bind(this); // Explicitly bind 'this' here too
     
         if (this.type == "trees") {
-            configureUnit(4, treePic, 15, 20, 0, 'lumber', 1, 10);
+            configureUnit(4, treePic, 15, 20, 0, 'lumber', 1, 10, 100, 1);
         } else if (this.type == "mines") {
-            configureUnit(1, minePic, 50, 45, 0, 'gold', 25, 9);
+            configureUnit(1, minePic, 50, 45, 0, 'gold', 25, 9, 50, 1000);
         }
     };
     

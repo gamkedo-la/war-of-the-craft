@@ -99,7 +99,7 @@ function PathfindingNextStep(whichPathfinder) {
           if(currentTile == null || compareTile.distance + compareTile.hVal < ctDistWithH) { /////
             currentTile = compareTile;
             ctDistWithH = currentTile.distance + currentTile.hVal; /////
-            console.log(`Current Tile: ${currentTile.name}, Distance: ${currentTile.distance}, Heuristic: ${currentTile.hVal}`);
+         //   console.log(`Current Tile: ${currentTile.name}, Distance: ${currentTile.distance}, Heuristic: ${currentTile.hVal}`);
           }
         }
         
