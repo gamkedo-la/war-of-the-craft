@@ -70,6 +70,7 @@ function lumberAction() {
     selectedUnits[i].actionSx = 0;
     selectedUnits[i].showAction = true;
     selectedUnits[i].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
+    selectedUnits[i].focus = "trees";
   }
   selectedUnits = [];
   checkForPlayersSelected();

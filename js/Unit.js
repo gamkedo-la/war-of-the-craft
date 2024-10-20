@@ -27,6 +27,7 @@ function unitClass(type) {
     this.collFill = 0.2; 
     this.collDim = 1;
     this.minimapDrawPriority = 5;
+    this.focus = null;
 
     this.resetAndSetPlayerTeam = function(playerTeam, idNumber) {
         this.playerControlled = playerTeam;
@@ -129,6 +130,7 @@ function unitClass(type) {
         if(this.myTarget.effort == 0){
             this.choppingWood = false;
             this.myTarget.isDead = true;
+            this.showAction = false;
             soonCheckUnitsToClear();
             this.returntoHQAction();
         }
@@ -137,10 +139,11 @@ function unitClass(type) {
     this.returntoHQAction = function() {
         var nearestPlayerHQFound = findClosestUnitInRange(this.x, this.y, 1000000000, buildingUnits, buildingUnits);
         this.myTarget = nearestPlayerHQFound;
+        console.log("Type: " + this.myTarget.type)
         this.actionSx = 3;
         this.showAction = true;
         this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
-      }
+    }
 
 
     this.isInBox = function(x1, y1, x2, y2) {
@@ -169,6 +172,7 @@ function unitClass(type) {
     this.move = function() {
         var wasTileIndex = pixelCoordToIndex(this.x,this.y);
         if (this.myTarget != null) {
+            console.log("Target: " + this.myTarget.type)
             if (this.myTarget.isDead) {
                 this.myTarget = null;
                 this.gotoX = this.x;
@@ -183,12 +187,19 @@ function unitClass(type) {
                 if(this.treeDist < 3){
                     this.chopTreeAction();
                 }
-            } else if (this.myTarget.type == "player hq"){
+            } else if (this.myTarget.type == "players hq"){
                 this.gotoX = this.myTarget.x-10;
                 this.gotoY = this.myTarget.y+5;
                 this.playerHQ = this.distFrom(this.gotoX, this.gotoY);
                 if(this.playerHQ < 3){
                     console.log("At HQ");
+                    if(this.focus == "trees"){
+                        var nearestTreeFoundForPeasant = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, trees);
+                        this.myTarget = nearestTreeFoundForPeasant;
+                        this.actionSx = 0;
+                        this.showAction = true;
+                        this.gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
+                    }
                 }
             } else if (this.myTarget.type == "mines"){
                 this.gotoX = this.myTarget.x;
@@ -362,6 +373,7 @@ function unitClass(type) {
         this.moveSouthEast = false; //5
         this.moveEast = false; //6
         this.moveNorthEast = false; //7
+        this.sY = 0;
 
         if (this.gotoY < this.y) {
             this.moveNorth = true;

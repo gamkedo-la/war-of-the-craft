@@ -64,9 +64,13 @@ function environmentClass(environmentType) {
     }
 
     this.draw = function(){
-        drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY,this.width,this.height, this.x,this.y);
+        if(!this.isDead){
+            drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY,this.width,this.height, this.x,this.y);
+        }
     }
     this.drawOnMinimap = function(x,y){
-        colorRect(x, y, this.width / MINIMAPXRELATIVESIZE, this.height / MINIMAPYRELATIVESIZE, 'Green');    
+        if(!this.isDead){
+            colorRect(x, y, this.width / MINIMAPXRELATIVESIZE, this.height / MINIMAPYRELATIVESIZE, 'Green');    
+        }
     }
 }
