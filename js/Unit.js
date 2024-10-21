@@ -128,8 +128,22 @@ function unitClass(type) {
         this.choppingWood = true;
         this.myTarget.effort--;
         if(this.myTarget.effort == 0){
+            assignmentTotals.woodChopped++; // add to stats totals
             this.choppingWood = false;
             this.myTarget.isDead = true;
+            this.showAction = false;
+            soonCheckUnitsToClear();
+            this.returntoHQAction();
+        }
+    }
+
+    this.mineGoldAction = function(){
+        this.miningGold = true;
+        this.myTarget.effort--;
+        if(this.myTarget.effort == 0){
+            assignmentTotals.goldMined++; // add to stats totals
+            this.miningGold = false;
+            //this.myTarget.isDead = true; // use up the mine???
             this.showAction = false;
             soonCheckUnitsToClear();
             this.returntoHQAction();
@@ -192,26 +206,44 @@ function unitClass(type) {
                 this.gotoY = this.myTarget.y+5;
                 this.playerHQ = this.distFrom(this.gotoX, this.gotoY);
                 if(this.playerHQ < 3){
-                    console.log("At HQ");
+                    console.log("At HQ with this focus: "+this.focus);
                     if(this.focus == "trees"){
                         var nearestTreeFoundForPeasant = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, trees);
-                        this.myTarget = nearestTreeFoundForPeasant;
-                        this.actionSx = 0;
-                        this.showAction = true;
-                        //this.gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
-                        this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
+                        if (nearestTreeFoundForPeasant) {
+                            this.myTarget = nearestTreeFoundForPeasant;
+                            this.actionSx = 0;
+                            this.showAction = true;
+                            this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
+                        } else {
+                            console.log("unit at hq unable to find a tree to return to");
+                        }
+                    }
+                    if(this.focus == "mines"){
+                        var nearestMineFoundForPeasant = findClosestUnitInRange(this.x, this.y, UNIT_AI_MINE_RANGE, mines, mines);
+                        if (nearestMineFoundForPeasant) {
+                            this.myTarget = nearestMineFoundForPeasant;
+                            this.actionSx = 0;
+                            this.showAction = true;
+                            this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
+                        } else {
+                            console.log("unit at hq unable to find a mine to return to");
+                        }
                     }
                 }
             } else if (this.myTarget.type == "mines"){
                 this.gotoX = this.myTarget.x;
                 this.gotoY = this.myTarget.y;
+                this.mineDist = this.distFrom(this.gotoX, this.gotoY);
+                if(this.mineDist < 3){
+                    this.mineGoldAction();
+                }                
             } else if (this.distFromSq(this.myTarget.x, this.myTarget.y) > UNIT_ATTACK_RANGE * UNIT_AI_TREE_RANGE) {
                 this.gotoX = this.myTarget.x;
                 this.gotoY = this.myTarget.y;
             } else {
                 console.log("Cool Down: " + this.attackCoolDown)
                 if(this.attackCoolDown <= 0) {
-                    if (this.myTarget.type == "trees" || this.myTarget.type == "peasant farm") {
+                    if (this.myTarget.type == "mines" || this.myTarget.type == "trees" || this.myTarget.type == "peasant farm") {
                         this.collectResourse(this.myTarget.type, 600);//maybe we can make a variable for this.myTarget.attackCooldown
                     } else if (this.myTarget.type == "goblin hq"){
                         this.returnResource();

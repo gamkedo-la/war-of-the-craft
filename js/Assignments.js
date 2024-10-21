@@ -13,11 +13,11 @@ var assignmentTotals = {
 
 // these are the quest totals we are aiming for
 var assignmentTargets = {
-    woodChopped:15,
-    goldMined:30,
-    farmsBuilt:3,
-    foodHarvested:65,
-    battlesWon:10,
+    woodChopped:5,
+    goldMined:3,
+    farmsBuilt:2,
+    foodHarvested:4,
+    battlesWon:4,
     battlesLost:99999999,
 }
 

@@ -88,10 +88,15 @@ function attackAction() {
 function goldAction() {
   for (var i = 0; i < selectedUnits.length; i++) {
     var nearestMine = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_MINE_RANGE, mines, mines);
-    selectedUnits[i].myTarget = nearestMine;
-    selectedUnits[i].actionSx = 15 * 2;
-    selectedUnits[i].showAction = true;
-    selectedUnits[i].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
+    if (nearestMine) {
+        selectedUnits[i].myTarget = nearestMine;
+        selectedUnits[i].actionSx = 15 * 2;
+        selectedUnits[i].showAction = true;
+        selectedUnits[i].gotoNear(nearestMine.x,nearestMine.y, 0, 1);
+        selectedUnits[i].focus = "mines";
+    } else {
+        console.log("goldAction: unit was unable to find a nearby mine");
+    }
   }
   selectedUnits = [];
   checkForPlayersSelected();
@@ -170,6 +175,7 @@ function placeFarm() {
     peasantMainMenu = true;
     selectedUnits = [];
     checkForPlayersSelected();
+    assignmentTotals.farmsBuilt++; // add to stats totals. FIXME: is this the best place for this?
   }
 }
 
