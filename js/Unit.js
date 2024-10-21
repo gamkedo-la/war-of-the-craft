@@ -198,7 +198,8 @@ function unitClass(type) {
                         this.myTarget = nearestTreeFoundForPeasant;
                         this.actionSx = 0;
                         this.showAction = true;
-                        this.gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
+                        //this.gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
+                        this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
                     }
                 }
             } else if (this.myTarget.type == "mines"){
