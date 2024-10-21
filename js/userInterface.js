@@ -269,23 +269,3 @@ function drawUserInterface() {
     drawButton(peasantMainMenuX, peasantMainMenuY, userInterfacePic, 540, "BACK TO", "MAIN MENU", peasantReturnMenuHovering, peasantReturnMenuSelected);
   }
 }
-
-// an area on the right side of the screen
-// for quests and battle assignments
-function drawAssignmentsGUI() {
-    const tx = 670;
-    const ty = 460;
-    const th = 18;
-    const rgb = "rgba(64,32,1)";
-    const fnt = "14px Arial";
-    let lines = 0;
-    
-    canvasContext.drawImage(assignmentsGUIPic, tx-30, ty-47);
-    //colorText("ASSIGNMENTS:",tx+1,ty+(lines*th)+1,"black",fnt); // drop shadow
-    colorText("ASSIGNMENTS:",tx,ty+(lines++*th),"black",fnt);
-    colorText("☑ Chop 15 wood",tx,ty+(lines++*th),rgb,fnt);
-    colorText("☑ Mine 25 gold",tx,ty+(lines++*th),rgb,fnt);
-    colorText("☑ Build 2 farms",tx,ty+(lines++*th),rgb,fnt);
-    colorText("☑ Harvest 75 food",tx,ty+(lines++*th),rgb,fnt);
-    colorText("☑ Win 10 battles",tx,ty+(lines++*th),rgb,fnt);
-}
