@@ -35,10 +35,21 @@ function drawAssignmentsGUI() {
     //colorText("ASSIGNMENTS:",tx+1,ty+(lines*th)+1,"black",fnt); // drop shadow?
     colorText("ASSIGNMENTS:",tx,ty+(lines++*th),"black",fnt);
     
-    colorText((assignmentTotals.woodChopped >= assignmentTargets.woodChopped ? "☑ " : "☐ ") + "Chop "+assignmentTotals.woodChopped + "/" + assignmentTargets.woodChopped +" wood", tx,ty+(lines++*th),rgb,fnt);
-    colorText((assignmentTotals.goldMined >= assignmentTargets.goldMined ? "☑ " : "☐ ") + "Mine "+assignmentTotals.goldMined + "/" + assignmentTargets.goldMined +" gold", tx,ty+(lines++*th),rgb,fnt);
-    colorText((assignmentTotals.farmsBuilt >= assignmentTargets.farmsBuilt ? "☑ " : "☐ ") + "Build "+assignmentTotals.farmsBuilt + "/" + assignmentTargets.farmsBuilt +" farms", tx,ty+(lines++*th),rgb,fnt);
-    colorText((assignmentTotals.foodHarvested >= assignmentTargets.foodHarvested ? "☑ " : "☐ ") + "Harvest "+assignmentTotals.foodHarvested + "/" + assignmentTargets.foodHarvested +" food", tx,ty+(lines++*th),rgb,fnt);
-    colorText((assignmentTotals.battlesWon >= assignmentTargets.battlesWon ? "☑ " : "☐ ") + "Win "+assignmentTotals.battlesWon + "/" + assignmentTargets.battlesWon +" battles", tx,ty+(lines++*th),rgb,fnt);
+    let gotAllWood = assignmentTotals.woodChopped >= assignmentTargets.woodChopped;
+    let gotAllGold = assignmentTotals.goldMined >= assignmentTargets.goldMined;
+    let gotAllFarms = assignmentTotals.farmsBuilt >= assignmentTargets.farmsBuilt;
+    let gotAllFood = assignmentTotals.foodHarvested >= assignmentTargets.foodHarvested;
+    let gotAllWins = assignmentTotals.battlesWon >= assignmentTargets.battlesWon;
+
+    colorText((gotAllWood ? "☑ " : "☐ ") + "Chop "+assignmentTotals.woodChopped + "/" + assignmentTargets.woodChopped +" wood", tx,ty+(lines++*th),rgb,fnt);
+    colorText((gotAllGold ? "☑ " : "☐ ") + "Mine "+assignmentTotals.goldMined + "/" + assignmentTargets.goldMined +" gold", tx,ty+(lines++*th),rgb,fnt);
+    colorText((gotAllFarms ? "☑ " : "☐ ") + "Build "+assignmentTotals.farmsBuilt + "/" + assignmentTargets.farmsBuilt +" farms", tx,ty+(lines++*th),rgb,fnt);
+    colorText((gotAllFood ? "☑ " : "☐ ") + "Harvest "+assignmentTotals.foodHarvested + "/" + assignmentTargets.foodHarvested +" food", tx,ty+(lines++*th),rgb,fnt);
+    colorText((gotAllWins ? "☑ " : "☐ ") + "Win "+assignmentTotals.battlesWon + "/" + assignmentTargets.battlesWon +" battles", tx,ty+(lines++*th),rgb,fnt);
+
+    if (gotAllWood && gotAllGold && gotAllFarms && gotAllFood && gotAllWins) {
+        console.log("PLAYER WINS THE GAME! All assignments complete.");
+        // FIXME: end game screen etc
+    }
     
 }
