@@ -504,6 +504,6 @@ function unitClass(type) {
     }
 
     this.drawOnMinimap = function(x,y){
-        colorRect(x, y, this.width / MINIMAPXRELATIVESIZE, this.height / MINIMAPYRELATIVESIZE, 'Yellow');    
+        colorRect(x, y, Math.max(1,this.width / MINIMAPXRELATIVESIZE), Math.max(1,this.height / MINIMAPYRELATIVESIZE), 'rgba(255,255,0,1)');    
     }
 }

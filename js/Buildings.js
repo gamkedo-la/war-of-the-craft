@@ -105,6 +105,6 @@ function buildingClass(building) {
         drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY,this.width,this.height, this.x,this.y);
     }
     this.drawOnMinimap = function(x,y){
-        colorRect(x, y, this.width / MINIMAPXRELATIVESIZE, this.height / MINIMAPYRELATIVESIZE, this.unitColor);
+        colorRect(x, y, Math.max(1,this.width / MINIMAPXRELATIVESIZE), Math.max(1,this.height / MINIMAPYRELATIVESIZE), "rgba(0,0,0,1)");//this.unitColor);
     }
 }

@@ -70,7 +70,7 @@ function environmentClass(environmentType) {
     }
     this.drawOnMinimap = function(x,y){
         if(!this.isDead){
-            colorRect(x, y, this.width / MINIMAPXRELATIVESIZE, this.height / MINIMAPYRELATIVESIZE, 'Green');    
+            colorRect(x, y, Math.max(1,this.width / MINIMAPXRELATIVESIZE), Math.max(1,this.height / MINIMAPYRELATIVESIZE), 'Green');    
         }
     }
 }

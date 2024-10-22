@@ -1,5 +1,5 @@
-const MINIMAP_X = 500;
-const MINIMAP_Y = 500;
+const MINIMAP_X = 530;
+const MINIMAP_Y = 480;
 const MINIMAP_WIDTH = 100;
 const MINIMAP_HEIGHT = 100;
 const mapXSize = GRID_ROWS * GRID_WIDTH;
@@ -8,7 +8,7 @@ const MINIMAPXRELATIVESIZE = mapXSize / MINIMAP_WIDTH;
 const MINIMAPYRELATIVESIZE = mapYSize / MINIMAP_HEIGHT;
 
 function drawMinimap() {
-    colorRect(MINIMAP_X, MINIMAP_Y, MINIMAP_WIDTH, MINIMAP_HEIGHT, 'Brown');
+    colorRect(MINIMAP_X, MINIMAP_Y, MINIMAP_WIDTH, MINIMAP_HEIGHT, 'rgba(0,0,0,0.2)');
 
     drawArrayOfUnits(trees);
     drawArrayOfUnits(mines);
