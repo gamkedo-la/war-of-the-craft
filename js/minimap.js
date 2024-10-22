@@ -1,5 +1,5 @@
-const MINIMAP_X = 530;
-const MINIMAP_Y = 480;
+const MINIMAP_X = 668;
+const MINIMAP_Y = 32;
 const MINIMAP_WIDTH = 100;
 const MINIMAP_HEIGHT = 100;
 const mapXSize = GRID_ROWS * GRID_WIDTH;
@@ -8,7 +8,10 @@ const MINIMAPXRELATIVESIZE = mapXSize / MINIMAP_WIDTH;
 const MINIMAPYRELATIVESIZE = mapYSize / MINIMAP_HEIGHT;
 
 function drawMinimap() {
-    colorRect(MINIMAP_X, MINIMAP_Y, MINIMAP_WIDTH, MINIMAP_HEIGHT, 'rgba(0,0,0,0.2)');
+    
+    // background is no longer needed due to gui image:
+    // colorRect(MINIMAP_X, MINIMAP_Y, MINIMAP_WIDTH, MINIMAP_HEIGHT, 'rgba(0,0,0,0.2)');
+    canvasContext.drawImage(minimapGUIPic, MINIMAP_X-30, MINIMAP_Y-30);
 
     drawArrayOfUnits(trees);
     drawArrayOfUnits(mines);
