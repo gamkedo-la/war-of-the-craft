@@ -6,9 +6,9 @@ const UNIT_ATTACK_RANGE = 15;
 const UNIT_AI_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 10;
 const UNIT_AI_ORC_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 90;
 const UNIT_PLAYABLE_AREA_MARGIN = 20;
-const UNIT_AI_TREE_RANGE = 2000000;
-const UNIT_AI_MINE_RANGE = 2000000;
-const UNIT_AI_FARM_RANGE = 2000000;
+const UNIT_AI_TREE_RANGE = 20000000;
+const UNIT_AI_MINE_RANGE = 20000000;
+const UNIT_AI_FARM_RANGE = 20000000;
 
 var gatherLumber = 0;
 var attackTarget = 15;
@@ -143,6 +143,7 @@ function unitClass(type) {
         if(this.myTarget.effort == 0){
             assignmentTotals.goldMined++; // add to stats totals
             this.miningGold = false;
+            this.myTarget.effort = 100;
             //this.myTarget.isDead = true; // use up the mine???
             this.showAction = false;
             soonCheckUnitsToClear();
@@ -157,6 +158,7 @@ function unitClass(type) {
         this.actionSx = 3;
         this.showAction = true;
         this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
+        console.log("HQ movement")
     }
 
 
@@ -201,6 +203,13 @@ function unitClass(type) {
                 if(this.treeDist < 3){
                     this.chopTreeAction();
                 }
+            } else if (this.myTarget.type == "mines"){
+                this.gotoX = this.myTarget.x-10;
+                this.gotoY = this.myTarget.y+5;
+                this.mineDist = this.distFrom(this.gotoX, this.gotoY);
+                if(this.mineDist < 3){
+                    this.mineGoldAction();
+                }    
             } else if (this.myTarget.type == "players hq"){
                 this.gotoX = this.myTarget.x-10;
                 this.gotoY = this.myTarget.y+5;
@@ -224,16 +233,16 @@ function unitClass(type) {
                             this.myTarget = nearestMineFoundForPeasant;
                             this.actionSx = 0;
                             this.showAction = true;
-                            this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
+                            this.gotoNear(this.myTarget.x+20,this.myTarget.y+25, 0, 1);
                         } else {
                             console.log("unit at hq unable to find a mine to return to");
                         }
                     }
                 }
             } else if (this.myTarget.type == "mines"){
-                this.gotoX = this.myTarget.x;
-                this.gotoY = this.myTarget.y;
-                this.mineDist = this.distFrom(this.gotoX, this.gotoY);
+                this.gotoX = this.myTarget.x+15;
+                this.gotoY = this.myTarget.y+20;
+                this.mineDist = this.distFrom(this.gotoX, this.gotoY+8);
                 if(this.mineDist < 3){
                     this.mineGoldAction();
                 }                
@@ -424,6 +433,9 @@ function unitClass(type) {
 
         if(this.choppingWood){
             this.sY = this.height * 8;
+        }
+        if(this.mineGold){
+            this.sY = 10000; //don't draw
         }
 
         if(this.lumber > 0){
