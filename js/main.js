@@ -50,6 +50,8 @@ window.onload = function() {
 
   refreshCollisionGrid(); //needs to be called after populate, but before pathfinding
   SetupPathfindingGridData(playerUnits[0]);
+  camera.x = playerUnits[0].x-canvas.width/2;
+  camera.y = playerUnits[0].y-canvas.height/2;
 }
 
 /**
