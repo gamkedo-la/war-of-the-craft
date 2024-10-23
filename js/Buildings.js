@@ -32,6 +32,8 @@ function buildingClass(building) {
             case "players hq":
                 this.pic = humanHQPic;
                 this.unitColor = 'Red';
+                this.x = playerUnits[0].x - 40;
+                this.y = playerUnits[0].y - 30;
                 break;
             case "wall":
                 this.x = mouseX;

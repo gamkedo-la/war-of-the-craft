@@ -21,6 +21,7 @@ function unitClass(type) {
     this.healthSx = 0;
     this.healthSy = 0;
     this.sX = 0;
+    this.sY = 0;
     this.lumber = 0;
     this.food = 0;
     this.jobType = type;
@@ -41,7 +42,7 @@ function unitClass(type) {
         }
         this.width = 15;
         this.height = 15;
-        this.sY = returnRandomInteger(8) * this.height;
+        this.sY = 4 * this.height;
         this.myTarget = null;
         this.attackCoolDown = 90;
         this.treeDist = 100;
@@ -415,7 +416,7 @@ function unitClass(type) {
         this.moveSouthEast = false; //5
         this.moveEast = false; //6
         this.moveNorthEast = false; //7
-        this.sY = 0;
+        this.sY = 4*this.height;
 
         if (this.gotoY < this.y) {
             this.moveNorth = true;
