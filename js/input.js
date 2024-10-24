@@ -64,6 +64,7 @@ function mousedownHandler(evt) {
     waitingForFirstClick = false;
   }
 
+
   var mousePos = calculateMousePos(evt);
   lassoX1 = mousePos.x;
   lassoY1 = mousePos.y;
@@ -78,6 +79,8 @@ function mousedownHandler(evt) {
     isMouseDragging = true;
     mouseClicked = true;
   }
+
+  checkForBuildingSelected();
 }
 
 function mouseupHandler(evt) {

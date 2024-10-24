@@ -1,3 +1,15 @@
+function checkForBuildingSelected(){
+    for(var i = 0; i < buildingUnits.length; i++){
+        var buildingSelected = buildingUnits[i].isInBox();
+        if(buildingSelected){
+            selectedUnits = [];
+            peasantSelected = false;
+            warriorSelected = false;
+            headQuartersUI = true;
+        }
+    }
+}
+
 function buildingClass(building) {
     this.type = building;
     this.collFill = 1;
@@ -76,7 +88,18 @@ function buildingClass(building) {
             default:
                 console.warn(`Unknown type: ${this.type}`);
         }
-    };
+    }
+
+    this.isInBox = function() {
+        var leftX = this.x;
+        var rightX = this.x + this.width;
+        var topY = this.y;
+        var bottomY = this.y + this.height;
+        var clickX = mouseX + camera.x;
+        var clickY = mouseY + camera.y;
+
+        return (clickX >= leftX && clickX <= rightX && clickY >= topY && clickY <= bottomY);
+    }
 
     this.snapNearestGridCenter = function (){
         this.x = Math.floor(this.x/GRID_WIDTH)*GRID_WIDTH + GRID_WIDTH/2;

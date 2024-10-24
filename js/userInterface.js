@@ -20,8 +20,12 @@ var farmBuildHovering = false, farmBuildSelected = false;
 var farmButtonHovering = false, farmButtonSelected = false, farmReadyToBePlaced = false;
 var peasantReturnMenuHovering = false, peasantReturnMenuSelected = false;
 
+var headQuartersUI = false;
+
 var buttonDelayTicks = 1, buttonDelayTimer = false, startDelayTimer = false;
 var showWallToBuild = false, showFarmToBuild = false, wallReadyToBePlace = false;
+recruitPeasantBoxHovering = false, recruitPeasantSelected = false, recruitPeasantX = 10, recruitPeasantY = 180;
+recruitWarriorBoxHovering = false, recruitWarriorSelected = false, recruitWarriorX = 10, recruitWarriorY = 280;
 
 // Check if mouse is inside a given box
 function checkMouseInsideBox(xPos, yPos, width, height) {
@@ -53,6 +57,7 @@ function checkForPlayersSelected(){
         peasantSelected = false;
         warriorSelected = true;
       } 
+      headQuartersUI = false;
     }
 
     if(selectedUnits.length == 0){
@@ -184,6 +189,28 @@ function returnToPeasantMainMenu(){
   peasantMainMenu = true;
 }
 
+function recruitPeasant(){
+  headQuartersUI = false;
+  populateTeam(playerUnits, 1, true, "peasant");
+  var newUnit = playerUnits.length-1;
+  playerUnits[newUnit].x = buildingUnits[0].x;
+  playerUnits[newUnit].y = buildingUnits[0].y;
+  var nearestTreeFound = findClosestUnitInRange(playerUnits[newUnit].x, playerUnits[newUnit].y, UNIT_AI_TREE_RANGE, trees, null);
+  playerUnits[newUnit].myTarget = nearestTreeFound;
+  playerUnits[newUnit].focus = 'trees';
+}
+
+function recruitWarrior(){
+  headQuartersUI = false;
+  populateTeam(playerUnits, 1, true, "warrior");
+  var newUnit = playerUnits.length-1;
+  playerUnits[newUnit].x = buildingUnits[0].x;
+  playerUnits[newUnit].y = buildingUnits[0].y;
+  nearestHQFound = findClosestUnitInRange(this.x,this.y,5600, buildingUnits);
+  playerUnits[newUnit].myTarget = nearestHQFound;
+  console.log(playerUnits.length)
+}
+
 function checkButtonHandling(){
   if (peasantSelected && peasantMainMenu) {
     lumberButtonHovering = checkMouseInsideBox(lumberX, lumberY, pictureWidth, pictureHeight);
@@ -192,6 +219,8 @@ function checkButtonHandling(){
     farmButtonHovering = checkMouseInsideBox(farmX, farmY, pictureWidth, pictureHeight);
     farmBuildHovering = checkMouseInsideBox(farmBuildX, farmBuildY, pictureWidth, pictureHeight);
     constructionButtonHovering = checkMouseInsideBox(constructionX, constructionY, pictureWidth, pictureHeight);
+    recruitPeasantBoxHovering = checkMouseInsideBox(recruitPeasantX, recruitPeasantY, pictureWidth, pictureHeight);
+    recruitWarriorBoxHovering = checkMouseInsideBox(recruitWarriorX, recruitWarriorY, pictureWidth, pictureHeight);
 
     handleButtonClick(mouseClicked, lumberButtonHovering, lumberButtonSelected, lumberAction);
     //handleButtonClick(mouseClicked, attackButtonHovering, attackButtonSelected, attackAction);  
@@ -216,6 +245,16 @@ function checkButtonHandling(){
 
   if(farmReadyToBePlaced){
     placeFarm();
+  }
+
+  if(headQuartersUI){
+    recruitPeasantBoxHovering = checkMouseInsideBox(recruitPeasantX, recruitPeasantY, pictureWidth, pictureHeight);
+    console.log(recruitPeasant)
+    recruitWarriorBoxHovering = checkMouseInsideBox(recruitWarriorX, recruitWarriorY, pictureWidth, pictureHeight);
+
+    handleButtonClick(mouseClicked, recruitPeasantBoxHovering, recruitPeasantSelected, recruitPeasant);
+    handleButtonClick(mouseClicked, recruitPeasantBoxHovering, recruitWarriorSelected, recruitWarrior);
+
   }
 }
 
@@ -273,5 +312,15 @@ function drawUserInterface() {
     drawButton(wallX, wallY, userInterfacePic, 420, "BUILD", "WALL", buildWallHovering, buildWallSelected);
     drawButton(farmBuildX, farmBuildY, userInterfacePic, 480, "BUILD", "FARM", farmBuildHovering, farmBuildSelected);
     drawButton(peasantMainMenuX, peasantMainMenuY, userInterfacePic, 540, "BACK TO", "MAIN MENU", peasantReturnMenuHovering, peasantReturnMenuSelected);
+  }
+
+  if(headQuartersUI){
+    colorRect(10, 36, 100, 100, "AQUA");
+    drawBitmapAtLocation(humanHQPic, 0, 0, 100, 100, 10, 36);
+    colorText("RECRUITING", 19, 30, "Yellow", "14px Arial");
+    colorText("OPTIONS", 26, 150, "Yellow", "14px Arial");
+
+    drawButton(recruitPeasantX, recruitPeasantY, userInterfacePic, 600, "RECRUIT", "PEASANT", recruitPeasantBoxHovering, recruitPeasant);
+    drawButton(recruitWarriorX, recruitWarriorY, userInterfacePic, 660, "RECRUIT", "WARRIOR", recruitWarriorBoxHovering, recruitWarrior);
   }
 }
