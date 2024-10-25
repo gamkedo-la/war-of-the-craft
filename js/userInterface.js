@@ -148,6 +148,10 @@ function showWall() {
 function placeWall(){
   if(mouseClicked && buttonDelayTimer){
     populateTeam(buildingUnits,1,true, "wall");
+    var newUnit = buildingUnits.length-1;
+    buildingUnits[newUnit].x = mouseX + camera.x; 
+    buildingUnits[newUnit].y = mouseY + camera.y;
+
     wallReadyToBePlace = false;
     buttonDelayTimer = false;
     showWallToBuild = false;
@@ -235,7 +239,14 @@ function checkButtonHandling(){
     peasantReturnMenuHovering = checkMouseInsideBox(peasantMainMenuX, peasantMainMenuY, pictureWidth, pictureHeight);
 
     handleButtonClick(mouseClicked, buildWallHovering, buildWallSelected, showWall);
-    handleButtonClick(mouseClicked, farmBuildHovering, farmBuildSelected, displayFarmToBuild);
+    if(buildWallHovering){
+      colorText("Wood: 10", wallX+70, wallY+30, "white", "14px Arial");
+    } 
+    handleButtonClick(mouseClicked, farmBuildX, farmBuildY, displayFarmToBuild);
+    console.log(farmBuildHovering)
+    if(farmBuildHovering){
+      colorText("Wood: 300", farmBuildX+70, farmBuildY+30, "white", "1000px Arial");
+    } 
     handleButtonClick(mouseClicked, peasantReturnMenuHovering, peasantReturnMenuSelected, returnToPeasantMainMenu);
   }
 
@@ -249,12 +260,10 @@ function checkButtonHandling(){
 
   if(headQuartersUI){
     recruitPeasantBoxHovering = checkMouseInsideBox(recruitPeasantX, recruitPeasantY, pictureWidth, pictureHeight);
-    console.log(recruitPeasant)
     recruitWarriorBoxHovering = checkMouseInsideBox(recruitWarriorX, recruitWarriorY, pictureWidth, pictureHeight);
 
     handleButtonClick(mouseClicked, recruitPeasantBoxHovering, recruitPeasantSelected, recruitPeasant);
     handleButtonClick(mouseClicked, recruitPeasantBoxHovering, recruitWarriorSelected, recruitWarrior);
-
   }
 }
 
@@ -281,7 +290,7 @@ function drawUserInterface() {
     }
   }
 
-  drawAssignmentsGUI();
+  drawAssignmentsGUI(); 
 
   //indicator top of screen
   if (peasantSelected || warriorSelected) {
@@ -321,6 +330,12 @@ function drawUserInterface() {
     colorText("OPTIONS", 26, 150, "Yellow", "14px Arial");
 
     drawButton(recruitPeasantX, recruitPeasantY, userInterfacePic, 600, "RECRUIT", "PEASANT", recruitPeasantBoxHovering, recruitPeasant);
+      if(recruitPeasantBoxHovering){
+        colorText("Food: 100", recruitPeasantX+70, recruitPeasantY+30, "white", "14px Arial");
+      } 
     drawButton(recruitWarriorX, recruitWarriorY, userInterfacePic, 660, "RECRUIT", "WARRIOR", recruitWarriorBoxHovering, recruitWarrior);
+      if(recruitWarriorBoxHovering){
+        colorText("Food: 300", recruitWarriorX+70, recruitWarriorY+30, "white", "14px Arial");
+      } 
   }
 }

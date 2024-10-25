@@ -117,7 +117,7 @@ function drawEverything() {
   }
 
   if(showWallToBuild){
-    drawBitmapCenteredAtLocation(wallPic, 32*3, 0,32,32, mouseX,mouseY)
+    drawBitmapCenteredAtLocation(wallPic, 32*3, 0,32,32, mouseX+camera.x,mouseY+camera.y)
   }
 
   if(showFarmToBuild){
