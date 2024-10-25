@@ -211,9 +211,9 @@ function recruitWarrior(){
   var newUnit = playerUnits.length-1;
   playerUnits[newUnit].x = buildingUnits[0].x;
   playerUnits[newUnit].y = buildingUnits[0].y;
-  nearestHQFound = findClosestUnitInRange(this.x,this.y,5600, buildingUnits);
-  playerUnits[newUnit].myTarget = nearestHQFound;
-  console.log(playerUnits.length)
+  var keepAtHQ = findClosestUnitInRange(playerUnits[newUnit].x,playerUnits[newUnit].y,5600, buildingUnits);
+  playerUnits[newUnit].myTarget = keepAtHQ;
+  playerUnits[newUnit].focus = 'trees'; //change to patrol when available
 }
 
 function checkButtonHandling(){
