@@ -36,6 +36,7 @@ function checkMouseInsideBox(xPos, yPos, width, height) {
 
 // Handle button click actions
 function handleButtonClick(mouseClicked, buttonHovering, buttonSelected, actionCallback) {  
+ // console.log(buttonHovering, actionCallback)
   if (mouseClicked && buttonHovering) {
         buttonSelected = true;
         uIButtonClicked = true;
@@ -263,7 +264,7 @@ function checkButtonHandling(){
     recruitWarriorBoxHovering = checkMouseInsideBox(recruitWarriorX, recruitWarriorY, pictureWidth, pictureHeight);
 
     handleButtonClick(mouseClicked, recruitPeasantBoxHovering, recruitPeasantSelected, recruitPeasant);
-    handleButtonClick(mouseClicked, recruitPeasantBoxHovering, recruitWarriorSelected, recruitWarrior);
+    handleButtonClick(mouseClicked, recruitWarriorBoxHovering, recruitWarriorSelected, recruitWarrior);
   }
 }
 

@@ -73,17 +73,22 @@ function unitClass(type) {
                 this.height = 20;
             }
         } else {
+            console.log("jobType:", this.jobType);
             this.unitColor = 'White';
-            if(this.jobType == "peasant"){
+            if(this.jobType === "peasant"){
                 this.pic = peasantPic;
                 this.health = 4;
                 this.type = "peasant";
-            } else if (this.jobType == "warrior"){
+            } else if (this.jobType === "warrior"){
                 this.pic = warriorPic;
                 this.health = 10;
                 this.width = 20;
                 this.height = 20;
                 this.type = "warrior";
+                this.myTarget = "trees"
+                this.focus = "mines"; //change in future to patrol
+                this.returntoHQAction();
+
             }
         }
 
@@ -156,7 +161,7 @@ function unitClass(type) {
         var nearestPlayerHQFound = findClosestUnitInRange(this.x, this.y, 1000000000, buildingUnits, buildingUnits);
         this.myTarget = nearestPlayerHQFound;
         console.log("Type: " + this.myTarget.type)
-        this.actionSx = 3;
+        this.actionSx = 15*5;
         this.showAction = true;
         this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
         console.log("HQ movement")
@@ -189,7 +194,7 @@ function unitClass(type) {
     this.move = function() {
         var wasTileIndex = pixelCoordToIndex(this.x,this.y);
         if (this.myTarget != null) {
-            console.log("Target: " + this.myTarget.type)
+         //   console.log("Target: " + this.myTarget.type)
             if (this.myTarget.isDead) {
                 this.myTarget = null;
                 this.gotoX = this.x;
