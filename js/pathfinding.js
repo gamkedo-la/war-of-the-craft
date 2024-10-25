@@ -10,6 +10,8 @@ function SetupPathfindingGridData(whichPathfinder) {
 	var pathfinder = whichPathfinder;
   console.log("Pathfinder: " + pathfinder)
 
+
+    //code below isn't currently hooked to anything.  Do we need it?
     if(grid.length > 0) { // non-zero, copy over player set walls into tileGrid for reset
         for (var eachCol = 0; eachCol < GRID_COLUMNS; eachCol++) {
             for (var eachRow = 0; eachRow < GRID_ROWS; eachRow++) {

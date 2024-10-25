@@ -57,7 +57,7 @@ function GridElement() {
             break;
         case VISITED: ///// updated to include hVal
             pieceName += ""+this.distance + " " + this.hVal.toFixed(1);
-            tileBGColor = '#bbbbbb80';
+            tileBGColor = '#bbbb0080';
             break;
         case PATH: ///// updated to include hVal
             pieceName += "" + this.distance + " " + this.hVal.toFixed(1);
