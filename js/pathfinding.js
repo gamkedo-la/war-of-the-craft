@@ -87,7 +87,7 @@ function startPath(toTile, pathFor){
 function PathfindingNextStep(whichPathfinder) {
   var tentativeDistance = 0;
 	var pathfinder = whichPathfinder;
-	var safetyBreak = 1000;
+	var safetyBreak = 50000;
 	var endTile = null;
 
       while(unvisitedList.length > 0 && safetyBreak-- > 0) { //// "while Q is not empty:"

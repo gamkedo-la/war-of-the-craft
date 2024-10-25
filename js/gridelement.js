@@ -19,7 +19,7 @@ function GridElement() {
     this.elementType = this.isNotPassible(elementTypeConsideration);
     var pathFinderX = whichPathFinder.x;
     var pathFinderY = whichPathFinder.y;
-    var playersLocation = pixelCoordToIndex(playerUnits[0].x,playerUnits[0].y);
+    var playersLocation = pixelCoordToIndex(pathFinderX,pathFinderY);
     if(this.tilIdx == playersLocation){
       this.elementType = SOURCE;
       this.setDistIfLess(0,null);
