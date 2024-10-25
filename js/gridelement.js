@@ -132,7 +132,7 @@ function GridElement() {
         myNeighbors.push( consideredNeighbor );
       }
     }
-    if(this.tilC < GRID_WIDTH-1) {
+    if(this.tilC < GRID_COLUMNS-1) {
       consideredNeighbor = GetGridAtCR(this.tilC+1,this.tilR);
       if(arrayContains(unvisitedList,consideredNeighbor)) {
         myNeighbors.push( consideredNeighbor );
@@ -144,7 +144,7 @@ function GridElement() {
         myNeighbors.push( consideredNeighbor );
       }
     }
-    if(this.tilR < GRID_HEIGHT-1) {
+    if(this.tilR < GRID_ROWS-1) {
       consideredNeighbor = GetGridAtCR(this.tilC,this.tilR+1);
       if(arrayContains(unvisitedList,consideredNeighbor)) {
         myNeighbors.push( consideredNeighbor );
