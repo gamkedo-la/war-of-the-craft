@@ -216,6 +216,13 @@ function recruitWarrior(){
   playerUnits[newUnit].focus = 'trees'; //change to patrol when available
 }
 
+function patrolArea(){
+  for (var i = 0; i < selectedUnits.length; i++) {
+    selectedUnits[i].actionSx = 15 * 1;
+    selectedUnits[i].showAction = true;
+  }
+}
+
 function checkButtonHandling(){
   if (peasantSelected && peasantMainMenu) {
     lumberButtonHovering = checkMouseInsideBox(lumberX, lumberY, pictureWidth, pictureHeight);

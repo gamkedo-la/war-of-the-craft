@@ -193,7 +193,18 @@ function unitClass(type) {
 
     this.move = function() {
         var wasTileIndex = pixelCoordToIndex(this.x,this.y);
-        if (this.myTarget != null) {
+        if(this.tilePath.length>0){
+            this.myTarget = null;
+            //step 1:  check if we are on the next tile, if so, chop 1 off front of list
+            if(this.tilePath[0] == wasTileIndex){
+                this.tilePath.shift(); //skip to next tile
+            }
+            //step 2:  walk in direction of next tile
+            if(this.tilePath.length>0){
+                this.gotoX = indexToPixelX(this.tilePath[0]);
+                this.gotoY = indexToPixelY(this.tilePath[0]);
+            }
+        } else if (this.myTarget != null) {
          //   console.log("Target: " + this.myTarget.type)
             if (this.myTarget.isDead) {
                 this.myTarget = null;

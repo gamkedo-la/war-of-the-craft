@@ -125,7 +125,7 @@ function drawEverything() {
   }
 
   //drawGridDebug();
-  //drawPathingFindingTiles();  
+  drawPathingFindingTiles();  
   
   for(var i=0;i<playerUnits.length;i++) {
     playerUnits[i].debugDrawPath();
