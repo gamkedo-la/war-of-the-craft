@@ -31,6 +31,16 @@ function drawBitmapCenteredAtLocation(graphic, sX,sY, width,height,atX, atY) {
   //img, sx, sy, swidth, sheight, x, y, width, height)
 };
 
+function drawBitmapCenteredAtLocationNoCameraCulling(graphic, sX,sY, width,height,atX, atY) {
+  var leftX = atX-(width/2);
+  var topY = atY-(height/2);
+  var rightX = leftX + width;
+  var bottomY = topY + height;
+  
+  canvasContext.drawImage(graphic, sX,sY, width, height, leftX, topY, width, height);
+  //img, sx, sy, swidth, sheight, x, y, width, height)
+};
+
 function drawBitmapAtLocation(graphic, sX,sY, width,height,atX, atY) {
   canvasContext.drawImage(graphic, sX,sY, width, height, atX, atY, width, height);
   //img, sx, sy, swidth, sheight, x, y, width, height)

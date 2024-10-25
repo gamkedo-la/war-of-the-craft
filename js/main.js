@@ -116,14 +116,6 @@ function drawEverything() {
     coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'yellow');
   }
 
-  if(showWallToBuild){
-    drawBitmapCenteredAtLocation(wallPic, 32*3, 0,32,32, mouseX+camera.x,mouseY+camera.y)
-  }
-
-  if(showFarmToBuild){
-    drawBitmapCenteredAtLocation(orcFarmPic, 0, 50,100,75, mouseX,mouseY)
-  }
-
   //drawGridDebug();
   drawPathingFindingTiles();  
   
@@ -132,6 +124,14 @@ function drawEverything() {
   }
 
   canvasContext.restore(); // unshift camera pos
+
+  if(showWallToBuild){
+    drawBitmapCenteredAtLocationNoCameraCulling(wallPic, 32*3, 0,32,32, mouseX,mouseY)
+  }
+
+  if(showFarmToBuild){
+    drawBitmapCenteredAtLocationNoCameraCulling(orcFarmPic, 0, 50,100,75, mouseX,mouseY)
+  }
 
   drawUserInterface();
   drawMinimap();
