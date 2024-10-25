@@ -70,7 +70,7 @@ function GridElement() {
 
     colorRect(tileLeftEdgeX, tileTopEdgeY, GRID_WIDTH, GRID_HEIGHT, tileBGColor);
     canvasContext.fillStyle = 'white';
-    canvasContext.fillText(pieceName, tileLeftEdgeX + GRID_WIDTH / 2, tileTopEdgeY + GRID_HEIGHT / 2);
+    //canvasContext.fillText(pieceName, tileLeftEdgeX + GRID_WIDTH / 2, tileTopEdgeY + GRID_HEIGHT / 2);
 
     /*if (tileOverIdx == this.tilIdx) { // mouseover?
         outlineRect(tileLeftEdgeX, tileTopEdgeY, GRID_WIDTH, GRID_HEIGHT, 'green');

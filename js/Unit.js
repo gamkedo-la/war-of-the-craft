@@ -126,8 +126,13 @@ function unitClass(type) {
     this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {
         var colNum = formationPos % formationDim;
         var rowNum = Math.floor(formationPos / formationDim);
-        this.gotoX = aroundX + colNum * UNIT_RANKS_SPACING;
-        this.gotoY = aroundY + rowNum * UNIT_RANKS_SPACING;
+        var targetX = aroundX + colNum * UNIT_RANKS_SPACING;
+        var targetY = aroundY + rowNum * UNIT_RANKS_SPACING;
+        // convert goal into pathfinding array
+        var goalTile = pixelCoordToIndex(targetX, targetY);
+        startPath(goalTile, this);
+        //startPath(100, playerUnits[0]);
+        console.log("Tile Path Length: " + this.tilePath.length)
     }
 
     this.chopTreeAction = function(){

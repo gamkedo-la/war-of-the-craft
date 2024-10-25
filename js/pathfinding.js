@@ -92,14 +92,14 @@ function PathfindingNextStep(whichPathfinder) {
         //// "u := vertex in Q with min dist[u]"
         var currentTile = null;
         var ctDistWithH; ///// a* with hVal heuristic added
-        console.log(unvisitedList.length);
+        //console.log(unvisitedList.length);
         for (var i=0; i < unvisitedList.length; i++) {
           var compareTile = unvisitedList[i];
         
           if(currentTile == null || compareTile.distance + compareTile.hVal < ctDistWithH) { /////
             currentTile = compareTile;
             ctDistWithH = currentTile.distance + currentTile.hVal; /////
-            console.log(`Current Tile: ${currentTile.name}, Distance: ${currentTile.distance}, Heuristic: ${currentTile.hVal}`);
+            //console.log(`Current Tile: ${currentTile.name}, Distance: ${currentTile.distance}, Heuristic: ${currentTile.hVal}`);
           }
         }
         
@@ -138,7 +138,7 @@ function PathfindingNextStep(whichPathfinder) {
 			  
 			  pathfinder.tilePath.unshift(endTile.idx);
 			  for (var pathIndex = endTile.distance; pathIndex>1; pathIndex--) {
-				//console.log(previousTile.name);
+				console.log(previousTile.name);
 				pathfinder.tilePath.unshift(previousTile.idx);
 				previousTile.setTile(PATH);  
 				previousTile = previousTile.cameFrom;  
