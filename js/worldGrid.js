@@ -36,8 +36,23 @@ const presetUnwalkableTiles = [400,401,500,501,600,601,700,49,50,51,65,66,67,68,
     9908,9907,9906
     ];
 
+function drawHills(cols, rows, startCol, startRow){  //change this to a class
+    var columns = cols;
+    var rows = rows;
+    var startX = startCol * 32;
+    var startY = startRow * 32;
+    var xPos = startX;
+    var yPos = startY;
+    for(var i = 0; i < rows; i++){
+        for (var ii = 0; i < columns; i++){
+            drawBitmapAtLocation(hillPic, xPos,yPos, 32,32,32,32*2)
+        }
+    }
+}
+
 function colRowToIndex (c,r){
     return c+r*GRID_COLUMNS;
+
 }
 
 function pixelCoordToIndex(x,y){

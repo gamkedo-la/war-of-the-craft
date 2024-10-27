@@ -4,6 +4,7 @@ var playerPic = document.createElement("img");
 var peasantPic = document.createElement("img");
 var warriorPic = document.createElement("img");
 var healthBarPic = document.createElement("img");
+var hillPic = document.createElement("img");
 var humanHQPic = document.createElement("img");
 var goblinHQPic = document.createElement("img");
 var orcFarmPic = document.createElement("img");
@@ -49,6 +50,7 @@ function loadImages() {
 			{varName: warriorPic, theFile: "warrior.png", sX: 0, sY: 0},
 			{varName: healthBarPic, theFile: "healthbar.png", sX: 0, sY: 0},
 			{varName: humanHQPic, theFile: "humanHQ.png", sX: 0, sY: 0},
+			{varName: hillPic, theFile: "hills.png", sX: 0, sY: 0},
 			{varName: orcFarmPic, theFile: "farms.png", sX: 0, sY:0},
 			{varName: orcBarrackPic, theFile: "OrcBarrack.png", sX: 0, sY:0},
 			{varName: goblinHQPic, theFile: "goblinHQ.png", sX: 0, sY: 0},
