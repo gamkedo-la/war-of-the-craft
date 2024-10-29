@@ -130,7 +130,7 @@ function drawEverything() {
   }
 
   if(showFarmToBuild){
-    drawBitmapCenteredAtLocationNoCameraCulling(orcFarmPic, 0, 50,100,75, mouseX,mouseY)
+    drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX,mouseY)
   }
 
   drawUserInterface();

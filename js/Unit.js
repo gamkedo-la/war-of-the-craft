@@ -198,7 +198,7 @@ function unitClass(type) {
 
     this.move = function() {
         var wasTileIndex = pixelCoordToIndex(this.x,this.y);
-        console.log("Tile Path Length: " + this.tilePath.length)
+      //  console.log("Tile Path Length: " + this.tilePath.length)
         if(this.tilePath.length>0){
             //this.myTarget = null;
             //step 1:  check if we are on the next tile, if so, chop 1 off front of list

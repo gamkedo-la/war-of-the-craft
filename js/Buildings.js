@@ -60,6 +60,7 @@ function buildingClass(building) {
                 this.snapNearestGridCenter();
                 break;
             case "peasant farm":
+                console.log("Farm Built");
                 this.x = mouseX;
                 this.y = mouseY;
                 this.height = 60;
@@ -69,6 +70,7 @@ function buildingClass(building) {
                 this.minimapDrawPriority = 2;
                 break;
             case "tower":
+                console.log("Tower Built");
                 this.x = mouseX;
                 this.y = mouseY;
                 this.height = 90;

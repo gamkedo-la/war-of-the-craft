@@ -51,7 +51,7 @@ function loadImages() {
 			{varName: warriorPic, theFile: "warrior.png", sX: 0, sY: 0},
 			{varName: healthBarPic, theFile: "healthbar.png", sX: 0, sY: 0},
 			{varName: humanHQPic, theFile: "humanHQ.png", sX: 0, sY: 0},
-			{varName: towerPic, theFile: "humanHQ.png", sX: 0, sY: 0},
+			{varName: towerPic, theFile: "tower.png", sX: 0, sY: 0},
 			{varName: hillPic, theFile: "hills.png", sX: 0, sY: 0},
 			{varName: orcFarmPic, theFile: "farms.png", sX: 0, sY:0},
 			{varName: orcBarrackPic, theFile: "OrcBarrack.png", sX: 0, sY:0},

@@ -179,6 +179,7 @@ function displayFarmToBuild(){
 
 function placeFarm() {
   if(buttonDelayTimer && mouseClicked){
+    console.log("UI Place Farm")
     populateTeam(buildingUnits,1,true, "peasant farm");
     farmReadyToBePlaced = false;
     buttonDelayTimer = false;
@@ -200,11 +201,13 @@ function displayTowerToBuild(){
     peasantConstructionMenu = false;
     towerReadyToBePlaced = true;
     peasantMainMenu = false;
+    console.log("Farm: " + farmReadyToBePlaced + " Tower: " + towerReadyToBePlaced)
   }
 }
 
 function placeTower() {
   if(buttonDelayTimer && mouseClicked){
+    console.log("UI Place Tower");
     populateTeam(buildingUnits,1,true, "tower");
     towerReadyToBePlaced = false;
     buttonDelayTimer = false;
@@ -272,21 +275,12 @@ function checkButtonHandling(){
   if (peasantSelected && peasantConstructionMenu) {
     buildWallHovering = checkMouseInsideBox(wallX, wallY, pictureWidth, pictureHeight);
     farmBuildHovering = checkMouseInsideBox(farmBuildX, farmBuildY, pictureWidth, pictureHeight);
+    towerButtonHovering = checkMouseInsideBox(towerX, towerY, pictureWidth, pictureHeight);
     peasantReturnMenuHovering = checkMouseInsideBox(peasantMainMenuX, peasantMainMenuY, pictureWidth, pictureHeight);
 
     handleButtonClick(mouseClicked, buildWallHovering, buildWallSelected, showWall);
-    if(buildWallHovering){
-      colorText("Wood: 10", wallX+70, wallY+30, "white", "14px Arial");
-    } 
-    handleButtonClick(mouseClicked, farmBuildX, farmBuildY, displayFarmToBuild);
-    console.log(farmBuildHovering)
-    if(farmBuildHovering){
-      colorText("Wood: 300", farmBuildX+70, farmBuildY+30, "white", "14px Arial");
-    } 
+    handleButtonClick(mouseClicked, farmBuildX, farmBuildY, displayFarmToBuild); 
     handleButtonClick(mouseClicked, peasantReturnMenuHovering, peasantReturnMenuSelected, returnToPeasantMainMenu);
-    if(towerButtonHovering){
-      colorText("Wood: 300", towerX+70, towerY+30, "white", "14px Arial");
-    }
     handleButtonClick(mouseClicked, towerButtonHovering, towerButtonSelected, displayTowerToBuild);
   }
 
@@ -363,8 +357,17 @@ function drawUserInterface() {
     colorText("OPTIONS", 9, 116, "Yellow", "14px Arial");
 
     drawButton(wallX, wallY, userInterfacePic, 420, "BUILD", "WALL", buildWallHovering, buildWallSelected);
+    if(buildWallHovering){
+      colorText("Wood: 10", wallX+70, wallY+30, "white", "14px Arial");
+    } 
     drawButton(farmBuildX, farmBuildY, userInterfacePic, 480, "BUILD", "FARM", farmBuildHovering, farmBuildSelected);
+    if(farmBuildHovering){
+      colorText("Wood: 300", farmBuildX+70, farmBuildY+30, "white", "14px Arial");
+    }
     drawButton(towerX, towerY, userInterfacePic, 540, "BUILD", "TOWER", towerButtonHovering, towerButtonSelected);
+    if(towerButtonHovering){
+      colorText("Wood: 300", towerX+70, towerY+30, "white", "14px Arial");
+    }
     drawButton(peasantMainMenuX, peasantMainMenuY, userInterfacePic, 540, "BACK TO", "MAIN MENU", peasantReturnMenuHovering, peasantReturnMenuSelected);
   }
 
