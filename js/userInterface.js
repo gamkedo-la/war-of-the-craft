@@ -38,7 +38,6 @@ function checkMouseInsideBox(xPos, yPos, width, height) {
 
 // Handle button click actions
 function handleButtonClick(mouseClicked, buttonHovering, buttonSelected, actionCallback) {  
- // console.log(buttonHovering, actionCallback)
   if (mouseClicked && buttonHovering) {
         buttonSelected = true;
         uIButtonClicked = true;
@@ -165,16 +164,14 @@ function placeWall(){
 }
 
 function displayFarmToBuild(){
-  if(buttonDelayTimer){
-    showFarmToBuild = true;
-    buttonDelayTicks = 10;
-    startDelayTimer = true;
-    buttonDelayTimer = false;
-    farmBuildSelected = false;
-    peasantConstructionMenu = false;
-    farmReadyToBePlaced = true;
-    peasantMainMenu = false;
-  }
+  showFarmToBuild = true;
+  buttonDelayTicks = 10;
+  startDelayTimer = true;
+  buttonDelayTimer = false;
+  farmBuildSelected = false;
+  peasantConstructionMenu = false;
+  farmReadyToBePlaced = true;
+  peasantMainMenu = false;
 }
 
 function placeFarm() {
@@ -192,6 +189,7 @@ function placeFarm() {
 }
 
 function displayTowerToBuild(){
+  console.log("Dispay Tower")
   if(buttonDelayTimer){
     showTowerToBuild = true;
     buttonDelayTicks = 10;
@@ -279,9 +277,10 @@ function checkButtonHandling(){
     peasantReturnMenuHovering = checkMouseInsideBox(peasantMainMenuX, peasantMainMenuY, pictureWidth, pictureHeight);
 
     handleButtonClick(mouseClicked, buildWallHovering, buildWallSelected, showWall);
-    handleButtonClick(mouseClicked, farmBuildX, farmBuildY, displayFarmToBuild); 
+    handleButtonClick(mouseClicked, farmBuildHovering, farmBuildSelected, displayFarmToBuild); 
     handleButtonClick(mouseClicked, peasantReturnMenuHovering, peasantReturnMenuSelected, returnToPeasantMainMenu);
     handleButtonClick(mouseClicked, towerButtonHovering, towerButtonSelected, displayTowerToBuild);
+    console.log(buildWallHovering,farmBuildHovering, towerButtonHovering, peasantReturnMenuHovering)
   }
 
   if(wallReadyToBePlace){

@@ -19,6 +19,8 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
       spawnUnit = new buildingClass("goblin hq");
     } else if (type == "peasant farm"){
       spawnUnit = new buildingClass("peasant farm");
+    } else if (type == "tower"){
+      spawnUnit = new buildingClass("tower");
     } else if (type == "orc farm"){
       spawnUnit = new buildingClass("orc farm");
     } else if (type == "trees"){

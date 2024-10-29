@@ -61,8 +61,8 @@ function buildingClass(building) {
                 break;
             case "peasant farm":
                 console.log("Farm Built");
-                this.x = mouseX;
-                this.y = mouseY;
+                this.x = mouseX + camera.x;
+                this.y = mouseY + camera.y;
                 this.height = 60;
                 this.sy = 50;
                 this.pic = orcFarmPic;
@@ -71,8 +71,8 @@ function buildingClass(building) {
                 break;
             case "tower":
                 console.log("Tower Built");
-                this.x = mouseX;
-                this.y = mouseY;
+                this.x = mouseX + camera.x;
+                this.y = mouseY + camera.y;
                 this.height = 90;
                 this.width = 100;
                 this.sy = 0;
