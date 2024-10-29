@@ -10,6 +10,7 @@ var goblinHQPic = document.createElement("img");
 var orcFarmPic = document.createElement("img");
 var orcBarrackPic = document.createElement("img");
 var orcPic = document.createElement("img");
+var towerPic = document.createElement("img");
 var treePic = document.createElement("img");
 var minePic = document.createElement("img");
 var userInterfacePic = document.createElement("img");
@@ -50,6 +51,7 @@ function loadImages() {
 			{varName: warriorPic, theFile: "warrior.png", sX: 0, sY: 0},
 			{varName: healthBarPic, theFile: "healthbar.png", sX: 0, sY: 0},
 			{varName: humanHQPic, theFile: "humanHQ.png", sX: 0, sY: 0},
+			{varName: towerPic, theFile: "humanHQ.png", sX: 0, sY: 0},
 			{varName: hillPic, theFile: "hills.png", sX: 0, sY: 0},
 			{varName: orcFarmPic, theFile: "farms.png", sX: 0, sY:0},
 			{varName: orcBarrackPic, theFile: "OrcBarrack.png", sX: 0, sY:0},

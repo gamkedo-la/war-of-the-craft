@@ -52,7 +52,6 @@ function drawHills(cols, rows, startCol, startRow){  //change this to a class
 
 function colRowToIndex (c,r){
     return c+r*GRID_COLUMNS;
-
 }
 
 function pixelCoordToIndex(x,y){

@@ -5,8 +5,9 @@ var goldX = 10, goldY = 380;
 var farmX = 10, farmY = 480;
 var wallX = 10, wallY = 120;
 var farmBuildX = 10, farmBuildY = 200;
-var peasantMainMenuX = 10, peasantMainMenuY = 300;
+var peasantMainMenuX = 10, peasantMainMenuY = 400;
 var pictureWidth = 60, pictureHeight = 60;
+var towerX = 10, towerY = 300;
 
 var peasantSelected = false, warriorSelected = false;
 var peasantConstructionMenu = false, peasantMainMenu = true;
@@ -18,6 +19,7 @@ var goldButtonHovering = false, goldButtonSelected = false;
 var buildWallHovering = false, buildWallSelected = false;
 var farmBuildHovering = false, farmBuildSelected = false;
 var farmButtonHovering = false, farmButtonSelected = false, farmReadyToBePlaced = false;
+var towerButtonHovering = false, towerButtonSelected = false, towerReadyToBePlaced = false;
 var peasantReturnMenuHovering = false, peasantReturnMenuSelected = false;
 
 var headQuartersUI = false;
@@ -160,7 +162,6 @@ function placeWall(){
     selectedUnits = [];
     checkForPlayersSelected();
   }
-
 }
 
 function displayFarmToBuild(){
@@ -188,6 +189,33 @@ function placeFarm() {
     assignmentTotals.farmsBuilt++; // add to stats totals. FIXME: is this the best place for this?
   }
 }
+
+function displayTowerToBuild(){
+  if(buttonDelayTimer){
+    showTowerToBuild = true;
+    buttonDelayTicks = 10;
+    startDelayTimer = true;
+    buttonDelayTimer = false;
+    towerBuildSelected = false;
+    peasantConstructionMenu = false;
+    towerReadyToBePlaced = true;
+    peasantMainMenu = false;
+  }
+}
+
+function placeTower() {
+  if(buttonDelayTimer && mouseClicked){
+    populateTeam(buildingUnits,1,true, "tower");
+    towerReadyToBePlaced = false;
+    buttonDelayTimer = false;
+    showTowerToBuild = false;
+    peasantMainMenu = true;
+    selectedUnits = [];
+    checkForPlayersSelected();
+    assignmentTotals.towersBuilt++; // add to stats totals. FIXME: is this the best place for this?
+  }
+}
+
 
 function returnToPeasantMainMenu(){
   peasantConstructionMenu = false;
@@ -253,9 +281,13 @@ function checkButtonHandling(){
     handleButtonClick(mouseClicked, farmBuildX, farmBuildY, displayFarmToBuild);
     console.log(farmBuildHovering)
     if(farmBuildHovering){
-      colorText("Wood: 300", farmBuildX+70, farmBuildY+30, "white", "1000px Arial");
+      colorText("Wood: 300", farmBuildX+70, farmBuildY+30, "white", "14px Arial");
     } 
     handleButtonClick(mouseClicked, peasantReturnMenuHovering, peasantReturnMenuSelected, returnToPeasantMainMenu);
+    if(towerButtonHovering){
+      colorText("Wood: 300", towerX+70, towerY+30, "white", "14px Arial");
+    }
+    handleButtonClick(mouseClicked, towerButtonHovering, towerButtonSelected, displayTowerToBuild);
   }
 
   if(wallReadyToBePlace){
@@ -264,6 +296,10 @@ function checkButtonHandling(){
 
   if(farmReadyToBePlaced){
     placeFarm();
+  }
+
+  if(towerReadyToBePlaced){
+    placeTower();
   }
 
   if(headQuartersUI){
@@ -328,6 +364,7 @@ function drawUserInterface() {
 
     drawButton(wallX, wallY, userInterfacePic, 420, "BUILD", "WALL", buildWallHovering, buildWallSelected);
     drawButton(farmBuildX, farmBuildY, userInterfacePic, 480, "BUILD", "FARM", farmBuildHovering, farmBuildSelected);
+    drawButton(towerX, towerY, userInterfacePic, 540, "BUILD", "TOWER", towerButtonHovering, towerButtonSelected);
     drawButton(peasantMainMenuX, peasantMainMenuY, userInterfacePic, 540, "BACK TO", "MAIN MENU", peasantReturnMenuHovering, peasantReturnMenuSelected);
   }
 

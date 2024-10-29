@@ -68,6 +68,16 @@ function buildingClass(building) {
                 this.health = 10;
                 this.minimapDrawPriority = 2;
                 break;
+            case "tower":
+                this.x = mouseX;
+                this.y = mouseY;
+                this.height = 90;
+                this.width = 100;
+                this.sy = 0;
+                this.pic = towerPic;
+                this.health = 10;
+                this.minimapDrawPriority = 2;
+                break;
             //Computer buildings
             case "goblin hq":
                 adjustForComputer();
