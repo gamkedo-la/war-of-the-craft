@@ -135,8 +135,12 @@ function drawEverything() {
 
   if(showTowerToBuild){
     console.log("Show Tower to Build")
-    drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX+camera.x, mouseY+camera.y);
+    drawBitmap
+    
+    CenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX+camera.x, mouseY+camera.y);
   }
+
+  drawFogOfWar(); 
 
   canvasContext.restore(); // unshift camera pos
 
