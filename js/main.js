@@ -3,9 +3,9 @@ var canvas, canvasContext;
 const PLAYER_PEASANT_START_UNITS = 1;
 const PLAYER_WARRIOR_START_UNITS = 0;
 const PLAYER_START_BUILDING = 1;
-const ENEMY_GOBLIN_START_UNITS = 0;
+const ENEMY_GOBLIN_START_UNITS = 1;
 const ENEMY_ORC_START_UNITS = 0
-const ENEMY_START_BUILDING = 0;
+const ENEMY_START_BUILDING = 1;
 const ENEMY_START_FARMS = 0;
 const ENEMY_START_ORC_BARRACK = 0;
 const PLAYER_START_FARMS = 0;
@@ -130,14 +130,12 @@ function drawEverything() {
 
   if(showFarmToBuild){
     console.log("Show Farm to Build")
-    drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX+camera.x, mouseY+camera.y);
+    drawBitmapCenteredAtLocationNoCameraCulling(orcFarmPic, 0, 50, 90,100, mouseX+camera.x, mouseY+camera.y);
   }
 
   if(showTowerToBuild){
     console.log("Show Tower to Build")
-    drawBitmap
-    
-    CenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX+camera.x, mouseY+camera.y);
+    drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX+camera.x, mouseY+camera.y);
   }
 
   drawFogOfWar(); 
