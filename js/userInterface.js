@@ -22,6 +22,8 @@ var farmButtonHovering = false, farmButtonSelected = false, farmReadyToBePlaced 
 var towerButtonHovering = false, towerButtonSelected = false, towerReadyToBePlaced = false;
 var peasantReturnMenuHovering = false, peasantReturnMenuSelected = false;
 
+var showTowerToBuild = false, showWallToBuild = false, showFarmToBuild = false;
+
 var headQuartersUI = false;
 
 var buttonDelayTicks = 1, buttonDelayTimer = false, startDelayTimer = false;
@@ -217,7 +219,6 @@ function placeTower() {
   }
 }
 
-
 function returnToPeasantMainMenu(){
   peasantConstructionMenu = false;
   peasantMainMenu = true;
@@ -363,7 +364,7 @@ function drawUserInterface() {
     if(farmBuildHovering){
       colorText("Wood: 300", farmBuildX+70, farmBuildY+30, "white", "14px Arial");
     }
-    drawButton(towerX, towerY, userInterfacePic, 540, "BUILD", "TOWER", towerButtonHovering, towerButtonSelected);
+    drawButton(towerX, towerY, userInterfacePic, 720, "BUILD", "TOWER", towerButtonHovering, towerButtonSelected);
     if(towerButtonHovering){
       colorText("Wood: 300", towerX+70, towerY+30, "white", "14px Arial");
     }

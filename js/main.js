@@ -123,15 +123,23 @@ function drawEverything() {
     playerUnits[i].debugDrawPath();
   }
 
-  canvasContext.restore(); // unshift camera pos
-
   if(showWallToBuild){
-    drawBitmapCenteredAtLocationNoCameraCulling(wallPic, 32*3, 0,32,32, mouseX,mouseY)
+    console.log("Show Wall To Build")
+    drawBitmapCenteredAtLocationNoCameraCulling(wallPic, 32*3, 0,32,32, mouseX+camera.x,mouseY+camera.y);
   }
 
   if(showFarmToBuild){
-    drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX,mouseY)
+    console.log("Show Farm to Build")
+    drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX+camera.x, mouseY+camera.y);
   }
+
+  if(showTowerToBuild){
+    console.log("Show Tower to Build")
+    drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX+camera.x, mouseY+camera.y);
+  }
+
+  canvasContext.restore(); // unshift camera pos
+
 
   drawUserInterface();
   drawMinimap();
