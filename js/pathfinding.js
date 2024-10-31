@@ -7,8 +7,8 @@ function SetupPathfindingGridData(whichPathfinder) {
     var endC = -1;
 
     unvisitedList = [];
-	var pathfinder = whichPathfinder;
-  console.log("Pathfinder: " + pathfinder)
+	  var pathfinder = whichPathfinder;
+    //console.log("Pathfinder: " + pathfinder)
 
 
     //code below isn't currently hooked to anything.  Do we need it?
@@ -140,7 +140,7 @@ function PathfindingNextStep(whichPathfinder) {
 			  
 			  pathfinder.tilePath.unshift(endTile.idx);
 			  for (var pathIndex = endTile.distance; pathIndex>1; pathIndex--) {
-				console.log(previousTile.name);
+			//	console.log(previousTile.name);
 				pathfinder.tilePath.unshift(previousTile.idx);
 				previousTile.setTile(PATH);  
 				previousTile = previousTile.cameFrom;  

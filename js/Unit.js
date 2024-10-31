@@ -273,7 +273,7 @@ function unitClass(type) {
                 this.gotoX = this.myTarget.x;
                 this.gotoY = this.myTarget.y;
             } else {
-                console.log("Cool Down: " + this.attackCoolDown)
+           //   console.log("Cool Down: " + this.attackCoolDown)
                 if(this.attackCoolDown <= 0) {
                     if (this.myTarget.type == "mines" || this.myTarget.type == "trees" || this.myTarget.type == "peasant farm") {
                         this.collectResourse(this.myTarget.type, 600);//maybe we can make a variable for this.myTarget.attackCooldown
