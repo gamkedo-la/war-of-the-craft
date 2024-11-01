@@ -143,9 +143,8 @@ function drawEverything() {
     drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX+camera.x, mouseY+camera.y);
   }
 
-  //drawFogOfWar();   //Turning off for now.  Fog of War when working eliminates the canvas to the background layer.
-  fowCanvasContext.fillStyle = "red";
-  fowCanvasContext.fillRect(10, 10, fowCanvas.width-20, fowCanvas.height-20);
+  drawFogOfWar();   //Turning off for now.  Fog of War when working eliminates the canvas to the background layer.
+
   canvasContext.globalAlpha = 0.3;
   canvasContext.drawImage(fowCanvas,0,0); 
   canvasContext.globalAlpha = 1.0;
