@@ -1,6 +1,12 @@
 function drawFogOfWar() {
     var fogColor = 'rgba(0, 0, 0, 0.9)';
     var revealRadius = 200;
+
+    for(var i=0;i<allUnits.length;i++) {
+        if(allUnits[i].type != "trees"){
+            allUnits[i].render = false;
+        }
+    }
     
  //   fowCanvasContext.fillStyle = fogColor;
  //   fowCanvasContext.fillRect(0, 0, WORLD_SIZE_PIXELS_W, WORLD_SIZE_PIXELS_H);
@@ -25,6 +31,12 @@ function drawFogOfWar() {
 function revealArea(x, y, radius) {
     fowCanvasContext.clearRect(x-radius,y-radius,radius*2,radius*2);
     unexploredCanvasContext.clearRect(x-radius,y-radius,radius*2,radius*2);
+    var nearUnits = returnUnitsInNearbyPixels(x,y,radius);
+    for(var i=0;i<nearUnits.length;i++) {
+        nearUnits[i].render = true;
+    }
+
+
    /* fowCanvasContext.globalCompositeOperation = 'destination-out';
 
     var gradient = fowCanvasContext.createRadialGradient(x, y, radius * 0.3, x, y, radius);

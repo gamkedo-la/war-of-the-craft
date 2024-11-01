@@ -162,6 +162,14 @@ function returnUnitsInNearbyTiles(col,row, tileDist){
     return unitList;
 }
 
+function returnUnitsInNearbyPixels(x,y,pixDist){
+    var c = Math.floor(x/GRID_WIDTH);
+    var r = Math.floor(y/GRID_HEIGHT);
+    var tileDist = Math.floor(pixDist/GRID_WIDTH); //note:  assumes GRID_WIDTH and GRID_HEIGHT are equals
+    
+    return returnUnitsInNearbyTiles(c,r,tileDist);
+}
+
 function drawGridDebug(){
     if(showGrid){
         for(var i = 0; i < GRID_COLUMNS; i++){
