@@ -1,5 +1,5 @@
 // save the canvas for dimensions, and its 2d context for drawing to it
-var canvas, canvasContext;
+var canvas, canvasContext, fowCanvas, fowCanvasContext, unexploredCanvas, unexploredCanvasContext;
 const PLAYER_PEASANT_START_UNITS = 1;
 const PLAYER_WARRIOR_START_UNITS = 0;
 const PLAYER_START_BUILDING = 1;
@@ -31,6 +31,14 @@ window.onload = function() {
   fowCanvas.width = WORLD_SIZE_PIXELS_W;
   fowCanvas.height = WORLD_SIZE_PIXELS_H;
   fowCanvasContext = fowCanvas.getContext('2d');
+
+  unexploredCanvas = document.createElement("canvas");
+  unexploredCanvas.width = WORLD_SIZE_PIXELS_W;
+  unexploredCanvas.height = WORLD_SIZE_PIXELS_H;
+  unexploredCanvasContext = unexploredCanvas.getContext('2d');
+
+  unexploredCanvasContext.fillStyle = "black";
+  unexploredCanvasContext.fillRect(0, 0, unexploredCanvas.width, unexploredCanvas.height);
 
   loadImages();
     
@@ -148,6 +156,8 @@ function drawEverything() {
   canvasContext.globalAlpha = 0.3;
   canvasContext.drawImage(fowCanvas,0,0); 
   canvasContext.globalAlpha = 1.0;
+
+  canvasContext.drawImage(unexploredCanvas,0,0); 
 
   canvasContext.restore(); // unshift camera pos
 

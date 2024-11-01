@@ -24,6 +24,7 @@ function drawFogOfWar() {
 
 function revealArea(x, y, radius) {
     fowCanvasContext.clearRect(x-radius,y-radius,radius*2,radius*2);
+    unexploredCanvasContext.clearRect(x-radius,y-radius,radius*2,radius*2);
    /* fowCanvasContext.globalCompositeOperation = 'destination-out';
 
     var gradient = fowCanvasContext.createRadialGradient(x, y, radius * 0.3, x, y, radius);
@@ -39,18 +40,4 @@ function revealArea(x, y, radius) {
     fowCanvasContext.beginPath();
     fowCanvasContext.arc(x, y, radius, 0, Math.PI * 2);
     fowCanvasContext.fill(); */
-}
-
-function test(){
-    fowCanvasContext.fillStyle = 'red';
-    fowCanvasContext.fillRect(10, 10, 100, 100);
-
-// Set the composite operation to 'destination-out'
-fowCanvasContext.globalCompositeOperation = 'destination-out';
-
-// Draw a blue circle
-fowCanvasContext.fillStyle = 'blue';
-fowCanvasContext.beginPath();
-    canvasContext.arc(100, 100, 50, 0, 2 * Math.PI);
-    fowCanvasContext.fill();
 }
