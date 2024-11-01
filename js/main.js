@@ -25,8 +25,11 @@ var currentIntervalId;
 
 window.onload = function() {
   canvas = document.getElementById('gameCanvas');
-  canvasContext = canvas.getContext('2d');
-  fowCanvas = document.getElementById('fowCanvas');
+  canvasContext = canvas.getContext('2d');    
+  
+  fowCanvas = document.createElement("canvas");
+  fowCanvas.width = WORLD_SIZE_PIXELS_W;
+  fowCanvas.height = WORLD_SIZE_PIXELS_H;
   fowCanvasContext = fowCanvas.getContext('2d');
 
   loadImages();
@@ -140,8 +143,13 @@ function drawEverything() {
     drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX+camera.x, mouseY+camera.y);
   }
 
-  drawFogOfWar();   //Turning off for now.  Fog of War when working eliminates the canvas to the background layer.
-  
+  //drawFogOfWar();   //Turning off for now.  Fog of War when working eliminates the canvas to the background layer.
+  fowCanvasContext.fillStyle = "red";
+  fowCanvasContext.fillRect(10, 10, fowCanvas.width-20, fowCanvas.height-20);
+  canvasContext.globalAlpha = 0.3;
+  canvasContext.drawImage(fowCanvas,0,0); 
+  canvasContext.globalAlpha = 1.0;
+
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
