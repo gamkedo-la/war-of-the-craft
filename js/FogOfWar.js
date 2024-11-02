@@ -3,7 +3,9 @@ function drawFogOfWar() {
     var revealRadius = 200;
 
     for(var i=0;i<allUnits.length;i++) {
-        if(allUnits[i].type != "trees"){
+        if(allUnits[i].type != "trees" &&
+           allUnits[i].type != "mines" 
+        ){
             allUnits[i].render = false;
         }
     }
@@ -29,27 +31,30 @@ function drawFogOfWar() {
 }
 
 function revealArea(x, y, radius) {
-    fowCanvasContext.clearRect(x-radius,y-radius,radius*2,radius*2);
-    unexploredCanvasContext.clearRect(x-radius,y-radius,radius*2,radius*2);
-    var nearUnits = returnUnitsInNearbyPixels(x,y,radius);
-    for(var i=0;i<nearUnits.length;i++) {
-        nearUnits[i].render = true;
-    }
+    var gradient = unexploredCanvasContext.createRadialGradient(x, y, 0, x, y, radius);
+    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');  
+    gradient.addColorStop(.6, 'rgba(255, 255, 255, .9)');  
+    gradient.addColorStop(.8, 'rgba(255, 255, 255, .8)');
+    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');  
 
-
-   /* fowCanvasContext.globalCompositeOperation = 'destination-out';
-
-    var gradient = fowCanvasContext.createRadialGradient(x, y, radius * 0.3, x, y, radius);
-   
-   
-    gradient.addColorStop(0, 'rgba(0, 0, 0, 1.0)'); 
-    gradient.addColorStop(0.9, 'rgba(0, 0, 0, 0.5)'); 
-    gradient.addColorStop(1, 'rgba(0, 0, 0, 0.5)');   
-
-    fowCanvasContext.fillStyle = 'rgba(0, 0, 0, 0.0)';
-
-    fowCanvasContext.fillStyle = gradient;
+    fowCanvasContext.globalCompositeOperation = 'destination-out';
     fowCanvasContext.beginPath();
     fowCanvasContext.arc(x, y, radius, 0, Math.PI * 2);
-    fowCanvasContext.fill(); */
+    fowCanvasContext.fillStyle = gradient;
+    fowCanvasContext.fill();
+
+    unexploredCanvasContext.globalCompositeOperation = 'destination-out';
+    unexploredCanvasContext.beginPath();
+    unexploredCanvasContext.arc(x, y, radius, 0, Math.PI * 2);
+    unexploredCanvasContext.fillStyle = gradient;
+    unexploredCanvasContext.fill();
+
+    fowCanvasContext.globalCompositeOperation = 'source-over';
+    unexploredCanvasContext.globalCompositeOperation = 'source-over';
+
+
+    var nearUnits = returnUnitsInNearbyPixels(x, y, radius);
+    for (var i = 0; i < nearUnits.length; i++) {
+        nearUnits[i].render = true;
+    }
 }
