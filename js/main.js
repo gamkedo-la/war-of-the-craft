@@ -3,7 +3,7 @@ var canvas, canvasContext, fowCanvas, fowCanvasContext, unexploredCanvas, unexpl
 const PLAYER_PEASANT_START_UNITS = 1;
 const PLAYER_WARRIOR_START_UNITS = 0;
 const PLAYER_START_BUILDING = 1;
-const ENEMY_GOBLIN_START_UNITS = 2;
+const ENEMY_GOBLIN_START_UNITS = 0;
 const ENEMY_ORC_START_UNITS = 0
 const ENEMY_START_BUILDING = 1;
 const ENEMY_START_FARMS = 0;

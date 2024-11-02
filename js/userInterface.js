@@ -201,7 +201,6 @@ function placeFarm() {
 }
 
 function displayTowerToBuild(){
-  console.log("Dispay Tower")
   if(buttonDelayTimer){
     showTowerToBuild = true;
     buttonDelayTicks = 10;
@@ -211,7 +210,6 @@ function displayTowerToBuild(){
     peasantConstructionMenu = false;
     towerReadyToBePlaced = true;
     peasantMainMenu = false;
-    console.log("Farm: " + farmReadyToBePlaced + " Tower: " + towerReadyToBePlaced)
   }
 }
 
@@ -300,7 +298,7 @@ function checkButtonHandling(){
     handleButtonClick(mouseClicked, farmBuildHovering, farmBuildSelected, displayFarmToBuild); 
     handleButtonClick(mouseClicked, peasantReturnMenuHovering, peasantReturnMenuSelected, returnToPeasantMainMenu);
     handleButtonClick(mouseClicked, towerButtonHovering, towerButtonSelected, displayTowerToBuild);
-    console.log(buildWallHovering,farmBuildHovering, towerButtonHovering, peasantReturnMenuHovering)
+   // console.log(buildWallHovering,farmBuildHovering, towerButtonHovering, peasantReturnMenuHovering)
   }
 
   if(wallReadyToBePlace){

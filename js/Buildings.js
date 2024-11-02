@@ -39,7 +39,8 @@ function buildingClass(building) {
         this.unitColor = 'White';
         this.minimapDrawPriority = 1;
         this.totalBuildStages = 3;
-        this.totalTime;
+        this.progressSX = 0;
+        this.totalTime = this.ticksPerBuildingTime * (this.totalBuildStages + 1);
     
         const adjustForComputer = () => {
             this.x = WORLD_SIZE_PIXELS_W - this.x - 900;
@@ -136,20 +137,27 @@ function buildingClass(building) {
         return deltaX*deltaX + deltaY*deltaY;
     } 
 
-    this.startToBuild = function(){
+
+
+    this.startToBuild = function() {
         this.buildingTime--;
-        if(this.buildingTime <= 0){
+        console.log(this.buildingTime)
+        //var advanceProgressSX = this.ticksPerBuildingTime/3
+        /*if( this.buildingTime == advanceProgressSX*2 || 
+            this.buildingTime == advanceProgressSX ){
+            this.progressSX = this.progressSX + 50;
+        } */
+
+        if (this.buildingTime <= 0) {
             this.buildingTime = this.ticksPerBuildingTime;
             this.buildingStage++;
-            if(this.buildingStage == this.totalBuildStages){
+            this.progressSX = this.progressSX + 50;
+            
+            if (this.buildingStage >= this.totalBuildStages) {
                 this.buildingInProgress = false;
             }
         }
-        this.currentTime = (this.buildingStage*this.ticksPerBuildingTime)+(this.ticksPerBuildingTime - this.buildingTime);
-        this.totalTime = this.ticksPerBuildingTime * (this.totalBuildStages+1)
-        this.percentComplete = (this.currentTime/this.totalTime).toFixed(2);
-        console.log("Current: " + this.percentComplete);
-    }
+    };
 
     this.move = function(){
         if(this.buildingInProgress){
@@ -161,18 +169,12 @@ function buildingClass(building) {
         
     }
 
-    this.drawProgressBar = function(){
-        var fillWidth = this.width * this.percentComplete;
-        colorRect(this.x-this.width/2, this.y-this.height/2 - 10, this.width, 10, "black")
-        colorRect(this.x-this.width/2, this.y-this.height/2 - 10, fillWidth, 10, "yellow") 
-    }
-
     this.draw = function(){
         this.sY = this.height * this.buildingStage;
         drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY,this.width,this.height, this.x,this.y);
-        if(this.buildingInProgress){
-            this.drawProgressBar();
-        }
+      /*  if(this.buildingInProgress){
+          drawBitmapCenteredAtLocation(healthBarPic, this.progressSX, 9,50,13, this.x,this.y);
+        } */
     }
 
     this.drawOnMinimap = function(x,y){

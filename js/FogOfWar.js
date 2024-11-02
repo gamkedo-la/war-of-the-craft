@@ -10,13 +10,9 @@ function drawFogOfWar() {
         }
     }
     
- //   fowCanvasContext.fillStyle = fogColor;
- //   fowCanvasContext.fillRect(0, 0, WORLD_SIZE_PIXELS_W, WORLD_SIZE_PIXELS_H);
     fowCanvasContext.fillStyle = "black";
     fowCanvasContext.fillRect(0, 0, fowCanvas.width, fowCanvas.height);
 
-    //fowCanvasContext.fillRect(0, 0, 300, 300);
-    
     // Reveal areas around each player unit
     for (var i = 0; i < playerUnits.length; i++) {
         revealArea(playerUnits[i].x, playerUnits[i].y, revealRadius);
