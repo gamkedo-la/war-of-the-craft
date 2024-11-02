@@ -132,7 +132,7 @@ function unitClass(type) {
         var goalTile = pixelCoordToIndex(targetX, targetY);
         startPath(goalTile, this);
         //startPath(100, playerUnits[0]);
-        console.log("Tile Path Length: " + this.tilePath.length)
+ //       console.log("Tile Path Length: " + this.tilePath.length)
     }
 
     this.chopTreeAction = function(){
@@ -165,13 +165,12 @@ function unitClass(type) {
     this.returntoHQAction = function() {
         var nearestPlayerHQFound = findClosestUnitInRange(this.x, this.y, 1000000000, buildingUnits, buildingUnits);
         this.myTarget = nearestPlayerHQFound;
-        console.log("Type: " + this.myTarget.type)
+   //     console.log("Type: " + this.myTarget.type)
         this.actionSx = 15*5;
         this.showAction = true;
         this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
-        console.log("HQ movement")
+        //console.log("HQ movement")
     }
-
 
     this.isInBox = function(x1, y1, x2, y2) {
         var leftX = Math.min(x1, x2);

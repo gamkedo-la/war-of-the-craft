@@ -139,17 +139,14 @@ function drawEverything() {
   }
 
   if(showWallToBuild){
-    console.log("Show Wall To Build")
     drawBitmapCenteredAtLocationNoCameraCulling(wallPic, 32*3, 0,32,32, mouseX+camera.x,mouseY+camera.y);
   }
 
   if(showFarmToBuild){
-    console.log("Show Farm to Build")
-    drawBitmapCenteredAtLocationNoCameraCulling(orcFarmPic, 0, 180, 60,100, mouseX+camera.x, mouseY+camera.y);
+    drawBitmapCenteredAtLocationNoCameraCulling(orcFarmPic, 0, 180, 100, 60, mouseX+camera.x, mouseY+camera.y);
   }
 
   if(showTowerToBuild){
-    console.log("Show Tower to Build")
     drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 270,100,90, mouseX+camera.x, mouseY+camera.y);
   }
 

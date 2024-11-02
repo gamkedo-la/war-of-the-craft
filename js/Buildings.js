@@ -32,11 +32,14 @@ function buildingClass(building) {
         this.sX = 0;
         this.sY = 0;
         this.buildingStage = 0;
-        this.buildingTime = 1000;
+        this.ticksPerBuildingTime = 1000;
+        this.buildingTime = this.ticksPerBuildingTime;
         this.buildingInProgress = false;
         this.health = 50;
         this.unitColor = 'White';
         this.minimapDrawPriority = 1;
+        this.totalBuildStages = 3;
+        this.totalTime;
     
         const adjustForComputer = () => {
             this.x = WORLD_SIZE_PIXELS_W - this.x - 900;
@@ -136,12 +139,16 @@ function buildingClass(building) {
     this.startToBuild = function(){
         this.buildingTime--;
         if(this.buildingTime <= 0){
-            this.buildingTime = 1000;
+            this.buildingTime = this.ticksPerBuildingTime;
             this.buildingStage++;
-            if(this.buildingStage == 3){
+            if(this.buildingStage == this.totalBuildStages){
                 this.buildingInProgress = false;
             }
         }
+        this.currentTime = (this.buildingStage*this.ticksPerBuildingTime)+(this.ticksPerBuildingTime - this.buildingTime);
+        this.totalTime = this.ticksPerBuildingTime * (this.totalBuildStages+1)
+        this.percentComplete = (this.currentTime/this.totalTime).toFixed(2);
+        console.log("Current: " + this.percentComplete);
     }
 
     this.move = function(){
@@ -158,10 +165,20 @@ function buildingClass(building) {
         
     }
 
+    this.drawProgressBar = function(){
+        var fillWidth = this.width * this.percentComplete;
+        colorRect(this.x-this.width/2, this.y-this.height/2 - 10, this.width, 10, "black")
+        colorRect(this.x-this.width/2, this.y-this.height/2 - 10, fillWidth, 10, "yellow") 
+    }
+
     this.draw = function(){
         this.sY = this.height * this.buildingStage;
         drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY,this.width,this.height, this.x,this.y);
+        if(this.buildingInProgress){
+            this.drawProgressBar();
+        }
     }
+
     this.drawOnMinimap = function(x,y){
         colorRect(x, y, Math.max(1,this.width / MINIMAPXRELATIVESIZE), Math.max(1,this.height / MINIMAPYRELATIVESIZE), "rgba(0,0,0,1)");//this.unitColor);
     }
