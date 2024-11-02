@@ -155,7 +155,6 @@ function placeWall(){
     var newUnit = buildingUnits.length-1;
     buildingUnits[newUnit].x = mouseX + camera.x; 
     buildingUnits[newUnit].y = mouseY + camera.y;
-
     wallReadyToBePlace = false;
     buttonDelayTimer = false;
     showWallToBuild = false;
@@ -207,8 +206,9 @@ function displayTowerToBuild(){
 
 function placeTower() {
   if(buttonDelayTimer && mouseClicked){
-    console.log("UI Place Tower");
     populateTeam(buildingUnits,1,true, "tower");
+    var currentBuilding = buildingUnits.length-1;
+    buildingUnits[currentBuilding].buildingInProgress = true;
     towerReadyToBePlaced = false;
     buttonDelayTimer = false;
     showTowerToBuild = false;

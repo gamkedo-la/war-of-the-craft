@@ -145,12 +145,12 @@ function drawEverything() {
 
   if(showFarmToBuild){
     console.log("Show Farm to Build")
-    drawBitmapCenteredAtLocationNoCameraCulling(orcFarmPic, 0, 50, 90,100, mouseX+camera.x, mouseY+camera.y);
+    drawBitmapCenteredAtLocationNoCameraCulling(orcFarmPic, 0, 180, 60,100, mouseX+camera.x, mouseY+camera.y);
   }
 
   if(showTowerToBuild){
     console.log("Show Tower to Build")
-    drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 0, 90,100, mouseX+camera.x, mouseY+camera.y);
+    drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 270,100,90, mouseX+camera.x, mouseY+camera.y);
   }
 
   drawFogOfWar();   //Turning off for now.  Fog of War when working eliminates the canvas to the background layer.

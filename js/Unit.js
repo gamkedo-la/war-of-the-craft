@@ -238,7 +238,7 @@ function unitClass(type) {
                 this.gotoY = this.myTarget.y+5;
                 this.playerHQ = this.distFrom(this.gotoX, this.gotoY);
                 if(this.playerHQ < 3){
-                    console.log("At HQ with this focus: "+this.focus);
+                    //console.log("At HQ with this focus: "+this.focus);
                     if(this.focus == "trees"){
                         var nearestTreeFoundForPeasant = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, trees);
                         if (nearestTreeFoundForPeasant) {

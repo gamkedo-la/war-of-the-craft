@@ -26,11 +26,14 @@ function buildingClass(building) {
         }
     
         this.width = 100;
-        this.height = 100;
+        this.height = 110;
         this.pic = goblinHQPic;
         this.lumber = 0;
         this.sX = 0;
         this.sY = 0;
+        this.buildingStage = 0;
+        this.buildingTime = 1000;
+        this.buildingInProgress = false;
         this.health = 50;
         this.unitColor = 'White';
         this.minimapDrawPriority = 1;
@@ -64,7 +67,7 @@ function buildingClass(building) {
                 this.x = mouseX + camera.x;
                 this.y = mouseY + camera.y;
                 this.height = 60;
-                this.sy = 50;
+                this.sy = 0;
                 this.pic = orcFarmPic;
                 this.health = 10;
                 this.minimapDrawPriority = 2;
@@ -130,8 +133,25 @@ function buildingClass(building) {
         return deltaX*deltaX + deltaY*deltaY;
     } 
 
+    this.startToBuild = function(){
+        this.buildingTime--;
+        if(this.buildingTime <= 0){
+            this.buildingTime = 1000;
+            this.buildingStage++;
+            if(this.buildingStage == 3){
+                this.buildingInProgress = false;
+            }
+        }
+    }
+
     this.move = function(){
-        //don't move building
+        if(this.type == "tower"){
+            console.log(this.buildingInProgress)
+        }
+
+        if(this.buildingInProgress){
+            this.startToBuild();
+        }
     }
 
     this.determineWallPosition = function(){
@@ -139,6 +159,7 @@ function buildingClass(building) {
     }
 
     this.draw = function(){
+        this.sY = this.height * this.buildingStage;
         drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY,this.width,this.height, this.x,this.y);
     }
     this.drawOnMinimap = function(x,y){
