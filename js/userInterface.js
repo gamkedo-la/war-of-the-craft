@@ -179,14 +179,25 @@ function placeFarm() {
   if(buttonDelayTimer && mouseClicked){
     console.log("UI Place Farm")
     populateTeam(buildingUnits,1,true, "peasant farm");
+    var currentBuilding = buildingUnits.length-1;
+    buildingUnits[currentBuilding].buildingInProgress = true;
     farmReadyToBePlaced = false;
     buttonDelayTimer = false;
     showFarmToBuild = false;
     peasantMainMenu = true;
+    for (var i = 0; i < selectedUnits.length; i++) {
+      var nearestFarm = findClosestUnitInRange(selectedUnits[0].x, selectedUnits[0].y, UNIT_AI_FARM_RANGE, buildingUnits, "peasant farm");
+      selectedUnits[0].myTarget = nearestFarm;
+      selectedUnits[0].actionSx = 15 * 3;
+      selectedUnits[0].showAction = true;
+      selectedUnits[0].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y+30, 0, 1);
+      checkForPlayersSelected();
+    }
     selectedUnits = [];
-    checkForPlayersSelected();
     assignmentTotals.farmsBuilt++; // add to stats totals. FIXME: is this the best place for this?
   }
+
+ 
 }
 
 function displayTowerToBuild(){
@@ -213,6 +224,14 @@ function placeTower() {
     buttonDelayTimer = false;
     showTowerToBuild = false;
     peasantMainMenu = true;
+    for (var i = 0; i < selectedUnits.length; i++) {
+      var nearestTower = findClosestUnitInRange(selectedUnits[0].x, selectedUnits[0].y, 100000, buildingUnits, "tower");
+      selectedUnits[0].myTarget = nearestTower;
+      selectedUnits[0].actionSx = 15 * 3;
+      selectedUnits[0].showAction = true;
+      selectedUnits[0].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y+30, 0, 1);
+      checkForPlayersSelected();
+    }
     selectedUnits = [];
     checkForPlayersSelected();
     assignmentTotals.towersBuilt++; // add to stats totals. FIXME: is this the best place for this?

@@ -152,10 +152,6 @@ function buildingClass(building) {
     }
 
     this.move = function(){
-        if(this.type == "tower"){
-            console.log(this.buildingInProgress)
-        }
-
         if(this.buildingInProgress){
             this.startToBuild();
         }
