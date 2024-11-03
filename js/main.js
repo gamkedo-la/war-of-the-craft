@@ -9,7 +9,7 @@ const ENEMY_START_BUILDING = 1;
 const ENEMY_START_FARMS = 0;
 const ENEMY_START_ORC_BARRACK = 0;
 const PLAYER_START_FARMS = 0;
-const STARTING_TREES = 1000;
+const STARTING_TREES = 500;
 const STARTING_MINES = 2;
 
 var enemyUnits = [];

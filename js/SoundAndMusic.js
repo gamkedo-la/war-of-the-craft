@@ -19,10 +19,6 @@ function startBackgroundAudio() {
 
 }
 
-
-
-
-
 var audioFormat;
 var isMuted = false;
 var soundSetforMeetings = false; //make false to hear at normal level
@@ -32,6 +28,20 @@ var soundSetforMeetings = false; //make false to hear at normal level
 
 //Asset Sounds
 // - example:  var doorOpenning = new SoundOverlapsClass("door_openning");
+var warriorHurtSound = new SoundOverlapsClass("WarriorHurt");
+var warriorSelectedSound = new SoundOverlapsClass("WarriorSelected");
+var warriorDeadSound = new SoundOverlapsClass("WarriorHurt"); //create a dead sound
+var warriorFightingSound = new SoundOverlapsClass("WarriorFighting");
+var peasantHurtSound = new SoundOverlapsClass("PeasantOuch");
+var peasantSelectedSound = new SoundOverlapsClass("PeasantSelected");
+var peasantDeadSound = new SoundOverlapsClass("PeasantHurt"); //create a dead sound
+var peasantFarmCompletedSound = new SoundOverlapsClass("PeasantFarmComplete");
+var peasantTowerCompletedSound = new SoundOverlapsClass("PeasantTowerComplete");
+var peasantChoppingTree = new SoundOverlapsClass('PeasantWoodChop')
+var goldMineSelectedSound = new SoundOverlapsClass("GoldMineSelected");
+var hQUnderAttackSound = new SoundOverlapsClass("GoldMineSelected");
+
+
 
 function setFormat() {
     var audio = new Audio();

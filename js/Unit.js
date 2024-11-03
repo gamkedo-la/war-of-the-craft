@@ -58,6 +58,7 @@ function unitClass(type) {
         this.actionSx = 0;
         this.showAction = false;
         this.tilePath = [];
+        this.delaySound = 0;
 
         if (this.playerControlled == false) {
             this.x = WORLD_SIZE_PIXELS_W - this.x;
@@ -137,6 +138,11 @@ function unitClass(type) {
 
     this.chopTreeAction = function(){
         this.choppingWood = true;
+        this.delaySound--;
+        if(this.delaySound <= 0){
+            peasantChoppingTree.play();
+            this.delaySound = 20;
+        }
         this.myTarget.effort--;
         if(this.myTarget.effort == 0 || this.myTarget.isDead){
             assignmentTotals.woodChopped++; // add to stats totals
@@ -280,6 +286,9 @@ function unitClass(type) {
                         this.returnResource();
                     } else {
                         this.myTarget.health--;
+                        if(this.myTarget.jobType == "peasant"){
+                            peasantHurtSound.play();
+                        }
                     }
                     this.showHealthBar = true;
                 } else {

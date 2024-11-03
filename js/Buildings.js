@@ -32,7 +32,7 @@ function buildingClass(building) {
         this.sX = 0;
         this.sY = 0;
         this.buildingStage = 0;
-        this.ticksPerBuildingTime = 1000;
+        this.ticksPerBuildingTime = 50; //adjust to 1000 or another time
         this.buildingTime = this.ticksPerBuildingTime;
         this.buildingInProgress = false;
         this.health = 50;
@@ -155,6 +155,11 @@ function buildingClass(building) {
             
             if (this.buildingStage >= this.totalBuildStages) {
                 this.buildingInProgress = false;
+                if(this.type == "tower"){
+                peasantTowerCompletedSound.play();
+                } else if(this.type == "peasant farm") {
+                peasantFarmCompletedSound.play();
+                }
             }
         }
     };
