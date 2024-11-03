@@ -27,7 +27,8 @@ var wildflowers = {
             let spr = Math.floor(Math.random()*this.spritesheetColumns);
             let x = Math.floor(Math.random()*WORLD_SIZE_PIXELS_W);
             let y = Math.floor(Math.random()*WORLD_SIZE_PIXELS_W);
-            this.flowerCTX.drawImage(this.spritesheet,spr*8,0,8,8,x,y,8,8);
+            if (!isPixelCoordinateInsideAnUnwalkableTile(x,y)) 
+                this.flowerCTX.drawImage(this.spritesheet,spr*8,0,8,8,x,y,8,8);
         }
         // some extra-dense clusters of "flowers" of the same kind
         for (let c=0; c<this.flowerClusters; c++) {
@@ -38,7 +39,8 @@ var wildflowers = {
                 // random walk additive wobble from base x,y
                 x += Math.floor((Math.random()*16)-8);
                 y += Math.floor((Math.random()*16)-8);
-                this.flowerCTX.drawImage(this.spritesheet,spr*8,0,8,8,x,y,8,8);
+                if (!isPixelCoordinateInsideAnUnwalkableTile(x,y)) 
+                    this.flowerCTX.drawImage(this.spritesheet,spr*8,0,8,8,x,y,8,8);
             }
         }
 

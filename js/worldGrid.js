@@ -36,6 +36,11 @@ const presetUnwalkableTiles = [400,401,500,501,600,601,700,49,50,51,65,66,67,68,
     9908,9907,9906
     ];
 
+// handy function
+function isPixelCoordinateInsideAnUnwalkableTile(x,y) {
+    return presetUnwalkableTiles.indexOf(colRowToIndex(Math.round(x/GRID_WIDTH),Math.round(y/GRID_WIDTH)))!=-1;
+}
+
 function drawHills(cols, rows, startCol, startRow){  //change this to a class
     var columns = cols;
     var rows = rows;
