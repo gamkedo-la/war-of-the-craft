@@ -104,6 +104,7 @@ function drawEverything() {
   canvasContext.translate(-camera.x,-camera.y);
   
   canvasContext.drawImage(backGroundPic,-100,-100); // offset so we can scroll a little bit past the top left corner of map
+  wildflowers.draw(); // random flowers, grass and rocks
 
   var leftEdgeCol=Math.floor(camera.x/GRID_WIDTH);
   var topEdgeRow=Math.floor(camera.y/GRID_HEIGHT);

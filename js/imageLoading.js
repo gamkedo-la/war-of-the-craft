@@ -21,6 +21,7 @@ var viewportShadows = document.createElement("img");
 var wallPic = document.createElement('img');
 var assignmentsGUIPic = document.createElement('img');
 var minimapGUIPic = document.createElement('img');
+var wildflowersPic = document.createElement('img');
 
 var picsToLoad = 0;
 
@@ -66,6 +67,7 @@ function loadImages() {
 			{varName: playerPic, theFile: "player.png", sX: 0, sY:0},
             {varName: assignmentsGUIPic, theFile: "assignmentsGUI.png", sX: 0, sY:0},
             {varName: minimapGUIPic, theFile: "minimapGUI.png", sX: 0, sY:0},
+            {varName: wildflowersPic, theFile: "wildflowers.png", sX: 0, sY:0},
 		];
 			
 	picsToLoad = imageList.length;
