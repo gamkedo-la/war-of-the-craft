@@ -198,8 +198,6 @@ function placeFarm() {
     selectedUnits = [];
     assignmentTotals.farmsBuilt++; // add to stats totals. FIXME: is this the best place for this?
   }
-
- 
 }
 
 function displayTowerToBuild(){
@@ -252,6 +250,7 @@ function recruitPeasant(){
   var nearestTreeFound = findClosestUnitInRange(playerUnits[newUnit].x, playerUnits[newUnit].y, UNIT_AI_TREE_RANGE, trees, null);
   playerUnits[newUnit].myTarget = nearestTreeFound;
   playerUnits[newUnit].focus = 'trees';
+  peasantRecruitmentHooveringSound.play();
 }
 
 function recruitWarrior(){
@@ -263,6 +262,7 @@ function recruitWarrior(){
   var keepAtHQ = findClosestUnitInRange(playerUnits[newUnit].x,playerUnits[newUnit].y,5600, buildingUnits);
   playerUnits[newUnit].myTarget = keepAtHQ;
   playerUnits[newUnit].focus = 'trees'; //change to patrol when available
+  warriorRecruitmentHoovering.play();
 }
 
 function patrolArea(){

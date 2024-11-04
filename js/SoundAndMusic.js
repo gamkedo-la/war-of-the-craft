@@ -28,10 +28,12 @@ var soundSetforMeetings = false; //make false to hear at normal level
 
 //Asset Sounds
 // - example:  var doorOpenning = new SoundOverlapsClass("door_openning");
+var warriorRecruitmentHoovering = new SoundOverlapsClass("WarriorRecruitmentHoovering");
 var warriorHurtSound = new SoundOverlapsClass("WarriorHurt");
 var warriorSelectedSound = new SoundOverlapsClass("WarriorSelected");
 var warriorDeadSound = new SoundOverlapsClass("WarriorHurt"); //create a dead sound
 var warriorFightingSound = new SoundOverlapsClass("WarriorFighting");
+var peasantRecruitmentHooveringSound = new SoundOverlapsClass("PeasantRecruitmentHoovering");
 var peasantHurtSound = new SoundOverlapsClass("PeasantOuch");
 var peasantSelectedSound = new SoundOverlapsClass("PeasantSelected");
 var peasantDeadSound = new SoundOverlapsClass("PeasantHurt"); //create a dead sound
