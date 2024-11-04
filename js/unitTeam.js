@@ -3,6 +3,7 @@ var anyNewUnitsToClear = false;
 function populateTeam(whichTeam,howMany,isPlayerControlled, type){
     
   var spawnUnit = null;
+  let debugInvalidPositionsSkipped = 0;
 
   for(var i=0;i<howMany;i++){
     if(type == "goblin" || 
@@ -38,13 +39,18 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
       let validLocation = false;
       while (!validLocation) {
           spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, i, type);
-          let index = colRowToIndex (spawnUnit.x,spawnUnit.y);
-          validLocation = presetUnwalkableTiles.indexOf(index)==-1;
+          // hmm this does not seem to set position yet??  ----^
+          validLocation = !isPixelCoordinateInsideAnUnwalkableTile(spawnUnit.x,spawnUnit.y);
+          if (!validLocation) debugInvalidPositionsSkipped++;
       }
       addNewUnitToTeam(spawnUnit,whichTeam);   
       addUnitToGrid(spawnUnit);
     }
   }
+
+  //just to confirm we are not spawning trees on water
+  console.log("populateTeam finished spawning "+howMany+" "+type+"s. Avoided "+debugInvalidPositionsSkipped+" unwalkable tiles.");
+
 }
 
 function addNewUnitToTeam(spawnUnit,fightsForTeam){
