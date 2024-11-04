@@ -57,9 +57,11 @@ function checkForPlayersSelected(){
       if(selectedUnits[0].jobType == "peasant"){
         peasantSelected = true;
         warriorSelected = false;
+        peasantSelectedSound.play();
       } else if (selectedUnits[0].jobType == "warrior"){
         peasantSelected = false;
         warriorSelected = true;
+        warriorSelectedSound.play();
       } 
       headQuartersUI = false;
     }
