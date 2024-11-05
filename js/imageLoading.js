@@ -45,7 +45,7 @@ function beginLoadingImage(imgVar, fileName, sX, sY) {
 function loadImages() {
 	
 		var imageList = [
-			{varName: backGroundPic, theFile: "background.png", sX: 0, sY: 0},
+			{varName: backGroundPic, theFile: "background.jpg", sX: 0, sY: 0},
 			{varName: goblinPic, theFile: "goblin.png", sX: 0, sY: 0},
 			{varName: orcPic, theFile: "orc.png", sX: 0, sY: 0},
 			{varName: peasantPic, theFile: "peasant.png", sX: 0, sY: 0},
