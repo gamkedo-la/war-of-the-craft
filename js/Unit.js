@@ -508,10 +508,9 @@ function unitClass(type) {
                 
                 if (this.previousX != this.x || this.previousY != this.y) { // actually moving?
                     wildflowers.drawTerrainDecal(this.x-16,this.y-10,footpathPic); // slowly erode a muddy footpath
+                    this.walkingAnimation(); // only animate the walking anim when moving
                 }
-                
-                this.walkingAnimation(); // fixme: could move this into the if above to stop walking anim when motionless
-
+    
             }
             drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY, this.width, this.height, this.x, this.y);
             this.updateMyHealthBar();
