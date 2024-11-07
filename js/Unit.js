@@ -505,7 +505,13 @@ function unitClass(type) {
             this.determinePlayerDirection();
             drawBitmapCenteredAtLocation(playerPic, 0, 0, 20, 5, this.x, this.y+6);
             if(this.walking){
-                this.walkingAnimation();
+                
+                if (this.previousX != this.x || this.previousY != this.y) { // actually moving?
+                    wildflowers.drawTerrainDecal(this.x-16,this.y-10,footpathPic); // slowly erode a muddy footpath
+                }
+                
+                this.walkingAnimation(); // fixme: could move this into the if above to stop walking anim when motionless
+
             }
             drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY, this.width, this.height, this.x, this.y);
             this.updateMyHealthBar();
@@ -529,6 +535,9 @@ function unitClass(type) {
             colorCircle(this.x + 5, this.y, UNIT_PLACEHOLDER_RADIUS, "yellow", "10px Arial Black");
             //  colorText(this.iD, this.x+10, this.y-10, "yellow")
         }
+        // used to detect if we have moved since the previous frame
+        this.previousX = this.x;
+        this.previousY = this.y;
     }
         
     this.debugDrawPath = function(){

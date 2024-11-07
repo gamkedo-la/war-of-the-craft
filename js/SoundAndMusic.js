@@ -61,6 +61,7 @@ function SoundOverlapsClass(filenameWithPath) {
     var altSound = new Audio("sound/" + filenameWithPath + audioFormat);
     
     this.play = function() {
+        if (waitingForFirstClick) return; // avoid security issues (browser crashes if no clicks yet)
     	if (isMuted) {
     		console.log ("sound muted");
     		return;
@@ -70,13 +71,13 @@ function SoundOverlapsClass(filenameWithPath) {
 			if(soundSetforMeetings){
 				altSound.volume = 0.05;  //quieter for screen sharing during meetings
 			}
-			altSound.play();
+			altSound.play(); // WARNING: this line can cause the browser to crash if you have not yet clicked the screen
 		} else {
 			mainSound.currentTime = 0;
 			if(soundSetforMeetings){
 				mainSound.volume = 0.05; //quieter for screen sharing during meetings
 			}
-			mainSound.play();
+			mainSound.play(); // WARNING: this line can cause the browser to crash if you have not yet clicked the screen
 		}
 		console.log("sound played")
 		altSoundTurn = !altSoundTurn;

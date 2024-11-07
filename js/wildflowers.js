@@ -56,6 +56,14 @@ var wildflowers = {
         // the offscreen buffer that we created on init
         canvasContext.drawImage(this.flowerCanvas,0,0);
 
-    }
+    },
+
+    // used by units to slowly erode a muddy footpath instead of green grass
+    // could also be used for bloodstains, stumps, footprints etc
+    drawTerrainDecal(x,y,spr,alpha=0.1) {
+        this.flowerCTX.globalAlpha = alpha;
+        this.flowerCTX.drawImage(spr,x,y);
+        this.flowerCTX.globalAlpha = 1;
+    },
 
 }

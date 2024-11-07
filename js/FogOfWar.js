@@ -15,7 +15,11 @@ function drawFogOfWar() {
 
     // Reveal areas around each player unit
     for (var i = 0; i < playerUnits.length; i++) {
-        revealArea(playerUnits[i].x, playerUnits[i].y, revealRadius);
+        // only reveal if we are momving, this way the FOW circle stays "fuzzy"
+        // otherwise it keep re-drawing it on top of itself intil the circle is "sharp"
+        //if (playerUnits[i].x != playerUnits[i].previousX || playerUnits[i].y != playerUnits[i].previousY) {
+            revealArea(playerUnits[i].x, playerUnits[i].y, revealRadius);
+        //}
     }
     
     // Reveal areas around specific building types
