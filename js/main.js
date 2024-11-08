@@ -19,6 +19,7 @@ var allUnits = [];
 var trees = [];
 var mines = [];
 var peasantFarm = [];
+var enemyAIManager = new enemyAITeamClass();
 
 var isGamePaused = false;
 var currentIntervalId;
@@ -60,6 +61,7 @@ window.onload = function() {
   populateTeam(buildingUnits,ENEMY_START_FARMS,true, "orc farm");
   populateTeam(trees,STARTING_TREES,true, "trees");
   populateTeam(mines,STARTING_MINES,true, "mines");
+  enemyAIManager.setup();
 
   refreshCollisionGrid(); //needs to be called after populate, but before pathfinding
   SetupPathfindingGridData(playerUnits[0]);
@@ -93,6 +95,7 @@ function moveEverything() {
   }
   removeDeadUnits();
   checkButtonHandling();
+  enemyAIManager.update();
   checkAndHandleVictory(); 
   camera.update();
   refreshCollisionGrid();
