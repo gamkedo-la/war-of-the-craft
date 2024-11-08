@@ -44,6 +44,7 @@ function handleButtonClick(mouseClicked, buttonHovering, buttonSelected, actionC
         buttonSelected = true;
         uIButtonClicked = true;
         actionCallback();
+        checkForPlayersSelected();
     } else {
         buttonSelected = false;
         uIButtonClicked = false;
@@ -84,7 +85,6 @@ function lumberAction() {
     selectedUnits[i].focus = "trees";
   }
   selectedUnits = [];
-  checkForPlayersSelected();
 }
 
 function attackAction() {
@@ -93,7 +93,6 @@ function attackAction() {
     selectedUnits[i].showAction = true;
   }
   selectedUnits = [];
-  checkForPlayersSelected();
 }
 
 function goldAction() {
@@ -110,7 +109,6 @@ function goldAction() {
     }
   }
   selectedUnits = [];
-  checkForPlayersSelected();
 }
 
 function farmAction() {
@@ -122,7 +120,6 @@ function farmAction() {
     selectedUnits[i].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
   }
   selectedUnits = [];
-  checkForPlayersSelected();
 }
 
 // Construction-related actions
@@ -162,7 +159,6 @@ function placeWall(){
     showWallToBuild = false;
     peasantMainMenu = true;
     selectedUnits = [];
-    checkForPlayersSelected();
   }
 }
 
@@ -193,7 +189,6 @@ function placeFarm() {
       selectedUnits[0].actionSx = 15 * 3;
       selectedUnits[0].showAction = true;
       selectedUnits[0].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y+30, 0, 1);
-      checkForPlayersSelected();
     }
     selectedUnits = [];
     assignmentTotals.farmsBuilt++; // add to stats totals. FIXME: is this the best place for this?
@@ -228,10 +223,8 @@ function placeTower() {
       selectedUnits[0].actionSx = 15 * 3;
       selectedUnits[0].showAction = true;
       selectedUnits[0].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y+30, 0, 1);
-      checkForPlayersSelected();
     }
     selectedUnits = [];
-    checkForPlayersSelected();
     assignmentTotals.towersBuilt++; // add to stats totals. FIXME: is this the best place for this?
   }
 }

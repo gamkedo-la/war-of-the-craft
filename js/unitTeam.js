@@ -50,7 +50,6 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
 
   //just to confirm we are not spawning trees on water
   console.log("populateTeam finished spawning "+howMany+" "+type+"s. Avoided "+debugInvalidPositionsSkipped+" unwalkable tiles.");
-
 }
 
 function addNewUnitToTeam(spawnUnit,fightsForTeam){
