@@ -43,7 +43,7 @@ function handleButtonClick(mouseClicked, buttonHovering, buttonSelected, actionC
   if (mouseClicked && buttonHovering) {
         buttonSelected = true;
         uIButtonClicked = true;
-        actionCallback();
+        actionCallback(selectedUnits);
         checkForPlayersSelected();
     } else {
         buttonSelected = false;
@@ -75,63 +75,63 @@ function checkForPlayersSelected(){
 }
 
 // Various actions for units (lumber, attack, gold, farm)
-function lumberAction() {
-  for (var i = 0; i < selectedUnits.length; i++) {
-    var nearestTreeFoundForPeasant = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_TREE_RANGE, trees, trees);
-    selectedUnits[i].myTarget = nearestTreeFoundForPeasant;
-    selectedUnits[i].actionSx = 0;
-    selectedUnits[i].showAction = true;
-    selectedUnits[i].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
-    selectedUnits[i].focus = "trees";
+function lumberAction(actionList) {
+  for (var i = 0; i < actionList.length; i++) {
+    var nearestTreeFoundForPeasant = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_TREE_RANGE, trees, trees);
+    actionList[i].myTarget = nearestTreeFoundForPeasant;
+    actionList[i].actionSx = 0;
+    actionList[i].showAction = true;
+    actionList[i].gotoNear(actionList[0].myTarget.x,actionList[0].myTarget.y, 0, 1);
+    actionList[i].focus = "trees";
   }
-  selectedUnits = [];
+  actionList.splice(0,actionList.length); //empties original array
 }
 
-function attackAction() {
-  for (var i = 0; i < selectedUnits.length; i++) {
-    selectedUnits[i].actionSx = 15 * 1;
-    selectedUnits[i].showAction = true;
+function attackAction(actionList) { //not called
+  for (var i = 0; i < actionList.length; i++) {
+    actionList[i].actionSx = 15 * 1;
+    actionList[i].showAction = true;
   }
-  selectedUnits = [];
+  actionList.splice(0,actionList.length);
 }
 
-function goldAction() {
-  for (var i = 0; i < selectedUnits.length; i++) {
-    var nearestMine = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_MINE_RANGE, mines, mines);
+function goldAction(actionList) {
+  for (var i = 0; i < actionList.length; i++) {
+    var nearestMine = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_MINE_RANGE, mines, mines);
     if (nearestMine) {
-        selectedUnits[i].myTarget = nearestMine;
-        selectedUnits[i].actionSx = 15 * 2;
-        selectedUnits[i].showAction = true;
-        selectedUnits[i].gotoNear(nearestMine.x,nearestMine.y, 0, 1);
-        selectedUnits[i].focus = "mines";
+      actionList[i].myTarget = nearestMine;
+      actionList[i].actionSx = 15 * 2;
+      actionList[i].showAction = true;
+      actionList[i].gotoNear(nearestMine.x,nearestMine.y, 0, 1);
+      actionList[i].focus = "mines";
     } else {
         console.log("goldAction: unit was unable to find a nearby mine");
     }
   }
-  selectedUnits = [];
+  actionList.splice(0,actionList.length);
 }
 
-function farmAction() {
-  for (var i = 0; i < selectedUnits.length; i++) {
-    var nearestFarm = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_FARM_RANGE, buildingUnits, "peasant farm");
-    selectedUnits[i].myTarget = nearestFarm;
-    selectedUnits[i].actionSx = 15 * 3;
-    selectedUnits[i].showAction = true;
-    selectedUnits[i].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y, 0, 1);
+function farmAction(actionList) {
+  for (var i = 0; i < actionList.length; i++) {
+    var nearestFarm = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_FARM_RANGE, buildingUnits, "peasant farm");
+    actionList[i].myTarget = nearestFarm;
+    actionList[i].actionSx = 15 * 3;
+    actionList[i].showAction = true;
+    actionList[i].gotoNear(actionList[0].myTarget.x,actionList[0].myTarget.y, 0, 1);
   }
-  selectedUnits = [];
+  actionList.splice(0,actionList.length);
 }
 
 // Construction-related actions
-function constructionAction() {
+function constructionAction(actionList) {
   buttonDelayTicks = 60;
   startDelayTimer = true;
   buttonDelayTimer = false;
   peasantMainMenu = false;
   peasantConstructionMenu = true;
-  for (var i = 0; i < selectedUnits.length; i++) {
-    selectedUnits[i].actionSx = 15 * 4;
-    selectedUnits[i].showAction = true;
+  for (var i = 0; i < actionList.length; i++) {
+    actionList[i].actionSx = 15 * 4;
+    actionList[i].showAction = true;
   }
 }
 
