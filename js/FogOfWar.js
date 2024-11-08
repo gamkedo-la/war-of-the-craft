@@ -1,4 +1,12 @@
+var framesUntilFogUpdate = 0;
+const FOG_UPDATE_FRAME_DELAY = 10;
+
 function drawFogOfWar() {
+    if(framesUntilFogUpdate-- < 0){
+        framesUntilFogUpdate = FOG_UPDATE_FRAME_DELAY;
+    } else {
+        return;
+    }
     var fogColor = 'rgba(0, 0, 0, 0.9)';
     var revealRadius = 200;
 
