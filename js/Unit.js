@@ -124,6 +124,10 @@ function unitClass(type) {
         this.showHealthBar = true;
     }
 
+    this.identifyNewTarget = function(){
+     
+    }
+
     this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {
         var colNum = formationPos % formationDim;
         var rowNum = Math.floor(formationPos / formationDim);
@@ -183,7 +187,6 @@ function unitClass(type) {
         this.actionSx = 15*5;
         this.showAction = true;
         this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
-        //console.log("HQ movement")
     }
 
     this.isInBox = function(x1, y1, x2, y2) {
@@ -229,9 +232,9 @@ function unitClass(type) {
                 this.myTarget = null;
                 this.gotoX = this.x;
                 this.gotoY = this.y;
-            } else if (this.myTarget.type == "goblins hq" && this.lumber  == 0){
-                nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, null);
-                console.log("Goblin: " +nearestMindFound)
+            } else if (this.myTarget.type == "goblins hq"){
+                // Need ot add dropping off resources
+                this.identifyNewTarget();
             } else if (this.myTarget.type == "trees"){
                 this.gotoX = this.myTarget.x-10;
                 this.gotoY = this.myTarget.y+5;

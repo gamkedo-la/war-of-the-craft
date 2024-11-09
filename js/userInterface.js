@@ -85,6 +85,7 @@ function lumberAction(actionList) {
     actionList[i].focus = "trees";
     var goalTile = pixelCoordToIndex(actionList[i].myTarget.x, actionList[i].myTarget.y);
     startPath(goalTile, actionList[i]);
+    console.log("Lumber Action")
   }
   actionList.splice(0,actionList.length); //empties original array
 }
