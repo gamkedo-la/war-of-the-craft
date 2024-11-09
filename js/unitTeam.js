@@ -15,9 +15,9 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
     } else if (type == "players hq"){
       spawnUnit = new buildingClass("players hq");
     } else if (type == "goblins hq"){
-      spawnUnit = new buildingClass("orc barrack");
-    } else if (type == "orc barrack"){
-      spawnUnit = new buildingClass("goblin hq");
+      spawnUnit = new buildingClass("goblins hq");
+    } else if (type == "orcs barracks"){
+      spawnUnit = new buildingClass("orc barracks");
     } else if (type == "peasant farm"){
       spawnUnit = new buildingClass("peasant farm");
     } else if (type == "tower"){
@@ -76,6 +76,34 @@ function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList, type) {
       nearestUnitDist = distTo; 
       nearestUnitFound = inUnitList[i];
     }
+  }
+  // console.log(nearestUnitFound)
+  return nearestUnitFound;
+}
+
+function findClosestFriendlyBuildingInRange(fromX,fromY,maxRange,inUnitList, type, team) {
+  var nearestUnitDist = maxRange; 
+  var nearestUnitFound = null;
+  var unitlist;
+  var team = team;
+
+  if (type) {
+    unitlist = inUnitList.filter(function (item) {
+      return item.type == type;
+    })
+  } else {
+    unitlist = inUnitList;
+  }
+
+  for(var i=0;i<inUnitList.length;i++) {
+    var distTo = inUnitList[i].distFromSq(fromX,fromY); 
+    if(inUnitList[i].unitColor == team){
+      console.log(inUnitList[i].unitColor)
+      if(distTo < nearestUnitDist) {
+        nearestUnitDist = distTo; 
+        nearestUnitFound = inUnitList[i];
+      }
+    } 
   }
   // console.log(nearestUnitFound)
   return nearestUnitFound;

@@ -50,7 +50,7 @@ function buildingClass(building) {
         switch (this.type) {
             case "players hq":
                 this.pic = humanHQPic;
-                this.unitColor = 'Red';
+                this.unitColor = 'White';
                 this.x = playerUnits[0].x - 40;
                 this.y = playerUnits[0].y - 30;
                 break;
@@ -61,7 +61,7 @@ function buildingClass(building) {
                 this.height = 32;
                 this.pic = wallPic;
                 this.sX = 32 * 3;
-                this.unitColor = 'Red';
+                this.unitColor = 'White';
                 this.health = 50;
                 this.minimapDrawPriority = 3;
                 this.snapNearestGridCenter();
@@ -71,6 +71,7 @@ function buildingClass(building) {
                 this.x = mouseX + camera.x;
                 this.y = mouseY + camera.y;
                 this.height = 60;
+                this.unitColor = 'White';
                 this.sy = 0;
                 this.pic = orcFarmPic;
                 this.health = 10;
@@ -82,25 +83,29 @@ function buildingClass(building) {
                 this.y = mouseY + camera.y;
                 this.height = 90;
                 this.width = 100;
+                this.unitColor = 'White';
                 this.sy = 0;
                 this.pic = towerPic;
                 this.health = 10;
                 this.minimapDrawPriority = 2;
                 break;
             //Computer buildings
-            case "goblin hq":
+            case "goblins hq":
                 adjustForComputer();
                 this.pic = goblinHQPic;
+                this.unitColor = "Red";
                 break;
             case "orc barrack":
                 adjustForComputer();
                 this.pic = orcBarrackPic;
+                this.unitColor = "Red";
                 this.minimapDrawPriority = 2;
                 break;
             case "orc farm":
                 adjustForComputer();
                 this.height = 50;
                 this.pic = orcFarmPic;
+                this.unitColor = "Red";
                 this.health = 10;
                 this.minimapDrawPriority = 2;
                 break;
@@ -162,7 +167,7 @@ function buildingClass(building) {
                 }
             }
         }
-    };
+    }
 
     this.move = function(){
         if(this.buildingInProgress){

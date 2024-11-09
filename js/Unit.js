@@ -86,7 +86,7 @@ function unitClass(type) {
                 this.width = 20;
                 this.height = 20;
                 this.type = "warrior";
-                this.myTarget = "trees"
+                this.myTarget = "trees";
                 this.focus = "mines"; //change in future to patrol
                 this.returntoHQAction();
 
@@ -169,9 +169,17 @@ function unitClass(type) {
     }
 
     this.returntoHQAction = function() {
-        var nearestPlayerHQFound = findClosestUnitInRange(this.x, this.y, 1000000000, buildingUnits, buildingUnits);
-        this.myTarget = nearestPlayerHQFound;
-   //     console.log("Type: " + this.myTarget.type)
+        var nearestHQFound;
+        console.log(this.unitColor)
+        if(this.unitColor == 'Red'){
+            console.log("Red");
+            nearestHQFound = findClosestFriendlyBuildingInRange(this.x, this.y, 1000000000, buildingUnits, null, 'Red');
+        } else if (this.unitColor == 'White') {
+            console.log("White");
+            nearestHQFound = findClosestFriendlyBuildingInRange(this.x, this.y, 1000000000, buildingUnits, null, 'White');
+        }
+        this.myTarget = nearestHQFound;
+        console.log("Type: " + this.myTarget.type)
         this.actionSx = 15*5;
         this.showAction = true;
         this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
@@ -221,7 +229,7 @@ function unitClass(type) {
                 this.myTarget = null;
                 this.gotoX = this.x;
                 this.gotoY = this.y;
-            } else if (this.myTarget.type == "goblin hq" && this.lumber  == 0){
+            } else if (this.myTarget.type == "goblins hq" && this.lumber  == 0){
                 nearestTreeFound = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, null);
                 console.log("Goblin: " +nearestMindFound)
             } else if (this.myTarget.type == "trees"){
@@ -282,7 +290,7 @@ function unitClass(type) {
                 if(this.attackCoolDown <= 0) {
                     if (this.myTarget.type == "mines" || this.myTarget.type == "trees" || this.myTarget.type == "peasant farm") {
                         this.collectResourse(this.myTarget.type, 600);//maybe we can make a variable for this.myTarget.attackCooldown
-                    } else if (this.myTarget.type == "goblin hq"){
+                    } else if (this.myTarget.type == "goblins hq"){
                         this.returnResource();
                     } else {
                         this.myTarget.health--;
@@ -330,7 +338,7 @@ function unitClass(type) {
             }
 
             if (this.myTarget!=undefined && Math.random() < 0.02) {
-                if(this.myTarget.type == "goblin hq" && this.jobType == "goblin"){
+                if(this.myTarget.type == "goblins hq" && this.jobType == "goblin"){
                     console.log(this.idNumber + " HQ + " + this.lumber)
                     if(this.lumber > 0){
                         nearestHQFound = findClosestUnitInRange(this.x,this.y,600, buildingUnits, null);

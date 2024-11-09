@@ -83,6 +83,8 @@ function lumberAction(actionList) {
     actionList[i].showAction = true;
     actionList[i].gotoNear(actionList[0].myTarget.x,actionList[0].myTarget.y, 0, 1);
     actionList[i].focus = "trees";
+    var goalTile = pixelCoordToIndex(actionList[i].myTarget.x, actionList[i].myTarget.y);
+    startPath(goalTile, actionList[i]);
   }
   actionList.splice(0,actionList.length); //empties original array
 }
