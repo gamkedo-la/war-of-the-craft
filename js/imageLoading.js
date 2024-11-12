@@ -23,6 +23,7 @@ var assignmentsGUIPic = document.createElement('img');
 var minimapGUIPic = document.createElement('img');
 var wildflowersPic = document.createElement('img');
 var footpathPic = document.createElement('img');
+var resourceIconsPic = document.createElement('img');
 
 var picsToLoad = 0;
 
@@ -70,6 +71,7 @@ function loadImages() {
             {varName: minimapGUIPic, theFile: "minimapGUI.png", sX: 0, sY:0},
             {varName: wildflowersPic, theFile: "wildflowers.png", sX: 0, sY:0},
             {varName: footpathPic, theFile: "footpath.png", sX: 0, sY:0},
+            {varName: resourceIconsPic, theFile: "resourceIcons.png", sX: 0, sY:0},
 		];
 			
 	picsToLoad = imageList.length;

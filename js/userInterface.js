@@ -333,6 +333,29 @@ function drawButton(x, y, image, sY,text1, text2, hovering, selected) {
   }
 }
 
+function drawTopBarResourceTotalsGUI() {
+  //indicator top of screen
+  //if (peasantSelected || warriorSelected) {
+    const topBarRGB = "White";
+    const topBarFont = "14px Arial";
+    drawBitmapAtLocation(peasantPic, 0, 60, 15, 15, 100, 10);
+    drawBitmapAtLocation(warriorPic, 0, 60, 20, 20, 160, 8);
+    // FIXME: these need to actually count # peasans and warriors
+    colorText(" = " + playerUnits.length, 120, 22, topBarRGB, topBarFont);
+    colorText(" = " + playerUnits.length, 180, 22, topBarRGB, topBarFont);
+    // FIXME: this is a temp placeholder for total assets owned
+    var totalGold = 0;
+    var totalWood = 0;
+    var totalFood = 0;
+    drawBitmapAtLocation(resourceIconsPic, 0, 0, 16, 16, 220, 8);
+    colorText(" = "+totalGold, 240, 22, topBarRGB, topBarFont);
+    drawBitmapAtLocation(resourceIconsPic, 16, 0, 16, 16, 280, 8);
+    colorText(" = "+totalWood, 300, 22, topBarRGB, topBarFont);
+    drawBitmapAtLocation(resourceIconsPic, 32, 0, 16, 16, 340, 8);
+    colorText(" = "+totalFood, 360, 22, topBarRGB, topBarFont);
+  //}
+}
+
 // Main UI loop
 function drawUserInterface() {
   if (startDelayTimer) {
@@ -344,14 +367,7 @@ function drawUserInterface() {
   }
 
   drawAssignmentsGUI(); 
-
-  //indicator top of screen
-  if (peasantSelected || warriorSelected) {
-    drawBitmapAtLocation(peasantPic, 0, 60, 15, 15, 100, 10);
-    drawBitmapAtLocation(warriorPic, 0, 60, 20, 20, 160, 8);
-    colorText(" = " + playerUnits.length, 120, 22, "White", "14px Arial");
-    colorText(" = " + playerUnits.length, 180, 22, "White", "14px Arial");
-  }
+  drawTopBarResourceTotalsGUI();
 
   //left side interface
   if (peasantSelected && peasantMainMenu) {
