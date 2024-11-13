@@ -98,7 +98,7 @@ function findClosestFriendlyBuildingInRange(fromX,fromY,maxRange,inUnitList, typ
   for(var i=0;i<inUnitList.length;i++) {
     var distTo = inUnitList[i].distFromSq(fromX,fromY); 
     if(inUnitList[i].unitColor == team){
-      console.log(inUnitList[i].unitColor)
+      //console.log(inUnitList[i].unitColor)
       if(distTo < nearestUnitDist) {
         nearestUnitDist = distTo; 
         nearestUnitFound = inUnitList[i];

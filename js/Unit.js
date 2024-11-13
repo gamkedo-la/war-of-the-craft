@@ -176,16 +176,16 @@ function unitClass(type) {
 
     this.returntoHQAction = function() {
         var nearestHQFound;
-        console.log(this.unitColor)
+        //console.log(this.unitColor)
         if(this.unitColor == 'Red'){
-            console.log("Red");
+            console.log("Red unit returning to HQ");
             nearestHQFound = findClosestFriendlyBuildingInRange(this.x, this.y, 1000000000, buildingUnits, null, 'Red');
         } else if (this.unitColor == 'White') {
-            console.log("White");
+            console.log("White unit returning to HQ");
             nearestHQFound = findClosestFriendlyBuildingInRange(this.x, this.y, 1000000000, buildingUnits, null, 'White');
         }
         this.myTarget = nearestHQFound;
-        console.log("Type: " + this.myTarget.type)
+        console.log("Nearest HQ found has type: " + this.myTarget.type)
         this.actionSx = 15*5;
         this.showAction = true;
         this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);

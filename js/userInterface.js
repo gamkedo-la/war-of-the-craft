@@ -85,7 +85,7 @@ function lumberAction(actionList) {
     actionList[i].focus = "trees";
     var goalTile = pixelCoordToIndex(actionList[i].myTarget.x, actionList[i].myTarget.y);
     startPath(goalTile, actionList[i]);
-    console.log("Lumber Action")
+    console.log("Lumber Action "+i+" of "+actionList.length+" generated a path to a nearby tree at "+Math.round(nearestTreeFoundForPeasant.x)+","+Math.round(nearestTreeFoundForPeasant.y));
   }
   actionList.splice(0,actionList.length); //empties original array
 }

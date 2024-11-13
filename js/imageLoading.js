@@ -30,7 +30,7 @@ var picsToLoad = 0;
 //All pictures prior to launching the game.  If a picture doesn't load, the game doesn't launch.
 function countLoadedImagesAndLaunchIfReady(){
 		picsToLoad--;
-		console.log(picsToLoad);
+		console.log("Downloaded image #"+picsToLoad);
 		if(picsToLoad == 0) {
 			imageLoadingDoneSoStartGame();
 	}
