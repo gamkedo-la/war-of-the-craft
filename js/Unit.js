@@ -150,6 +150,7 @@ function unitClass(type) {
         this.myTarget.effort--;
         if(this.myTarget.effort == 0 || this.myTarget.isDead){
             assignmentTotals.woodChopped++; // add to stats totals
+            if (this.lumber) this.lumber++; else this.lumber = 1;
             this.choppingWood = false;
             this.myTarget.isDead = true;
             this.showAction = false;
@@ -163,6 +164,7 @@ function unitClass(type) {
         this.myTarget.effort--;
         if(this.myTarget.effort == 0){
             assignmentTotals.goldMined++; // add to stats totals
+            if (this.gold) this.gold++; else this.gold = 1;
             this.miningGold = false;
             this.myTarget.effort = 100;
             //this.myTarget.isDead = true; // use up the mine???
@@ -254,7 +256,7 @@ function unitClass(type) {
                 this.gotoY = this.myTarget.y+5;
                 this.playerHQ = this.distFrom(this.gotoX, this.gotoY);
                 if(this.playerHQ < 3){
-                    //console.log("At HQ with this focus: "+this.focus);
+                    console.log("At HQ with this focus: "+this.focus);
                     if(this.focus == "trees"){
                         var nearestTreeFoundForPeasant = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, trees);
                         if (nearestTreeFoundForPeasant) {
@@ -444,6 +446,16 @@ function unitClass(type) {
               console.log("Last of food dropped off");
               var nearestFarmFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_FARM_RANGE, buildingUnits, "peasant farm");
               this.myTarget = nearestFarmFound;
+            }
+        }
+        else if (this.gold > 0) {
+            this.gold--;
+            this.myTarget.gold++;
+            console.log("Gold delivered: " + this.myTarget.gold + " My Gold: " + this.gold);
+            if(this.gold == 0){ //dropped off last piece of gold
+              console.log("Last of gold dropped off");
+              var nearestMineFound = findClosestUnitInRange(selectedUnits[i].x, selectedUnits[i].y, UNIT_AI_MINE_RANGE, buildingUnits, "mines");
+              this.myTarget = nearestMineFound;
             }
         }
     }

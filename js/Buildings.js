@@ -1,3 +1,5 @@
+var allKnownPlayerHQs = []; // to quickly add up resources for the scoreboard and purchasing
+
 function checkForBuildingSelected(){
     for(var i = 0; i < buildingUnits.length; i++){
         var buildingSelected = buildingUnits[i].isInBox();
@@ -8,6 +10,35 @@ function checkForBuildingSelected(){
             headQuartersUI = true;
         }
     }
+}
+
+function countPlayerGold() {
+    var total = 0;
+    for (nextone of allUnits)  {
+        if (nextone.type == "players hq") {
+            //console.log("debug: counting gold - hq found!",nextone);
+            if (nextone.gold) total += nextone.gold;
+        }
+    }
+    return total;
+}
+function countPlayerFood() {
+    var total = 0;
+    for (nextone of allUnits)  {
+        if (nextone.type == "players hq") {
+            if (nextone.food) total += nextone.food;
+        }
+    }
+    return total;
+}
+function countPlayerWood() {
+    var total = 0;
+    for (nextone of allUnits)  {
+        if (nextone.type == "players hq") {
+            if (nextone.lumber) total += nextone.lumber;
+        }
+    }
+    return total;
 }
 
 function buildingClass(building) {

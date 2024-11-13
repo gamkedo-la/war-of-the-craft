@@ -344,13 +344,13 @@ function drawTopBarResourceTotalsGUI() {
     colorText(" = " + playerUnits.length, 120, 22, topBarRGB, topBarFont);
     colorText(" = " + playerUnits.length, 180, 22, topBarRGB, topBarFont);
     // FIXME: this is a temp placeholder for total assets owned
-    var totalGold = 0;
-    var totalWood = 0;
-    var totalFood = 0;
+    var totalGold = countPlayerGold();
+    var totalWood = countPlayerWood();
+    var totalFood = countPlayerFood();
     drawBitmapAtLocation(resourceIconsPic, 0, 0, 16, 16, 220, 8);
-    colorText(" = "+totalGold, 240, 22, topBarRGB, topBarFont);
+    colorText(" = "+totalWood, 240, 22, topBarRGB, topBarFont);
     drawBitmapAtLocation(resourceIconsPic, 16, 0, 16, 16, 280, 8);
-    colorText(" = "+totalWood, 300, 22, topBarRGB, topBarFont);
+    colorText(" = "+totalGold, 300, 22, topBarRGB, topBarFont);
     drawBitmapAtLocation(resourceIconsPic, 32, 0, 16, 16, 340, 8);
     colorText(" = "+totalFood, 360, 22, topBarRGB, topBarFont);
   //}
