@@ -1,8 +1,9 @@
 // this lets us reuse previously created grid data
 // so set this to TRUE if the world changes (new buildings)
 // to force a fresh data gathering step
-const PATHFINDING_REUSES_GRID_UNLESS_REFRESHED = true; // use the below
+const PATHFINDING_REUSES_GRID_UNLESS_REFRESHED = false; // use the below
 var pathfindingGridDataNeedsRefreshing = true; // set to true calculate grid
+const USE_FASTER_ARRAYREMOVE = false; // set to true for faster but maybe buggy version
 
 var unvisitedList = [];
 const TILE_WATER = 2; //Temp used for unwalkable tile
@@ -117,10 +118,14 @@ function PathfindingNextStep(whichPathfinder) {
           }
         }
         
-        // optimized out this slow search n destroy loop
-        //arrayRemove(unvisitedList,currentTile); //// remove u from Q
-        // we already know which one to remove so we don't need to look for it
-        unvisitedList.splice(currentTileIndex,1); 
+        // we can optimize out this slow search n destroy loop
+        if (USE_FASTER_ARRAYREMOVE) {
+            // we already know which one to remove so we don't need to look for it
+            unvisitedList.splice(currentTileIndex,1); 
+        } else {
+            // do it the slow way
+            arrayRemove(unvisitedList,currentTile); //// remove u from Q
+        }
      
         //// "for each neighbor v of u: //// where v has not yet been removed from Q"
         var neighborsStillInUnvisitedList = currentTile.myUnvisitedNeighbors();
