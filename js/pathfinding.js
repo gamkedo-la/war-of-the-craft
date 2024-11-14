@@ -1,3 +1,9 @@
+// this lets us reuse previously created grid data
+// so set this to TRUE if the world changes (new buildings)
+// to force a fresh data gathering step
+const PATHFINDING_REUSES_GRID_UNLESS_REFRESHED = true; // use the below
+var pathfindingGridDataNeedsRefreshing = true; // set to true calculate grid
+
 var unvisitedList = [];
 const TILE_WATER = 2; //Temp used for unwalkable tile
 const TILE_GOAL = 3; //Temp used for end tile
@@ -58,6 +64,8 @@ function SetupPathfindingGridData(whichPathfinder) {
               hValCal(eachCol, eachRow, endC,endR, 3, true); /////
         } /////
     } /////
+
+    pathfindingGridDataNeedsRefreshing = false; // reuse it next time!
 }
 
 function hValCal(atColumn,atRow, toColumn,toRow, multWeight, geometric) { /////
@@ -79,7 +87,9 @@ function startPath(toTile, pathFor){
 		return;
     }
 	
-	SetupPathfindingGridData(pathFor);
+	if (pathfindingGridDataNeedsRefreshing || !PATHFINDING_REUSES_GRID_UNLESS_REFRESHED) {
+         SetupPathfindingGridData(pathFor);
+    }
 	grid[toTile].setGoal();
 	PathfindingNextStep(pathFor);
 }
