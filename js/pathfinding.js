@@ -93,6 +93,7 @@ function PathfindingNextStep(whichPathfinder) {
       while(unvisitedList.length > 0 && safetyBreak-- > 0) { //// "while Q is not empty:"
         //// "u := vertex in Q with min dist[u]"
         var currentTile = null;
+        var currentTileIndex = -1;
         var ctDistWithH; ///// a* with hVal heuristic added
         //console.log(unvisitedList.length);
         for (var i=0; i < unvisitedList.length; i++) {
@@ -100,12 +101,16 @@ function PathfindingNextStep(whichPathfinder) {
         
           if(currentTile == null || compareTile.distance + compareTile.hVal < ctDistWithH) { /////
             currentTile = compareTile;
+            currentTileIndex = i;
             ctDistWithH = currentTile.distance + currentTile.hVal; /////
             //console.log(`Current Tile: ${currentTile.name}, Distance: ${currentTile.distance}, Heuristic: ${currentTile.hVal}`);
           }
         }
         
-        arrayRemove(unvisitedList,currentTile); //// remove u from Q
+        // optimized out this slow search n destroy loop
+        //arrayRemove(unvisitedList,currentTile); //// remove u from Q
+        // we already know which one to remove so we don't need to look for it
+        unvisitedList.splice(currentTileIndex,1); 
      
         //// "for each neighbor v of u: //// where v has not yet been removed from Q"
         var neighborsStillInUnvisitedList = currentTile.myUnvisitedNeighbors();
