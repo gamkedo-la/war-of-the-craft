@@ -1,4 +1,4 @@
-const AI_TEAM_THINK_DELAY_FRAMES = 90;
+const AI_TEAM_THINK_DELAY_FRAMES = 30;
 
 function enemyAITeamClass(){
     
