@@ -1,9 +1,9 @@
 // this lets us reuse previously created grid data
 // so set this to TRUE if the world changes (new buildings)
 // to force a fresh data gathering step
-const PATHFINDING_REUSES_GRID_UNLESS_REFRESHED = false; // use the below
+const PATHFINDING_REUSES_GRID_UNLESS_REFRESHED = false; // true, use the variable below, not sure we can make each unit a recalculated grid.
 var pathfindingGridDataNeedsRefreshing = true; // set to true calculate grid
-const USE_FASTER_ARRAYREMOVE = false; // set to true for faster but maybe buggy version
+const USE_FASTER_ARRAYREMOVE = true; // set to true for faster but maybe buggy version
 
 var unvisitedList = [];
 const TILE_WATER = 2; //Temp used for unwalkable tile
@@ -88,8 +88,8 @@ function startPath(toTile, pathFor){
 		return;
     }
 	
-	if (pathfindingGridDataNeedsRefreshing || !PATHFINDING_REUSES_GRID_UNLESS_REFRESHED) {
-         SetupPathfindingGridData(pathFor);
+	if (pathfindingGridDataNeedsRefreshing || !PATHFINDING_REUSES_GRID_UNLESS_REFRESHED) { 
+    SetupPathfindingGridData(pathFor);
     }
 	grid[toTile].setGoal();
 	PathfindingNextStep(pathFor);

@@ -21,12 +21,13 @@ function enemyAITeamClass(){
         }
 
         //lumberAction(enemyUnits); // this can take 5 seconds...
-
        
         if(this.indexEnemyToUpdate >= enemyUnits.length){
             this.indexEnemyToUpdate = 0;
         }
-        enemyUnits[this.indexEnemyToUpdate].gotoNear(playerUnits[0].x, playerUnits[0].y,0,0);
+        if(playerUnits.length > 0){
+            enemyUnits[this.indexEnemyToUpdate].gotoNear(playerUnits[0].x, playerUnits[0].y,0,0);
+        }
         this.indexEnemyToUpdate++;
     }
 }
