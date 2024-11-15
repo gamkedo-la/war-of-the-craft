@@ -18,7 +18,7 @@ function SetupPathfindingGridData(whichPathfinder) {
     //console.log("Pathfinder: " + pathfinder)
 
 
-    //code below isn't currently hooked to anything.  Do we need it?
+  /*  //code below isn't currently hooked to anything.  Do we need it?
     if(grid.length > 0) { // non-zero, copy over player set walls into tileGrid for reset
         for (var eachCol = 0; eachCol < GRID_COLUMNS; eachCol++) {
             for (var eachRow = 0; eachRow < GRID_ROWS; eachRow++) {
@@ -31,32 +31,40 @@ function SetupPathfindingGridData(whichPathfinder) {
                 }
             }
         }
-    }
+    } */
+    if(grid.length > 0){
+      //console.log("Trying to reuse Grid... this is new, may have bugs", grid.length);
+      for(var i = 0; i < grid.length; i++){
+       // grid[i].pathfinder = pathfinder;
+        grid[i].setup(grid[i].tilC, grid[i].tilR, grid[i].tilIdx, collGrid[i], pathfinder);
+        unvisitedList.push( grid[i] );
+      }
+    } else {
+      grid = [];
 
-    grid = [];
+      for (var eachCol = 0; eachCol < GRID_COLUMNS; eachCol++) {
+          for (var eachRow = 0; eachRow < GRID_ROWS; eachRow++) {
+              var idxHere = tileCoordToIndex(eachCol, eachRow);
 
-    for (var eachCol = 0; eachCol < GRID_COLUMNS; eachCol++) {
-        for (var eachRow = 0; eachRow < GRID_ROWS; eachRow++) {
-            var idxHere = tileCoordToIndex(eachCol, eachRow);
+              grid[idxHere] = new GridElement();
+              grid[idxHere].name = "" + eachCol + "," + eachRow;
+              grid[idxHere].idx = idxHere;
+              grid[idxHere].pathfinder = pathfinder;
+              unvisitedList.push( grid[idxHere] );
 
-            grid[idxHere] = new GridElement();
-            grid[idxHere].name = "" + eachCol + "," + eachRow;
-            grid[idxHere].idx = idxHere;
-            grid[idxHere].pathfinder = pathfinder;
-            unvisitedList.push( grid[idxHere] );
+              grid[idxHere].setup(eachCol, eachRow, idxHere, collGrid[idxHere], pathfinder);
 
-            grid[idxHere].setup(eachCol, eachRow, idxHere, collGrid[idxHere], pathfinder);
-
-            //if(grid[idxHere].elementType == DEST) { ///// found end!
-			      if(grid[idxHere].elementType == TILE_GOAL) { ///// found end!
-                endR = eachRow; ///// save tile coords for use with
-                endC = eachCol; ///// computing h value of each tiles
-            } /////
-        }
-    }
-	
-     ///// different pass now that endR and endC are set, find h
-
+              //if(grid[idxHere].elementType == DEST) { ///// found end!
+              if(grid[idxHere].elementType == TILE_GOAL) { ///// found end!
+                  //Note, doesn't appear to be used in this program
+                  endR = eachRow; ///// save tile coords for use with
+                  endC = eachCol; ///// computing h value of each tiles
+              } /////
+          }
+      }
+    }   
+    
+    ///// different pass now that endR and endC are set, find h
     for (var eachCol = 0; eachCol < GRID_COLUMNS; eachCol++) { /////
         for (var eachRow = 0; eachRow < GRID_ROWS; eachRow++) { /////
             var idxHere = tileCoordToIndex(eachCol, eachRow); /////
@@ -167,7 +175,7 @@ function PathfindingNextStep(whichPathfinder) {
 			  }
 			}
 		}
-      }
+  }
 }
 
 function arrayContains(arr, obj) {
