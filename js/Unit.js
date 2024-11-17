@@ -238,8 +238,57 @@ function unitClass(type) {
                 this.gotoX = this.x;
                 this.gotoY = this.y;
             } else if (this.myTarget.type == "goblins hq"){
-                // Need ot add dropping off resources
-                this.identifyNewTarget();
+                this.gotoX = this.myTarget.x-10;
+                this.gotoY = this.myTarget.y+5;
+                this.playerHQdist = this.distFrom(this.gotoX, this.gotoY);
+                if(this.playerHQdist < 3){
+                    console.log("At enemy HQ with this focus: "+this.focus);
+                    
+                    ////////////////////////////////////////////////////
+                    // deliver any resources the unit is carrying
+                    // FIXME: is this supposed to be somewhere else?
+                    // FIXME: should this take time (one per tick etc - like chopping wood?)
+                    if (this.lumber) {
+                        console.log("delivered "+this.lumber+" lumber to HQ");
+                        if (!this.myTarget.lumber) this.myTarget.lumber = 0; // avoid NaN
+                        this.myTarget.lumber += this.lumber;
+                        this.lumber = 0;
+                    }
+                    if (this.gold) {
+                        console.log("delivered "+this.gold+" gold to HQ");
+                        if (!this.myTarget.gold) this.myTarget.gold = 0; // avoid NaN
+                        this.myTarget.gold += this.gold;
+                        this.gold = 0;
+                    }
+                    if (this.food) {
+                        console.log("delivered "+this.food+" food to HQ");
+                        if (!this.myTarget.food) this.myTarget.food = 0; // avoid NaN
+                        this.myTarget.food += this.food;
+                        this.food = 0;
+                    }
+                    if(this.focus == "trees"){
+                        var nearestTreeFoundForPeasant = findClosestUnitInRange(this.x, this.y, UNIT_AI_TREE_RANGE, trees, trees);
+                        if (nearestTreeFoundForPeasant) {
+                            this.myTarget = nearestTreeFoundForPeasant;
+                            this.actionSx = 0;
+                            this.showAction = true;
+                            this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
+                        } else {
+                            console.log("unit at hq unable to find a tree to return to");
+                        }
+                    }
+                    if(this.focus == "mines"){
+                        var nearestMineFoundForPeasant = findClosestUnitInRange(this.x, this.y, UNIT_AI_MINE_RANGE, mines, mines);
+                        if (nearestMineFoundForPeasant) {
+                            this.myTarget = nearestMineFoundForPeasant;
+                            this.actionSx = 0;
+                            this.showAction = true;
+                            this.gotoNear(this.myTarget.x+20,this.myTarget.y+25, 0, 1);
+                        } else {
+                            console.log("unit at hq unable to find a mine to return to");
+                        }
+                    }
+                }
             } else if (this.myTarget.type == "trees"){
                 this.gotoX = this.myTarget.x-10;
                 this.gotoY = this.myTarget.y+5;
