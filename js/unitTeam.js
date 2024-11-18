@@ -71,9 +71,10 @@ function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList, type) {
   }
 
   for(var i=0;i<inUnitList.length;i++) {
-    var distTo = inUnitList[i].distFromSq(fromX,fromY); 
+    var distTo = inUnitList[i].distFromSq(fromX,fromY); //does this take a lot of performance?
     if(distTo < nearestUnitDist) {
       nearestUnitDist = distTo; 
+   //   console.log("Dist: " + nearestUnitDist);
       nearestUnitFound = inUnitList[i];
     }
   }

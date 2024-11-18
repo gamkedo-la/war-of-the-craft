@@ -43,7 +43,7 @@ function unitClass(type) {
         this.width = 15;
         this.height = 15;
         this.sY = 4 * this.height;
-        this.myTarget = null;
+        this.myTarget = trees;
         this.attackCoolDown = 90;
         this.treeDist = 100;
         this.playerHQDist = 100;
@@ -59,6 +59,7 @@ function unitClass(type) {
         this.showAction = false;
         this.tilePath = [];
         this.delaySound = 0;
+        this.patroling = false;
 
         if (this.playerControlled == false) {
             this.x = WORLD_SIZE_PIXELS_W - this.x;
@@ -74,7 +75,7 @@ function unitClass(type) {
                 this.height = 20;
             }
         } else {
-            console.log("jobType:", this.jobType);
+         //   console.log("jobType:", this.jobType);
             this.unitColor = 'White';
             if(this.jobType === "peasant"){
                 this.pic = peasantPic;
@@ -181,14 +182,14 @@ function unitClass(type) {
         var nearestHQFound;
         //console.log(this.unitColor)
         if(this.unitColor == 'Red'){
-            console.log("Red unit returning to HQ");
+  //          console.log("Red unit returning to HQ");
             nearestHQFound = findClosestFriendlyBuildingInRange(this.x, this.y, 1000000000, buildingUnits, null, 'Red');
         } else if (this.unitColor == 'White') {
             console.log("White unit returning to HQ");
             nearestHQFound = findClosestFriendlyBuildingInRange(this.x, this.y, 1000000000, buildingUnits, null, 'White');
         }
         this.myTarget = nearestHQFound;
-        console.log("Nearest HQ found has type: " + this.myTarget.type)
+  //      console.log("Nearest HQ found has type: " + this.myTarget.type)
         this.actionSx = 15*5;
         this.showAction = true;
         this.gotoNear(this.myTarget.x,this.myTarget.y, 0, 1);
@@ -411,12 +412,12 @@ function unitClass(type) {
                 this.attackCoolDown = 60;
             }
                 
-            if(this.myTarget == null){
+            /*if(this.myTarget == null){
                 this.gotoX = this.x - Math.random() * 70;
                 this.gotoY = this.y - Math.random() * 70;
              
                 this.keepInPlayableArea();
-            }
+            }*/
 
             if (this.myTarget!=undefined && Math.random() < 0.02) {
                 if(this.myTarget.type == "goblins hq" && this.jobType == "goblin"){

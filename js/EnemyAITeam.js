@@ -34,13 +34,11 @@ function enemyAITeamClass(){
             this.indexEnemyToUpdate++;
             return;
         }
-    
-        console.log(enemy.jobType);
-    
+        
         if (enemy.jobType == "goblin") {
             if (enemy.lumber == 0) {
                 // Find the nearest tree and assign it as a target
-                const nearestTree = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_TREE_RANGE, trees, trees);
+                var nearestTree = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_TREE_RANGE, trees, trees);
                 if (nearestTree) {
                     enemy.myTarget = nearestTree;
                     enemy.actionSx = 0;
@@ -48,16 +46,32 @@ function enemyAITeamClass(){
                     enemy.gotoNear(nearestTree.x, nearestTree.y, 0, 1);
                     enemy.focus = "trees";
     
-                    const goalTile = pixelCoordToIndex(nearestTree.x, nearestTree.y);
+                    let goalTile = pixelCoordToIndex(nearestTree.x, nearestTree.y);
                     startPath(goalTile, enemy);
                 }
             } else {
                 enemy.returntoHQAction();
             }
-        } else {
-            // Non-goblin enemies move toward the first player unit
-            const player = playerUnits[0];
-            enemy.gotoNear(player.x, player.y, 0, 0);
+        } else if (enemy.jobType == 'orc') {
+            // Orc patrol until player is found, then assign player as a target
+            let closestTarget = findClosestUnitInRange(enemy.x,enemy.y,20000, playerUnits, null);
+            if(closestTarget != null){
+                let playerTile = pixelCoordToIndex(closestTarget.x, closestTarget.y);
+                startPath(playerTile, enemy);
+                console.log("Orc found player, and moving towards.")
+                enemy.patroling = false;
+            } else {
+                if(enemy.patroling == false){
+                    console.log("No target, Orc Patroling");
+                    let randomTileX = returnRandomInteger(WORLD_SIZE_PIXELS_W);
+                    let randomTileY = returnRandomInteger(WORLD_SIZE_PIXELS_H);
+                    let randomTile = pixelCoordToIndex(randomTileX, randomTileY);
+                    startPath(randomTile, enemy);
+                    enemy.patroling = true;
+                } else {
+                    return;
+                }
+            }
         }
 
         this.indexEnemyToUpdate++;
