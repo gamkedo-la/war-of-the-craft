@@ -13,40 +13,51 @@ function enemyAITeamClass(){
      
     }
 
-    this.update = function(){
-        if(this.framesBetweenUpdates-- <= 0){
-            this.framesBetweenUpdates = AI_TEAM_THINK_DELAY_FRAMES;
-        } else {
-            return;
-        }
-
-        //lumberAction(enemyUnits); // this can take 5 seconds...
-       
-        if(this.indexEnemyToUpdate >= enemyUnits.length){
+    this.update = function () {
+        // Decrement frame counter and return early if not time to update
+        if (this.framesBetweenUpdates-- > 0) return;
+    
+        this.framesBetweenUpdates = AI_TEAM_THINK_DELAY_FRAMES;
+    
+        // Reset index if it exceeds the array length
+        if (this.indexEnemyToUpdate >= enemyUnits.length) {
             this.indexEnemyToUpdate = 0;
         }
-
-        if(playerUnits.length > 0){
-            if(enemyUnits[this.indexEnemyToUpdate].myTarget != null){
-                console.log(enemyUnits[this.indexEnemyToUpdate].jobType)
-                if(enemyUnits[this.indexEnemyToUpdate].jobType == "goblin"){
-                    if(enemyUnits[this.indexEnemyToUpdate].lumber == 0){
-                        var nearestTreeFoundForPeasant = findClosestUnitInRange(enemyUnits[this.indexEnemyToUpdate].x, enemyUnits[this.indexEnemyToUpdate].y, UNIT_AI_TREE_RANGE, trees, trees);
-                        enemyUnits[this.indexEnemyToUpdate].myTarget = nearestTreeFoundForPeasant;
-                        enemyUnits[this.indexEnemyToUpdate].actionSx = 0;
-                        enemyUnits[this.indexEnemyToUpdate].showAction = true;
-                        enemyUnits[this.indexEnemyToUpdate].gotoNear(enemyUnits[this.indexEnemyToUpdate].myTarget.x,enemyUnits[this.indexEnemyToUpdate].myTarget.y, 0, 1);
-                        enemyUnits[this.indexEnemyToUpdate].focus = "trees";
-                        var goalTile = pixelCoordToIndex(enemyUnits[this.indexEnemyToUpdate].myTarget.x, enemyUnits[this.indexEnemyToUpdate].myTarget.y);
-                        startPath(goalTile, enemyUnits[this.indexEnemyToUpdate]);
-                    } 
-                    if(enemyUnits[this.indexEnemyToUpdate].lumber > 0){
-                        enemyUnits[this.indexEnemyToUpdate].returntoHQAction();
-                    }
-                } else {
-                    enemyUnits[this.indexEnemyToUpdate].gotoNear(playerUnits[0].x, playerUnits[0].y,0,0);
+    
+        // Return early if there are no player units
+        if (playerUnits.length === 0) return;
+    
+        var enemy = enemyUnits[this.indexEnemyToUpdate];
+    
+        // Skip if enemy has no target
+        if (!enemy.myTarget) {
+            this.indexEnemyToUpdate++;
+            return;
+        }
+    
+        console.log(enemy.jobType);
+    
+        if (enemy.jobType == "goblin") {
+            if (enemy.lumber == 0) {
+                // Find the nearest tree and assign it as a target
+                const nearestTree = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_TREE_RANGE, trees, trees);
+                if (nearestTree) {
+                    enemy.myTarget = nearestTree;
+                    enemy.actionSx = 0;
+                    enemy.showAction = true;
+                    enemy.gotoNear(nearestTree.x, nearestTree.y, 0, 1);
+                    enemy.focus = "trees";
+    
+                    const goalTile = pixelCoordToIndex(nearestTree.x, nearestTree.y);
+                    startPath(goalTile, enemy);
                 }
+            } else {
+                enemy.returntoHQAction();
             }
+        } else {
+            // Non-goblin enemies move toward the first player unit
+            const player = playerUnits[0];
+            enemy.gotoNear(player.x, player.y, 0, 0);
         }
 
         this.indexEnemyToUpdate++;
