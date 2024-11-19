@@ -1,4 +1,5 @@
 const AI_TEAM_THINK_DELAY_FRAMES = 30;
+var orcWarningPlayed = false;
 
 function enemyAITeamClass(){
     
@@ -59,6 +60,10 @@ function enemyAITeamClass(){
                 let playerTile = pixelCoordToIndex(closestTarget.x, closestTarget.y);
                 startPath(playerTile, enemy);
                 console.log("Orc found player, and moving towards.")
+                if(!orcWarningPlayed){
+                    orcWarningSound.play();
+                    orcWarningPlayed = true;
+                }
                 enemy.patroling = false;
             } else {
                 if(enemy.patroling == false){

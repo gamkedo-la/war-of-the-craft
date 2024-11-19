@@ -27,7 +27,8 @@ var soundSetforMeetings = false; //make false to hear at normal level
 // - example var musicSound = new BackgroundMusicClass("kyleTrack_1");
 
 //Asset Sounds
-// - example:  var doorOpenning = new SoundOverlapsClass("door_openning");
+// - example:  var doorOpenning = new SoundOverlapsClass("door_openning"); = 
+var orcWarningSound = new SoundOverlapsClass("orcWarning")
 var warriorRecruitmentHoovering = new SoundOverlapsClass("WarriorRecruitmentHoovering");
 var warriorHurtSound = new SoundOverlapsClass("WarriorHurt");
 var warriorSelectedSound = new SoundOverlapsClass("WarriorSelected");
