@@ -655,6 +655,7 @@ function unitClass(type) {
     }
 
     this.drawOnMinimap = function(x,y){
-        colorRect(x, y, Math.max(1,this.width / MINIMAPXRELATIVESIZE), Math.max(1,this.height / MINIMAPYRELATIVESIZE), 'rgba(255,255,0,1)');    
+        let BOLD = 1; // draw extra big for clarity
+        colorRect(x, y, Math.max(1,this.width / MINIMAPXRELATIVESIZE)+BOLD, Math.max(1,this.height / MINIMAPYRELATIVESIZE)+BOLD, 'rgba(255,255,0,1)');    
     }
 }
