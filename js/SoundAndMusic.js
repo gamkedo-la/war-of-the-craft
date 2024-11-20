@@ -64,7 +64,6 @@ function SoundOverlapsClass(filenameWithPath) {
     this.play = function() {
         if (waitingForFirstClick) return; // avoid security issues (browser crashes if no clicks yet)
     	if (isMuted) {
-    		console.log ("sound muted");
     		return;
     	}
 		if (altSoundTurn) {
@@ -80,7 +79,6 @@ function SoundOverlapsClass(filenameWithPath) {
 			}
 			mainSound.play(); // WARNING: this line can cause the browser to crash if you have not yet clicked the screen
 		}
-		console.log("sound played")
 		altSoundTurn = !altSoundTurn;
     }
 }  
