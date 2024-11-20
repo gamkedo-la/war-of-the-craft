@@ -29,13 +29,13 @@ window.onload = function() {
   canvasContext = canvas.getContext('2d');    
   
   fowCanvas = document.createElement("canvas");
-  fowCanvas.width = WORLD_SIZE_PIXELS_W;
-  fowCanvas.height = WORLD_SIZE_PIXELS_H;
+  fowCanvas.width = WORLD_SIZE_WITH_SHORELINE_PIXELS_W;
+  fowCanvas.height = WORLD_SIZE_WITH_SHORELINE_PIXELS_H;
   fowCanvasContext = fowCanvas.getContext('2d');
 
   unexploredCanvas = document.createElement("canvas");
-  unexploredCanvas.width = WORLD_SIZE_PIXELS_W;
-  unexploredCanvas.height = WORLD_SIZE_PIXELS_H;
+  unexploredCanvas.width = WORLD_SIZE_WITH_SHORELINE_PIXELS_W;
+  unexploredCanvas.height = WORLD_SIZE_WITH_SHORELINE_PIXELS_H;
   unexploredCanvasContext = unexploredCanvas.getContext('2d');
 
   unexploredCanvasContext.fillStyle = "black";
@@ -106,7 +106,7 @@ function drawEverything() {
   canvasContext.save();
   canvasContext.translate(-camera.x,-camera.y);
   
-  canvasContext.drawImage(backGroundPic,-100,-100); // offset so we can scroll a little bit past the top left corner of map
+  canvasContext.drawImage(backGroundPic,-SIZE_OF_THE_SHORE,-SIZE_OF_THE_SHORE); // offset so we can scroll a little bit past the top left corner of map
   wildflowers.draw(); // random flowers, grass and rocks
 
   var leftEdgeCol=Math.floor(camera.x/GRID_WIDTH);
@@ -157,10 +157,9 @@ function drawEverything() {
   drawFogOfWar();   //Turning off for now.  Fog of War when working eliminates the canvas to the background layer.
 
   canvasContext.globalAlpha = 0.3;
-  canvasContext.drawImage(fowCanvas,0,0); 
+  canvasContext.drawImage(fowCanvas,-SIZE_OF_THE_SHORE,-SIZE_OF_THE_SHORE); 
   canvasContext.globalAlpha = 1.0;
-
-  canvasContext.drawImage(unexploredCanvas,0,0); 
+  canvasContext.drawImage(unexploredCanvas,-SIZE_OF_THE_SHORE,-SIZE_OF_THE_SHORE); 
 
   canvasContext.restore(); // unshift camera pos
 

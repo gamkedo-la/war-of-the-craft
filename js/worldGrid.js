@@ -9,6 +9,9 @@ const GRID_WIDTH = 32;
 const GRID_HEIGHT = 32;
 const WORLD_SIZE_PIXELS_W = GRID_ROWS * GRID_WIDTH;
 const WORLD_SIZE_PIXELS_H = GRID_COLUMNS * GRID_HEIGHT;
+const SIZE_OF_THE_SHORE = 100; // extra pixels around the border of the world with water and shoreline
+const WORLD_SIZE_WITH_SHORELINE_PIXELS_W = WORLD_SIZE_PIXELS_W + (SIZE_OF_THE_SHORE*2);
+const WORLD_SIZE_WITH_SHORELINE_PIXELS_H = WORLD_SIZE_PIXELS_H + (SIZE_OF_THE_SHORE*2);
 var showGrid = true;
 var  walkableTiles = [];
 

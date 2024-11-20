@@ -47,13 +47,15 @@ function revealArea(x, y, radius) {
 
     fowCanvasContext.globalCompositeOperation = 'destination-out';
     fowCanvasContext.beginPath();
-    fowCanvasContext.arc(x, y, radius, 0, Math.PI * 2);
+    // we offset by +SIZE_OF_THE_SHORE because the fow canvas is larger
+    // than the world due to the shoreline edges that surround the map
+    fowCanvasContext.arc(x+SIZE_OF_THE_SHORE, y+SIZE_OF_THE_SHORE, radius, 0, Math.PI * 2);
     fowCanvasContext.fillStyle = gradient;
     fowCanvasContext.fill();
 
     unexploredCanvasContext.globalCompositeOperation = 'destination-out';
     unexploredCanvasContext.beginPath();
-    unexploredCanvasContext.arc(x, y, radius, 0, Math.PI * 2);
+    unexploredCanvasContext.arc(x+SIZE_OF_THE_SHORE, y+SIZE_OF_THE_SHORE, radius, 0, Math.PI * 2);
     unexploredCanvasContext.fillStyle = gradient;
     unexploredCanvasContext.fill();
 
