@@ -165,7 +165,13 @@ function drawEverything() {
 
   drawUserInterface();
   drawMinimap();
-
+  if(introCountDown-- > 0){
+    drawMainMenu();
+    if(introNotPlayed){
+      introSound.play();
+      introNotPlayed = false;
+    }
+  }
 
   // the shadow around the edges
   canvasContext.drawImage(viewportShadows,-20,-40);

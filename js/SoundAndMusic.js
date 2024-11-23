@@ -43,6 +43,7 @@ var peasantTowerCompletedSound = new SoundOverlapsClass("PeasantTowerComplete");
 var peasantChoppingTree = new SoundOverlapsClass('PeasantWoodChop')
 var goldMineSelectedSound = new SoundOverlapsClass("GoldMineSelected");
 var hQUnderAttackSound = new SoundOverlapsClass("GoldMineSelected");
+var introSound = new SoundOverlapsClass("Intro");
 
 
 
