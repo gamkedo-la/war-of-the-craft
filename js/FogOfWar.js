@@ -39,7 +39,7 @@ function drawFogOfWar() {
 }
 
 function revealArea(x, y, radius) {
-    var gradient = unexploredCanvasContext.createRadialGradient(x, y, 0, x, y, radius);
+    var gradient = unexploredCanvasContext.createRadialGradient(x+SIZE_OF_THE_SHORE, y+SIZE_OF_THE_SHORE, 0, x+SIZE_OF_THE_SHORE, y+SIZE_OF_THE_SHORE, radius);
     gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');  
     gradient.addColorStop(.6, 'rgba(255, 255, 255, .9)');  
     gradient.addColorStop(.8, 'rgba(255, 255, 255, .8)');

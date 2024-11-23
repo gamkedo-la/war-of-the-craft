@@ -219,6 +219,7 @@ function buildingClass(building) {
     }
 
     this.drawOnMinimap = function(x,y){
-        colorRect(x, y, Math.max(1,this.width / MINIMAPXRELATIVESIZE)+1, Math.max(1,this.height / MINIMAPYRELATIVESIZE)+1, "rgba(0,0,0,1)");//this.unitColor);
+        let BOLD = 1; // draw extra big for clarity
+        colorRect(x, y, Math.max(1,this.width / MINIMAPXRELATIVESIZE)+BOLD, Math.max(1,this.height / MINIMAPYRELATIVESIZE)+BOLD, "rgba(0,0,0,1)");//this.unitColor);
     }
 }
