@@ -42,8 +42,10 @@ function environmentClass(environmentType) {
     
         if (this.type == "trees") {
             configureUnit(4, treePic, 15, 20, 0, 'lumber', 1, 10, 100, 1);
+            this.deadSprite = stumpPic;
         } else if (this.type == "mines") {
             configureUnit(1, minePic, 50, 45, 0, 'gold', 25, 9, 50, 1000);
+            this.deadSprite = rubblePic; // doesn't quite look right - FIXME: draw an "empty mine" sprite
         }
     };
     

@@ -113,6 +113,11 @@ function findClosestFriendlyBuildingInRange(fromX,fromY,maxRange,inUnitList, typ
 function removeDeadUnitsFromList(fromArray) {
   for(var i=fromArray.length - 1; i>=0; i--){ 
     if(fromArray[i].isDead) {
+        // draw a stump/skeleton/bloodstain/rubble on the floor overlay if specified
+        if (fromArray[i].deadSprite) {
+            wildflowers.drawTerrainDecal(fromArray[i].x-10,fromArray[i].y-10,fromArray[i].deadSprite,1);
+        }
+        // now forget about this unit forever
         fromArray.splice(i,1);
     }
   }

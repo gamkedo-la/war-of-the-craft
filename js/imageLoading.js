@@ -25,6 +25,11 @@ var wildflowersPic = document.createElement('img');
 var footpathPic = document.createElement('img');
 var resourceIconsPic = document.createElement('img');
 
+// "dead" versions of things
+var stumpPic = document.createElement('img');
+var rubblePic = document.createElement('img');
+var skeletonPic = document.createElement('img');
+
 var picsToLoad = 0;
 
 //All pictures prior to launching the game.  If a picture doesn't load, the game doesn't launch.
@@ -72,6 +77,10 @@ function loadImages() {
             {varName: wildflowersPic, theFile: "wildflowers.png", sX: 0, sY:0},
             {varName: footpathPic, theFile: "footpath.png", sX: 0, sY:0},
             {varName: resourceIconsPic, theFile: "resourceIcons.png", sX: 0, sY:0},
+            {varName: stumpPic, theFile: "stump.png", sX: 0, sY:0},
+            {varName: rubblePic, theFile: "rubble.png", sX: 0, sY:0},
+            {varName: skeletonPic, theFile: "skeleton.png", sX: 0, sY:0},
+
 		];
 			
 	picsToLoad = imageList.length;

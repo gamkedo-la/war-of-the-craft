@@ -67,9 +67,11 @@ function unitClass(type) {
             this.unitColor = 'Red';
             if(this.jobType == "goblin"){
                 this.pic = goblinPic;
+                this.deadSprite = skeletonPic;
                 this.health = 4;
             } else if (this.jobType == "orc"){
                 this.pic = orcPic;
+                this.deadSprite = skeletonPic;
                 this.health = 10;
                 this.width = 20;
                 this.height = 20;
@@ -79,10 +81,12 @@ function unitClass(type) {
             this.unitColor = 'White';
             if(this.jobType === "peasant"){
                 this.pic = peasantPic;
+                this.deadSprite = skeletonPic;
                 this.health = 4;
                 this.type = "peasant";
             } else if (this.jobType === "warrior"){
                 this.pic = warriorPic;
+                this.deadSprite = skeletonPic;
                 this.health = 10;
                 this.width = 20;
                 this.height = 20;
