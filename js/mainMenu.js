@@ -1,5 +1,11 @@
 var introCountDown = 500;
 var introNotPlayed = true;
+var elapsedTime = 0; 
+var timestamp = 0;
+var panX = 0; 
+const PAN_SPEED = 2; 
+
+var isGameRunning = true;
 
 
 // Lines of text for the introduction
@@ -24,8 +30,17 @@ const lineSpace = 20; // Spacing between lines
 
 function drawMainMenu(){
     // Loop to render all lines
+    camera.x = 0;
     lines.forEach((line, index) => {
         const yPosition = lineY0 + lineSpace * index;
         colorText(line, lineX, yPosition, "white", "14px Arial Black");
     });
+}
+
+function transitionToGame(deltaTime) {
+    // Increment pan position
+    camera.x += PAN_SPEED * (deltaTime / 1000); // Smooth pan based on elapsed time
+    if (camera.x > playerUnits[0].x) {
+        isGameRunning = true; // Transition is complete
+    }
 }

@@ -77,10 +77,23 @@ window.onload = function() {
 function runGameLoop() {
   var framesPerSecond = 30;
 
-  currentIntervalId = setInterval(function() {
-      moveEverything();
+  elapsedTime += timestamp;
+
+  /*if (elapsedTime < 0) {
+      // Draw startup screen for the first 15 seconds
+      drawMainMenu();
+  } else if (!isGameRunning) {
+      // Perform panning transition
+      transitionToGame(timestamp);
       drawEverything();
-    }, 1000/framesPerSecond);
+  } else { */
+ //   requestAnimationFrame(gameLoop);
+
+    currentIntervalId = setInterval(function() {
+        moveEverything();
+        drawEverything();
+      }, 1000/framesPerSecond);
+  //}
 }
 
 function imageLoadingDoneSoStartGame(){
@@ -165,14 +178,7 @@ function drawEverything() {
 
   drawUserInterface();
   drawMinimap();
-  if(introCountDown-- > 0){
-    drawMainMenu();
-    if(introNotPlayed){
-      introSound.play();
-      introNotPlayed = false;
-    }
-  }
-
+  
   // the shadow around the edges
   canvasContext.drawImage(viewportShadows,-20,-40);
 }
