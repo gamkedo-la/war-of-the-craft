@@ -24,6 +24,7 @@ var minimapGUIPic = document.createElement('img');
 var wildflowersPic = document.createElement('img');
 var footpathPic = document.createElement('img');
 var resourceIconsPic = document.createElement('img');
+var mainMenuPic = document.createElement('img');
 
 // "dead" versions of things
 var stumpPic = document.createElement('img');
@@ -80,7 +81,7 @@ function loadImages() {
             {varName: stumpPic, theFile: "stump.png", sX: 0, sY:0},
             {varName: rubblePic, theFile: "rubble.png", sX: 0, sY:0},
             {varName: skeletonPic, theFile: "skeleton.png", sX: 0, sY:0},
-
+			{varName: mainMenuPic, theFile: "mainMenuBackground.png", sX: 0, sY:0}
 		];
 			
 	picsToLoad = imageList.length;

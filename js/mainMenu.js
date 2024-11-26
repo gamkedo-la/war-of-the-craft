@@ -29,11 +29,11 @@ const lineSpace = 20; // Spacing between lines
 
 function drawMainMenu(){
     // Clear and set the background color
-    mainMenuCanvasContext.fillStyle = "red";
-    mainMenuCanvasContext.fillRect(0, 0, 800, 600);
+    mainMenuCanvasContext.drawImage(mainMenuPic, 0,0, 800, 600, 0, 0, 800, 600);
 
     // Loop to render all lines
     lines.forEach((line, index) => {
+        
         mainMenuCanvasContext.textAlign = "left";
         mainMenuCanvasContext.fillStyle = "white";
         mainMenuCanvasContext.font = "14px Arial"; 
@@ -64,7 +64,7 @@ function transitionToGame(elapsedTime) {
 
 function renderFadeEffect() {
     // Clear the canvas
-    mainMenuCanvasContext.clearRect(0, 0, canvas.width, canvas.height);
+    mainMenuCanvasContext.drawImage(mainMenuPic, 0,0, 800, 600, 0, 0, 800, 600);
 
     // Draw the main menu fading out
     mainMenuCanvasContext.save();
