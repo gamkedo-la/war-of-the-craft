@@ -1,5 +1,6 @@
 // save the canvas for dimensions, and its 2d context for drawing to it
 var canvas, canvasContext, fowCanvas, fowCanvasContext, unexploredCanvas, unexploredCanvasContext;
+var mainMenuCanvas, mainMenuCanvasContext;
 const PLAYER_PEASANT_START_UNITS = 1;
 const PLAYER_WARRIOR_START_UNITS = 0;
 const PLAYER_START_BUILDING = 1;
@@ -25,6 +26,12 @@ var isGamePaused = false;
 var currentIntervalId;
 
 window.onload = function() {
+  mainMenuCanvas = document.createElement("canvas"); // Use 'canvas' as the tag name
+  mainMenuCanvas.width = 800;
+  mainMenuCanvas.height = 600;   
+  mainMenuCanvasContext = mainMenuCanvas.getContext('2d');
+  document.body.appendChild(mainMenuCanvas);
+
   canvas = document.getElementById('gameCanvas');
   canvasContext = canvas.getContext('2d');    
   
@@ -76,24 +83,11 @@ window.onload = function() {
  */
 function runGameLoop() {
   var framesPerSecond = 30;
-
-  elapsedTime += timestamp;
-
-  /*if (elapsedTime < 0) {
-      // Draw startup screen for the first 15 seconds
-      drawMainMenu();
-  } else if (!isGameRunning) {
-      // Perform panning transition
-      transitionToGame(timestamp);
+  
+  currentIntervalId = setInterval(function() {
+      moveEverything();
       drawEverything();
-  } else { */
- //   requestAnimationFrame(gameLoop);
-
-    currentIntervalId = setInterval(function() {
-        moveEverything();
-        drawEverything();
-      }, 1000/framesPerSecond);
-  //}
+  }, 1000/framesPerSecond);
 }
 
 function imageLoadingDoneSoStartGame(){
@@ -103,6 +97,9 @@ function imageLoadingDoneSoStartGame(){
 }
 
 function moveEverything() {
+  if(!isGameRunning){
+    return; //Don't move anything
+  }
   for(var i=0;i<allUnits.length;i++) {
     allUnits[i].move();
   }
@@ -115,7 +112,21 @@ function moveEverything() {
 }
 
 function drawEverything() {
-  
+  elapsedTime++
+
+  if (elapsedTime <= 60) {
+      // Draw startup screen for the first 15 seconds
+      drawMainMenu();
+  } else if (!isGameRunning) {
+      // Perform panning transition
+      transitionToGame(elapsedTime);
+  } else { 
+ //   requestAnimationFrame(gameLoop);  
+    drawGame();
+}
+}
+
+function drawGame(){
   canvasContext.save();
   canvasContext.translate(-camera.x,-camera.y);
   
