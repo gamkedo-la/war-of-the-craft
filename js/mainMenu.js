@@ -4,6 +4,8 @@ var elapsedTime = 0;
 var timestamp = 0;
 var panX = 0; 
 const PAN_SPEED = 2; 
+var fadeOpacity = 0; 
+const FADE_SPEED = 0.01; 
 
 var isGameRunning = false;
 
@@ -27,50 +29,47 @@ const lineX = 10;  // Horizontal position for all lines
 const lineY0 = 100; // Starting vertical position
 const lineSpace = 20; // Spacing between lines
 
-function drawMainMenu(){
-    // Clear and set the background color
-    mainMenuCanvasContext.drawImage(mainMenuPic, 0,0, 800, 600, 0, 0, 800, 600);
+function drawMainMenu() {
+    // Clear and set the background
+    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+    canvasContext.drawImage(mainMenuPic, 0, 0, canvas.width, canvas.height);
 
-    // Loop to render all lines
+    // Render introduction text
+    canvasContext.fillStyle = "white";
+    canvasContext.textAlign = "left";
+    canvasContext.font = "14px Arial";
     lines.forEach((line, index) => {
-        
-        mainMenuCanvasContext.textAlign = "left";
-        mainMenuCanvasContext.fillStyle = "white";
-        mainMenuCanvasContext.font = "14px Arial"; 
-        // Adjust vertical position by index
         const lineY = lineY0 + index * lineSpace;
-        mainMenuCanvasContext.fillText(line, lineX, lineY);
+        canvasContext.fillText(line, lineX, lineY);
     });
+
+    // Optionally, display "Press Any Key to Start"
+    canvasContext.fillStyle = "gray";
+    canvasContext.font = "16px Arial";
+    canvasContext.fillText("Press Any Key to Start", canvas.width / 2 - 80, canvas.height - 20);
 }
 
-let fadeOpacity = 0; 
-const FADE_SPEED = 0.01; 
+function transitionToGame() {
+    // Increment fadeOpacity
+    fadeOpacity += FADE_SPEED;
 
-function transitionToGame(elapsedTime) {
-  //  console.log("Transition", elapsedTime);
-
-    // Increment opacity for the fade effect
-    fadeOpacity += FADE_SPEED// * elapsedTime;
-
-    // Draw the game elements with increasing opacity
     if (fadeOpacity >= 1) {
         fadeOpacity = 1; 
         isGameRunning = true; 
     }
 
-    // Render the main menu fading out and the game fading in
     renderFadeEffect();
 }
 
 function renderFadeEffect() {
     // Clear the canvas
-    mainMenuCanvasContext.drawImage(mainMenuPic, 0,0, 800, 600, 0, 0, 800, 600);
+    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw the main menu fading out
-    mainMenuCanvasContext.save();
-    mainMenuCanvasContext.globalAlpha = 1 - fadeOpacity; // Main menu fades out
+    canvasContext.save();
+    canvasContext.globalAlpha = 1 - fadeOpacity; // Main menu fades out
     drawMainMenu();
-    mainMenuCanvasContext.restore();
+    canvasContext.restore();
 
     // Draw the game fading in
     canvasContext.save();
@@ -78,3 +77,4 @@ function renderFadeEffect() {
     drawGame();
     canvasContext.restore();
 }
+
