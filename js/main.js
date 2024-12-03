@@ -114,7 +114,7 @@ function moveEverything() {
 function drawEverything() {
   elapsedTime++
 
-  if (elapsedTime <= 60) {
+  if (elapsedTime <= 200) { // FIXME: make this longer but skip ahead if keypressed
       // Draw startup screen for the first 15 seconds
       drawMainMenu();
   } else if (!isGameRunning) {
