@@ -52,6 +52,7 @@ function mousemoveHandler(evt) {
     camera.x -= evt.movementX;
     camera.y -= evt.movementY;
   }
+ // console.log("Mouse: " + mousePos.x, mousePos.y)
 }
 
 var waitingForFirstClick = true; // until sounds are allowed

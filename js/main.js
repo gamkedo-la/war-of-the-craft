@@ -49,7 +49,7 @@ window.onload = function() {
   unexploredCanvasContext.fillRect(0, 0, unexploredCanvas.width, unexploredCanvas.height);
 
   loadImages();
-    
+
   canvas.addEventListener('mousemove', mousemoveHandler);
   
   canvas.addEventListener('mousedown', mousedownHandler);
