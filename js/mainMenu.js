@@ -32,19 +32,20 @@ const lines = [
 ];
 
 // Starting positions and spacing
-const lineX = 160;  // Horizontal position for all lines
-const lineY0 = 100; // Starting vertical position
-const lineSpace = 25; // Spacing between lines
+const lineX = 178;  // Horizontal position for all lines
+const lineY0 = 140; // Starting vertical position
+const lineSpace = 20; // Spacing between lines
 
 function drawMainMenu() {
     // Clear and set the background
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
     canvasContext.drawImage(mainMenuPic, 0, 0, canvas.width, canvas.height);
+    canvasContext.drawImage(logoPic, 0, 0);
 
     // Render introduction text
     canvasContext.fillStyle = "white";
     canvasContext.textAlign = "left";
-    canvasContext.font = "20px Arial";
+    canvasContext.font = "18px Arial";
     lines.forEach((line, index) => {
         const lineY = lineY0 + index * lineSpace;
 
@@ -59,7 +60,7 @@ function drawMainMenu() {
 
     // Optionally, display "Press Any Key to Start"
     canvasContext.fillStyle = "gray";
-    canvasContext.font = "16px Arial";
+    canvasContext.font = "18px Arial";
     canvasContext.fillText("Press Any Key to Start", canvas.width / 2 - 80, canvas.height - 20);
 }
 

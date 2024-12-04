@@ -22,6 +22,7 @@ var mines = [];
 var peasantFarm = [];
 var enemyAIManager = new enemyAITeamClass();
 
+var skipIntroNow = false; // set to true on keypress or mousedown
 var isGamePaused = false;
 var currentIntervalId;
 
@@ -114,10 +115,10 @@ function moveEverything() {
 function drawEverything() {
   elapsedTime++
 
-  if (elapsedTime <= 200) { // FIXME: make this longer but skip ahead if keypressed
+  if (elapsedTime <= 1500 && !skipIntroNow) { // FIXME: make this longer but skip ahead if keypressed
       // Draw startup screen for the first 15 seconds
       drawMainMenu();
-  } else if (!isGameRunning) {
+  } else if (!isGameRunning || skipIntroNow) {
       // Perform panning transition
       transitionToGame(elapsedTime);
   } else { 

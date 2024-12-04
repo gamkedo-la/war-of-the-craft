@@ -63,6 +63,7 @@ function mousedownHandler(evt) {
     console.log("first click! starting background ambience and music.");
     startBackgroundAudio();
     waitingForFirstClick = false;
+    skipIntroNow = true; // skip past the 15sec delay on the intro text
   }
 
 
@@ -138,6 +139,10 @@ function keydownHandler(evt) {
    * latter is deprecated - more information here:
    * https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
   */
+
+  // if we happen to be at the title screen text intro, skip the 15sec delay
+  skipIntroNow = true;
+
   console.log(`[debugging | keydown event] key pressed: ${evt.key}`);
   if (evt.key === 'Escape') {
     if (isGamePaused) {
