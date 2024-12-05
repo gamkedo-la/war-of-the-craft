@@ -25,6 +25,8 @@ var wildflowersPic = document.createElement('img');
 var footpathPic = document.createElement('img');
 var resourceIconsPic = document.createElement('img');
 var mainMenuPic = document.createElement('img');
+var winPic = document.createElement('img');
+var losePic = document.createElement('img');
 var logoPic = document.createElement('img');
 
 // "dead" versions of things
@@ -83,6 +85,8 @@ function loadImages() {
             {varName: rubblePic, theFile: "rubble.png", sX: 0, sY:0},
             {varName: skeletonPic, theFile: "skeleton.png", sX: 0, sY:0},
 			{varName: mainMenuPic, theFile: "mainMenuBackground.png", sX: 0, sY:0},
+			{varName: winPic, theFile: "WinScreen.png", sX: 0, sY:0},
+			{varName: losePic, theFile: "LoseScreen.png", sX: 0, sY:0},
             {varName: logoPic, theFile: "logo.png", sX: 0, sY:0}
 		];
 			
