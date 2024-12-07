@@ -153,15 +153,19 @@ function showWall() {
 
 function placeWall(){
   if(mouseClicked && buttonDelayTimer){
-    populateTeam(buildingUnits,1,true, "wall");
-    var newUnit = buildingUnits.length-1;
-    buildingUnits[newUnit].x = mouseX + camera.x; 
-    buildingUnits[newUnit].y = mouseY + camera.y;
-    wallReadyToBePlace = false;
-    buttonDelayTimer = false;
-    showWallToBuild = false;
-    peasantMainMenu = true;
-    selectedUnits = [];
+    if(woodAvailable > 5){
+      populateTeam(buildingUnits,1,true, "wall");
+      var newUnit = buildingUnits.length-1;
+      buildingUnits[newUnit].x = mouseX + camera.x; 
+      buildingUnits[newUnit].y = mouseY + camera.y;
+      wallReadyToBePlace = false;
+      buttonDelayTimer = false;
+      showWallToBuild = false;
+      peasantMainMenu = true;
+      selectedUnits = [];
+    } else {
+      notEnoughWoodSound.play();
+    }
   }
 }
 
@@ -178,23 +182,27 @@ function displayFarmToBuild(){
 
 function placeFarm() {
   if(buttonDelayTimer && mouseClicked){
-    console.log("UI Place Farm")
-    populateTeam(buildingUnits,1,true, "peasant farm");
-    var currentBuilding = buildingUnits.length-1;
-    buildingUnits[currentBuilding].buildingInProgress = true;
-    farmReadyToBePlaced = false;
-    buttonDelayTimer = false;
-    showFarmToBuild = false;
-    peasantMainMenu = true;
-    for (var i = 0; i < selectedUnits.length; i++) {
-      var nearestFarm = findClosestUnitInRange(selectedUnits[0].x, selectedUnits[0].y, UNIT_AI_FARM_RANGE, buildingUnits, "peasant farm");
-      selectedUnits[0].myTarget = nearestFarm;
-      selectedUnits[0].actionSx = 15 * 3;
-      selectedUnits[0].showAction = true;
-      selectedUnits[0].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y+30, 0, 1);
+    if(goldAvailable > 20){
+      console.log("UI Place Farm")
+      populateTeam(buildingUnits,1,true, "peasant farm");
+      var currentBuilding = buildingUnits.length-1;
+      buildingUnits[currentBuilding].buildingInProgress = true;
+      farmReadyToBePlaced = false;
+      buttonDelayTimer = false;
+      showFarmToBuild = false;
+      peasantMainMenu = true;
+      for (var i = 0; i < selectedUnits.length; i++) {
+        var nearestFarm = findClosestUnitInRange(selectedUnits[0].x, selectedUnits[0].y, UNIT_AI_FARM_RANGE, buildingUnits, "peasant farm");
+        selectedUnits[0].myTarget = nearestFarm;
+        selectedUnits[0].actionSx = 15 * 3;
+        selectedUnits[0].showAction = true;
+        selectedUnits[0].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y+30, 0, 1);
+      }
+      selectedUnits = [];
+      assignmentTotals.farmsBuilt++; // add to stats totals. FIXME: is this the best place for this?
+    } else {
+      notEnoughGoldSound.play();
     }
-    selectedUnits = [];
-    assignmentTotals.farmsBuilt++; // add to stats totals. FIXME: is this the best place for this?
   }
 }
 
@@ -213,22 +221,27 @@ function displayTowerToBuild(){
 
 function placeTower() {
   if(buttonDelayTimer && mouseClicked){
-    populateTeam(buildingUnits,1,true, "tower");
-    var currentBuilding = buildingUnits.length-1;
-    buildingUnits[currentBuilding].buildingInProgress = true;
-    towerReadyToBePlaced = false;
-    buttonDelayTimer = false;
-    showTowerToBuild = false;
-    peasantMainMenu = true;
-    for (var i = 0; i < selectedUnits.length; i++) {
-      var nearestTower = findClosestUnitInRange(selectedUnits[0].x, selectedUnits[0].y, 100000, buildingUnits, "tower");
-      selectedUnits[0].myTarget = nearestTower;
-      selectedUnits[0].actionSx = 15 * 3;
-      selectedUnits[0].showAction = true;
-      selectedUnits[0].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y+30, 0, 1);
+    if(goldAvailable > 100){
+      populateTeam(buildingUnits,1,true, "tower");
+      var currentBuilding = buildingUnits.length-1;
+      buildingUnits[currentBuilding].buildingInProgress = true;
+      towerReadyToBePlaced = false;
+      buttonDelayTimer = false;
+      showTowerToBuild = false;
+      peasantMainMenu = true;
+      for (var i = 0; i < selectedUnits.length; i++) {
+        var nearestTower = findClosestUnitInRange(selectedUnits[0].x, selectedUnits[0].y, 100000, buildingUnits, "tower");
+        selectedUnits[0].myTarget = nearestTower;
+        selectedUnits[0].actionSx = 15 * 3;
+        selectedUnits[0].showAction = true;
+        selectedUnits[0].gotoNear(selectedUnits[0].myTarget.x,selectedUnits[0].myTarget.y+30, 0, 1);
+      }
+      selectedUnits = [];
+      goldConsumed =+ 100;
+      assignmentTotals.towersBuilt++; // add to stats totals. FIXME: is this the best place for this?
+    } else {
+      notEnoughGoldSound.play();
     }
-    selectedUnits = [];
-    assignmentTotals.towersBuilt++; // add to stats totals. FIXME: is this the best place for this?
   }
 }
 
@@ -238,27 +251,37 @@ function returnToPeasantMainMenu(){
 }
 
 function recruitPeasant(){
-  headQuartersUI = false;
-  populateTeam(playerUnits, 1, true, "peasant");
-  var newUnit = playerUnits.length-1;
-  playerUnits[newUnit].x = buildingUnits[0].x;
-  playerUnits[newUnit].y = buildingUnits[0].y;
-  var nearestTreeFound = findClosestUnitInRange(playerUnits[newUnit].x, playerUnits[newUnit].y, UNIT_AI_TREE_RANGE, trees, null);
-  playerUnits[newUnit].myTarget = nearestTreeFound;
-  playerUnits[newUnit].focus = 'trees';
-  peasantRecruitmentHooveringSound.play();
+  if(foodAvailable > 10){
+    headQuartersUI = false;
+    populateTeam(playerUnits, 1, true, "peasant");
+    var newUnit = playerUnits.length-1;
+    playerUnits[newUnit].x = buildingUnits[0].x;
+    playerUnits[newUnit].y = buildingUnits[0].y;
+    var nearestTreeFound = findClosestUnitInRange(playerUnits[newUnit].x, playerUnits[newUnit].y, UNIT_AI_TREE_RANGE, trees, null);
+    playerUnits[newUnit].myTarget = nearestTreeFound;
+    playerUnits[newUnit].focus = 'trees';
+    peasantRecruitmentHooveringSound.play();
+    foodConsumed =+ 10;
+  } else {
+    notEnoughFoodSound.play();
+  }
 }
 
 function recruitWarrior(){
-  headQuartersUI = false;
-  populateTeam(playerUnits, 1, true, "warrior");
-  var newUnit = playerUnits.length-1;
-  playerUnits[newUnit].x = buildingUnits[0].x;
-  playerUnits[newUnit].y = buildingUnits[0].y;
-  var keepAtHQ = findClosestUnitInRange(playerUnits[newUnit].x,playerUnits[newUnit].y,5600, buildingUnits);
-  playerUnits[newUnit].myTarget = keepAtHQ;
-  playerUnits[newUnit].focus = 'trees'; //change to patrol when available
-  warriorRecruitmentHoovering.play();
+  if(foodAvailable > 30){
+    headQuartersUI = false;
+    populateTeam(playerUnits, 1, true, "warrior");
+    var newUnit = playerUnits.length-1;
+    playerUnits[newUnit].x = buildingUnits[0].x;
+    playerUnits[newUnit].y = buildingUnits[0].y;
+    var keepAtHQ = findClosestUnitInRange(playerUnits[newUnit].x,playerUnits[newUnit].y,5600, buildingUnits);
+    playerUnits[newUnit].myTarget = keepAtHQ;
+    playerUnits[newUnit].focus = 'trees'; //change to patrol when available
+    warriorRecruitmentHoovering.play();
+    foodConsumed =+ 30;
+  } else {
+    notEnoughFoodSound.play();
+  }
 }
 
 function patrolArea(){
@@ -333,6 +356,13 @@ function drawButton(x, y, image, sY,text1, text2, hovering, selected) {
   }
 }
 
+var foodConsumed = 0;
+var foodAvailable = 0;
+var woodConsumed = 0;
+var woodAvailable = 0;
+var goldConsumed = 0;
+var goldAvailable = 0;
+
 function drawTopBarResourceTotalsGUI() {
   //indicator top of screen
   //if (peasantSelected || warriorSelected) {
@@ -347,6 +377,10 @@ function drawTopBarResourceTotalsGUI() {
     var totalGold = countPlayerGold();
     var totalWood = countPlayerWood();
     var totalFood = countPlayerFood();
+    foodAvailable = totalFood - foodConsumed;
+    woodconsumed = totalWood - woodConsumed;
+    goldAvailable = totalGold - goldConsumed
+
     drawBitmapAtLocation(resourceIconsPic, 0, 0, 16, 16, 220, 8);
     colorText(" = "+totalWood, 240, 22, topBarRGB, topBarFont);
     drawBitmapAtLocation(resourceIconsPic, 16, 0, 16, 16, 280, 8);
@@ -410,11 +444,11 @@ function drawUserInterface() {
 
     drawButton(recruitPeasantX, recruitPeasantY, userInterfacePic, 600, "RECRUIT", "PEASANT", recruitPeasantBoxHovering, recruitPeasant);
       if(recruitPeasantBoxHovering){
-        colorText("Food: 100", recruitPeasantX+70, recruitPeasantY+30, "white", "14px Arial");
+        colorText("Food: 10", recruitPeasantX+70, recruitPeasantY+30, "white", "14px Arial");
       } 
     drawButton(recruitWarriorX, recruitWarriorY, userInterfacePic, 660, "RECRUIT", "WARRIOR", recruitWarriorBoxHovering, recruitWarrior);
       if(recruitWarriorBoxHovering){
-        colorText("Food: 300", recruitWarriorX+70, recruitWarriorY+30, "white", "14px Arial");
+        colorText("Food: 30", recruitWarriorX+70, recruitWarriorY+30, "white", "14px Arial");
       } 
   }
 }

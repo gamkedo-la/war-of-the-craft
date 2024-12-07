@@ -44,8 +44,9 @@ var peasantChoppingTree = new SoundOverlapsClass('PeasantWoodChop')
 var goldMineSelectedSound = new SoundOverlapsClass("GoldMineSelected");
 var hQUnderAttackSound = new SoundOverlapsClass("GoldMineSelected");
 var introSound = new SoundOverlapsClass("Intro");
-
-
+var notEnoughFoodSound = new SoundOverlapsClass("NeedMoreFood");
+var notEnoughWoodSound = new SoundOverlapsClass("NotEnoughWood");
+var notEnoughGoldSound = new SoundOverlapsClass("NotEnoughGold");
 
 function setFormat() {
     var audio = new Audio();
