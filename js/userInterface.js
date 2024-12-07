@@ -31,6 +31,13 @@ var showWallToBuild = false, showFarmToBuild = false, wallReadyToBePlace = false
 recruitPeasantBoxHovering = false, recruitPeasantSelected = false, recruitPeasantX = 10, recruitPeasantY = 180;
 recruitWarriorBoxHovering = false, recruitWarriorSelected = false, recruitWarriorX = 10, recruitWarriorY = 280;
 
+var foodConsumed = 0;
+var foodAvailable = 0;
+var woodConsumed = 0;
+var woodAvailable = 0;
+var goldConsumed = 0;
+var goldAvailable = 0;
+
 // Check if mouse is inside a given box
 function checkMouseInsideBox(xPos, yPos, width, height) {
     var x1 = Math.floor(xPos), y1 = Math.floor(yPos);
@@ -153,7 +160,8 @@ function showWall() {
 
 function placeWall(){
   if(mouseClicked && buttonDelayTimer){
-    if(woodAvailable > 5){
+    if(woodAvailable >= 5 &&
+      goldAvailable >= 5){
       populateTeam(buildingUnits,1,true, "wall");
       var newUnit = buildingUnits.length-1;
       buildingUnits[newUnit].x = mouseX + camera.x; 
@@ -163,6 +171,8 @@ function placeWall(){
       showWallToBuild = false;
       peasantMainMenu = true;
       selectedUnits = [];
+      woodConsumed =+ 5;
+      goldConsumed =+ 5;
     } else {
       notEnoughWoodSound.play();
     }
@@ -182,7 +192,8 @@ function displayFarmToBuild(){
 
 function placeFarm() {
   if(buttonDelayTimer && mouseClicked){
-    if(goldAvailable > 20){
+    if(goldAvailable >= 2 &&
+       woodAvailable >= 10){
       console.log("UI Place Farm")
       populateTeam(buildingUnits,1,true, "peasant farm");
       var currentBuilding = buildingUnits.length-1;
@@ -200,8 +211,14 @@ function placeFarm() {
       }
       selectedUnits = [];
       assignmentTotals.farmsBuilt++; // add to stats totals. FIXME: is this the best place for this?
+      goldConsumed += 2;
+      woodconsumed += 10;
     } else {
       notEnoughGoldSound.play();
+      farmReadyToBePlaced = false;
+      buttonDelayTimer = false;
+      showFarmToBuild = false;
+      peasantMainMenu = true;
     }
   }
 }
@@ -221,7 +238,9 @@ function displayTowerToBuild(){
 
 function placeTower() {
   if(buttonDelayTimer && mouseClicked){
-    if(goldAvailable > 100){
+    if(goldAvailable >= 100 &&
+       foodAvailable >= 30 &&
+       woodAvailable >= 100){
       populateTeam(buildingUnits,1,true, "tower");
       var currentBuilding = buildingUnits.length-1;
       buildingUnits[currentBuilding].buildingInProgress = true;
@@ -238,7 +257,13 @@ function placeTower() {
       }
       selectedUnits = [];
       goldConsumed =+ 100;
+      foodConsumed =+ 30;
+      woodconsumed =+ 100;
       assignmentTotals.towersBuilt++; // add to stats totals. FIXME: is this the best place for this?
+    } else if (goldAvailable < 100) {
+      notEnoughGoldSound.play();
+    } else if (foodAvailable < 30) {
+      notEnoughFoodSound.play();
     } else {
       notEnoughGoldSound.play();
     }
@@ -251,7 +276,7 @@ function returnToPeasantMainMenu(){
 }
 
 function recruitPeasant(){
-  if(foodAvailable > 10){
+  if(foodAvailable >= 10 && goldAvailable >= 1){
     headQuartersUI = false;
     populateTeam(playerUnits, 1, true, "peasant");
     var newUnit = playerUnits.length-1;
@@ -262,13 +287,15 @@ function recruitPeasant(){
     playerUnits[newUnit].focus = 'trees';
     peasantRecruitmentHooveringSound.play();
     foodConsumed =+ 10;
+    goldConsumed =+ 1;
   } else {
     notEnoughFoodSound.play();
   }
 }
 
 function recruitWarrior(){
-  if(foodAvailable > 30){
+  if(foodAvailable >= 30 && 
+     goldAvailable < 10){
     headQuartersUI = false;
     populateTeam(playerUnits, 1, true, "warrior");
     var newUnit = playerUnits.length-1;
@@ -279,8 +306,11 @@ function recruitWarrior(){
     playerUnits[newUnit].focus = 'trees'; //change to patrol when available
     warriorRecruitmentHoovering.play();
     foodConsumed =+ 30;
-  } else {
+    goldConsumed =+ 10;
+  } else if (foodAvailable < 30) {
     notEnoughFoodSound.play();
+  } else {
+    notEnoughGoldSound.play();
   }
 }
 
@@ -356,13 +386,6 @@ function drawButton(x, y, image, sY,text1, text2, hovering, selected) {
   }
 }
 
-var foodConsumed = 0;
-var foodAvailable = 0;
-var woodConsumed = 0;
-var woodAvailable = 0;
-var goldConsumed = 0;
-var goldAvailable = 0;
-
 function drawTopBarResourceTotalsGUI() {
   //indicator top of screen
   //if (peasantSelected || warriorSelected) {
@@ -378,7 +401,7 @@ function drawTopBarResourceTotalsGUI() {
     var totalWood = countPlayerWood();
     var totalFood = countPlayerFood();
     foodAvailable = totalFood - foodConsumed;
-    woodconsumed = totalWood - woodConsumed;
+    woodAvailable = totalWood - woodConsumed;
     goldAvailable = totalGold - goldConsumed
 
     drawBitmapAtLocation(resourceIconsPic, 0, 0, 16, 16, 220, 8);
@@ -423,15 +446,19 @@ function drawUserInterface() {
 
     drawButton(wallX, wallY, userInterfacePic, 420, "BUILD", "WALL", buildWallHovering, buildWallSelected);
     if(buildWallHovering){
-      colorText("Wood: 10", wallX+70, wallY+30, "white", "14px Arial");
+      colorText("Wood: 5", wallX+70, wallY+30, "white", "14px Arial");
+      colorText("Gold: 5", farmBuildX+70, farmBuildY+60, "white", "14px Arial");
     } 
     drawButton(farmBuildX, farmBuildY, userInterfacePic, 480, "BUILD", "FARM", farmBuildHovering, farmBuildSelected);
     if(farmBuildHovering){
-      colorText("Wood: 300", farmBuildX+70, farmBuildY+30, "white", "14px Arial");
+      colorText("Wood: 10", farmBuildX+70, farmBuildY+30, "white", "14px Arial");
+      colorText("Gold: 2", farmBuildX+70, farmBuildY+60, "white", "14px Arial");
     }
     drawButton(towerX, towerY, userInterfacePic, 720, "BUILD", "TOWER", towerButtonHovering, towerButtonSelected);
     if(towerButtonHovering){
       colorText("Wood: 300", towerX+70, towerY+30, "white", "14px Arial");
+      colorText("Food: 300", towerX+70, towerY+60, "white", "14px Arial");
+      colorText("Gold: 300", towerX+70, towerY+90, "white", "14px Arial");
     }
     drawButton(peasantMainMenuX, peasantMainMenuY, userInterfacePic, 540, "BACK TO", "MAIN MENU", peasantReturnMenuHovering, peasantReturnMenuSelected);
   }
