@@ -8,6 +8,7 @@ var farmBuildX = 10, farmBuildY = 200;
 var peasantMainMenuX = 10, peasantMainMenuY = 400;
 var pictureWidth = 60, pictureHeight = 60;
 var towerX = 10, towerY = 300;
+var showHelp = true;
 
 var peasantSelected = false, warriorSelected = false;
 var peasantConstructionMenu = false, peasantMainMenu = true;
@@ -478,28 +479,30 @@ function drawUserInterface() {
         colorText("Food: 30", recruitWarriorX+70, recruitWarriorY+30, "white", "14px Arial");
       } 
   }
-  var helpWidth = 300;
-  var helpHeight = 200;
-  var helpRow = [
-    "Line 1 ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    "Line 2",
-    "Line 3",
-    "Line 4",
-    "Line 5",
-    "Line 6",
-    "Line 7",
-    "Line 8",
-    "Line 9",
-    "Line 10",
-    "Line 11",
-    "Final Line"
-  ];
-  var helpX = 20;
-  var helpY = canvas.height-helpHeight + 10;
-  var helpLineSkip = 15;
-  colorRect(10, canvas.height-helpHeight-10, helpWidth, helpHeight, "tan");
-  for(var i = 0; i<helpRow.length; i++){
-    colorText(helpRow[i], helpX, helpY, "brown", "13px Arial");
-    helpY+=helpLineSkip;
+  if(showHelp){
+    var helpWidth = 300;
+    var helpHeight = 200;
+    var helpRow = [
+      "Line 1 ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "Line 2",
+      "Line 3",
+      "Line 4",
+      "Line 5",
+      "Line 6",
+      "Line 7",
+      "Line 8",
+      "Line 9",
+      "Line 10",
+      "",
+      "Press H to toggle this help box"
+    ];
+    var helpX = 20;
+    var helpY = canvas.height-helpHeight + 10;
+    var helpLineSkip = 15;
+    colorRect(10, canvas.height-helpHeight-10, helpWidth, helpHeight, "tan");
+    for(var i = 0; i<helpRow.length; i++){
+      colorText(helpRow[i], helpX, helpY, "brown", "13px Arial");
+      helpY+=helpLineSkip;
+    }
   }
 }
