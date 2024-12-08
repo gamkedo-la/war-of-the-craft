@@ -483,16 +483,17 @@ function drawUserInterface() {
     var helpWidth = 300;
     var helpHeight = 200;
     var helpRow = [
-      "Line 1 ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-      "Line 2",
-      "Line 3",
-      "Line 4",
-      "Line 5",
-      "Line 6",
-      "Line 7",
-      "Line 8",
-      "Line 9",
-      "Line 10",
+    //"Line 1 ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "Left mouse drag to select player",
+      "Left click to select building",
+      "Right click to drag view",
+      "",
+      "Peasants gather lumber and gold",
+      "Use lumber and gold to build farms",
+      "Headquarters turns gold and food into army",
+      "Defeat all enemies to win",
+      "",
+      "",
       "",
       "Press H to toggle this help box"
     ];
