@@ -113,6 +113,10 @@ function moveEverything() {
 }
 
 function drawEverything() {
+
+  if (GameIsOver_ThePlayerWon)  { drawWinScreen(); return; }
+  if (GameIsOver_ThePlayerLost)  { drawLoseScreen(); return; }
+
   elapsedTime++
 
   if (elapsedTime <= 1500 && !skipIntroNow) { // FIXME: make this longer but skip ahead if keypressed

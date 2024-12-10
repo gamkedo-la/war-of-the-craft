@@ -144,6 +144,11 @@ function keydownHandler(evt) {
   skipIntroNow = true;
 
   console.log(`[debugging | keydown event] key pressed: ${evt.key}`);
+  
+  // debug keys to trigger win/lose immediately
+  if (evt.key === '0') { gameOver(true); } 
+  if (evt.key === '9') { gameOver(false); } 
+  
   if (evt.key === 'Escape') {
     if (isGamePaused) {
       console.log('Unpausing Game');
