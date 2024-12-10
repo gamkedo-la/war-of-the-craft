@@ -23,17 +23,26 @@ var assignmentTargets = {
 
 // an area on the right side of the screen
 // for quests and battle assignments
-function drawAssignmentsGUI() {
-    const tx = 660;
-    const ty = 494;
-    const th = 18;
-    const rgb = "rgba(64,32,1)";
-    const fnt = "14px Arial";
+function drawAssignmentsGUI(forTheGameOverScreen=false) {
+    let tx = 660;
+    let ty = 494;
+    let th = 18;
+    let rgb = "rgba(64,32,1)";
+    let fnt = "14px Arial";
     let lines = 0;
-    
-    canvasContext.drawImage(assignmentsGUIPic, tx-30, ty-47);
-    //colorText("ASSIGNMENTS:",tx+1,ty+(lines*th)+1,"black",fnt); // drop shadow?
-    colorText("ASSIGNMENTS:",tx,ty+(lines++*th),"black",fnt);
+
+    // adjust this for use on the gameover screens?
+    if (forTheGameOverScreen) {
+        tx = 260;
+        ty = 330;
+        fnt = "24px Arial";
+    } 
+
+    if (!forTheGameOverScreen) {
+        canvasContext.drawImage(assignmentsGUIPic, tx-30, ty-47);
+        //colorText("ASSIGNMENTS:",tx+1,ty+(lines*th)+1,"black",fnt); // drop shadow?
+        colorText("ASSIGNMENTS:",tx,ty+(lines++*th),"black",fnt);
+    }
     
     let gotAllWood = assignmentTotals.woodChopped >= assignmentTargets.woodChopped;
     let gotAllGold = assignmentTotals.goldMined >= assignmentTargets.goldMined;
@@ -47,9 +56,10 @@ function drawAssignmentsGUI() {
     colorText((gotAllFood ? "☑ " : "☐ ") + "Harvest "+assignmentTotals.foodHarvested + "/" + assignmentTargets.foodHarvested +" food", tx,ty+(lines++*th),rgb,fnt);
     colorText((gotAllWins ? "☑ " : "☐ ") + "Win "+assignmentTotals.battlesWon + "/" + assignmentTargets.battlesWon +" battles", tx,ty+(lines++*th),rgb,fnt);
 
-    if (gotAllWood && gotAllGold && gotAllFarms && gotAllFood && gotAllWins) {
-        console.log("PLAYER WINS THE GAME! All assignments complete.");
-        gameOver(true);
-    }
-    
+    if (!forTheGameOverScreen) {
+        if (gotAllWood && gotAllGold && gotAllFarms && gotAllFood && gotAllWins) {
+            console.log("PLAYER WINS THE GAME! All assignments complete.");
+            gameOver(true);
+        }
+    }    
 }
