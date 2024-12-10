@@ -500,7 +500,8 @@ function drawUserInterface() {
     var helpX = 20;
     var helpY = canvas.height-helpHeight + 10;
     var helpLineSkip = 15;
-    colorRect(10, canvas.height-helpHeight-10, helpWidth, helpHeight, "tan");
+    //colorRect(10, canvas.height-helpHeight-10, helpWidth, helpHeight, "tan");
+    canvasContext.drawImage(helpGUI, 10, canvas.height-helpHeight-10);
     for(var i = 0; i<helpRow.length; i++){
       colorText(helpRow[i], helpX, helpY, "brown", "13px Arial");
       helpY+=helpLineSkip;

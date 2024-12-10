@@ -28,6 +28,7 @@ var mainMenuPic = document.createElement('img');
 var winPic = document.createElement('img');
 var losePic = document.createElement('img');
 var logoPic = document.createElement('img');
+var helpGUI = document.createElement('img');
 
 // "dead" versions of things
 var stumpPic = document.createElement('img');
@@ -87,7 +88,9 @@ function loadImages() {
 			{varName: mainMenuPic, theFile: "mainMenuBackground.png", sX: 0, sY:0},
 			{varName: winPic, theFile: "WinScreen.png", sX: 0, sY:0},
 			{varName: losePic, theFile: "LoseScreen.png", sX: 0, sY:0},
-            {varName: logoPic, theFile: "logo.png", sX: 0, sY:0}
+            {varName: logoPic, theFile: "logo.png", sX: 0, sY:0},
+            {varName: helpGUI, theFile: "helpGUI.png", sX: 0, sY:0},
+
 		];
 			
 	picsToLoad = imageList.length;
