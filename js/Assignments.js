@@ -49,7 +49,7 @@ function drawAssignmentsGUI() {
 
     if (gotAllWood && gotAllGold && gotAllFarms && gotAllFood && gotAllWins) {
         console.log("PLAYER WINS THE GAME! All assignments complete.");
-        // FIXME: end game screen etc
+        gameOver(true);
     }
     
 }
