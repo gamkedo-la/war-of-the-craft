@@ -1,4 +1,7 @@
 const AI_TEAM_THINK_DELAY_FRAMES = 30;
+const AI_TEAM_POSITION_VARIATION_X = 250;
+const AI_TEAM_POSITION_VARIATION_Y = 250;
+const AI_TEAM_MISTAKE_PROBABILITY = 33; //Percantage
 var orcWarningPlayed = false;
 
 function enemyAITeamClass(){
@@ -35,11 +38,28 @@ function enemyAITeamClass(){
             this.indexEnemyToUpdate++;
             return;
         }
+
+        // Enemy can forget to make any progress with units
+        var numberBetween0and100 =  Math.floor(Math.random() * (100 - 0)) + 0;
+        if (numberBetween0and100 <= AI_TEAM_MISTAKE_PROBABILITY) {
+            this.indexEnemyToUpdate++;
+            return;
+        }
+
+        // Give some variation to enemy position.
+        // So that it might find a not optimal target instead of finding the closest.
+        var maxVariationX = enemy.x + AI_TEAM_POSITION_VARIATION_X;
+        var minVariationX = enemy.x - AI_TEAM_POSITION_VARIATION_X;
+        var maxVariationY = enemy.y + AI_TEAM_POSITION_VARIATION_Y;
+        var minVariationY = enemy.y - AI_TEAM_POSITION_VARIATION_Y;
+        var enemyPositionX =  Math.floor(Math.random() * (maxVariationX - minVariationX)) + minVariationX;
+        var enemyPositionY =  Math.floor(Math.random() * (maxVariationY - minVariationY)) + minVariationY;
+        console.log( enemyPositionX + " " + enemyPositionY);
         
         if (enemy.jobType == "goblin") {
             if (enemy.lumber == 0) {
                 // Find the nearest tree and assign it as a target
-                var nearestTree = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_TREE_RANGE, trees, trees);
+                var nearestTree = findClosestUnitInRange(enemyPositionX, enemyPositionY, UNIT_AI_TREE_RANGE, trees, trees);
                 if (nearestTree) {
                     enemy.myTarget = nearestTree;
                     enemy.actionSx = 0;
@@ -55,7 +75,7 @@ function enemyAITeamClass(){
             }
         } else if (enemy.jobType == 'orc') {
             // Orc patrol until player is found, then assign player as a target
-            let closestTarget = findClosestUnitInRange(enemy.x,enemy.y,20000, playerUnits, null);
+            let closestTarget = findClosestUnitInRange(enemyPositionX,enemyPositionY,20000, playerUnits, null);
             if(closestTarget != null){
                 let playerTile = pixelCoordToIndex(closestTarget.x, closestTarget.y);
                 startPath(playerTile, enemy);
