@@ -91,16 +91,22 @@ function hValCal(atColumn,atRow, toColumn,toRow, multWeight, geometric) { /////
 
 function startPath(toTile, pathFor){
 	
+    console.log("starting pathfinding...");
+    console.time("pathfinding took"); // start a debug timer
+
     if (toTile< 0 || toTile >= collGrid.length) { // invalid or off board
         console.log("Not a valid location");
 		return;
     }
 	
 	if (pathfindingGridDataNeedsRefreshing || !PATHFINDING_REUSES_GRID_UNLESS_REFRESHED) { 
-    SetupPathfindingGridData(pathFor);
+        SetupPathfindingGridData(pathFor);
     }
 	grid[toTile].setGoal();
 	PathfindingNextStep(pathFor);
+
+    console.timeEnd("pathfinding took"); // end the debug timer and say how long it look
+
 }
 
 function PathfindingNextStep(whichPathfinder) {
