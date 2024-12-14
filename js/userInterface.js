@@ -85,7 +85,7 @@ function checkForPlayersSelected(){
 // Various actions for units (lumber, attack, gold, farm)
 function lumberAction(actionList) {
   for (var i = 0; i < actionList.length; i++) {
-    var nearestTreeFoundForPeasant = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_TREE_RANGE, trees, "trees");
+    var nearestTreeFoundForPeasant = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_TREE_RANGE, trees);
     if (nearestTreeFoundForPeasant) {
         actionList[i].myTarget = nearestTreeFoundForPeasant;
         actionList[i].actionSx = 0;
@@ -112,7 +112,7 @@ function attackAction(actionList) { //not called
 
 function goldAction(actionList) {
   for (var i = 0; i < actionList.length; i++) {
-    var nearestMine = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_MINE_RANGE, mines, mines);
+    var nearestMine = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_MINE_RANGE, mines);
     if (nearestMine) {
       actionList[i].myTarget = nearestMine;
       actionList[i].actionSx = 15 * 2;
@@ -287,7 +287,7 @@ function recruitPeasant(){
     var newUnit = playerUnits.length-1;
     playerUnits[newUnit].x = buildingUnits[0].x;
     playerUnits[newUnit].y = buildingUnits[0].y;
-    var nearestTreeFound = findClosestUnitInRange(playerUnits[newUnit].x, playerUnits[newUnit].y, UNIT_AI_TREE_RANGE, trees, null);
+    var nearestTreeFound = findClosestUnitInRange(playerUnits[newUnit].x, playerUnits[newUnit].y, UNIT_AI_TREE_RANGE, trees);
     playerUnits[newUnit].myTarget = nearestTreeFound;
     playerUnits[newUnit].focus = 'trees';
     peasantRecruitmentHooveringSound.play();

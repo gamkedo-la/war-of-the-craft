@@ -38,7 +38,7 @@ function mouseMovedEnoughToTreatAsDrag() {
 }
 
 function getUnitUnderMouse(currentMousePos) {
-  return findClosestUnitInRange(currentMousePos.x, currentMousePos.y, MIN_DIST_FOR_MOUSE_CLICK_SELECTABLE, allUnits, null);
+  return findClosestUnitInRange(currentMousePos.x, currentMousePos.y, MIN_DIST_FOR_MOUSE_CLICK_SELECTABLE, allUnits);
 }
 
 function mousemoveHandler(evt) {

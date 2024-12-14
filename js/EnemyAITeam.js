@@ -59,7 +59,7 @@ function enemyAITeamClass(){
         if (enemy.jobType == "goblin") {
             if (enemy.lumber == 0) {
                 // Find the nearest tree and assign it as a target
-                var nearestTree = findClosestUnitInRange(enemyPositionX, enemyPositionY, UNIT_AI_TREE_RANGE, trees, trees);
+                var nearestTree = findClosestUnitInRange(enemyPositionX, enemyPositionY, UNIT_AI_TREE_RANGE, trees);
                 if (nearestTree) {
                     enemy.myTarget = nearestTree;
                     enemy.actionSx = 0;
@@ -75,7 +75,7 @@ function enemyAITeamClass(){
             }
         } else if (enemy.jobType == 'orc') {
             // Orc patrol until player is found, then assign player as a target
-            let closestTarget = findClosestUnitInRange(enemyPositionX,enemyPositionY,20000, playerUnits, null);
+            let closestTarget = findClosestUnitInRange(enemyPositionX,enemyPositionY,20000, playerUnits);
             if(closestTarget != null){
                 let playerTile = pixelCoordToIndex(closestTarget.x, closestTarget.y);
                 startPath(playerTile, enemy);
