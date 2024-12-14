@@ -167,11 +167,14 @@ function buildingClass(building) {
         return Math.sqrt(deltaX*deltaX + deltaY*deltaY);
     }
 
+    /*
+    // a premature optimization that will just add confusion
     this.distFromSq = function(otherX, otherY) { //return square distance faster for comparison, not accuracy
         var deltaX = otherX-this.x;
         var deltaY = otherY-this.y;
         return deltaX*deltaX + deltaY*deltaY;
     } 
+    */
 
 
 

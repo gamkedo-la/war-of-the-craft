@@ -71,7 +71,7 @@ function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList, type) {
   }
 
   for(var i=0;i<inUnitList.length;i++) {
-    var distTo = inUnitList[i].distFromSq(fromX,fromY); //does this take a lot of performance?
+    var distTo = inUnitList[i].distFrom(fromX,fromY); //does this take a lot of performance? (answer:NO)
     if(distTo < nearestUnitDist) {
       nearestUnitDist = distTo; 
    //   console.log("Dist: " + nearestUnitDist);
@@ -97,7 +97,7 @@ function findClosestFriendlyBuildingInRange(fromX,fromY,maxRange,inUnitList, typ
   }
 
   for(var i=0;i<inUnitList.length;i++) {
-    var distTo = inUnitList[i].distFromSq(fromX,fromY); 
+    var distTo = inUnitList[i].distFrom(fromX,fromY); 
     if(inUnitList[i].unitColor == team){
       //console.log(inUnitList[i].unitColor)
       if(distTo < nearestUnitDist) {

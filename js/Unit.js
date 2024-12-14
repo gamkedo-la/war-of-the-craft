@@ -99,7 +99,7 @@ function unitClass(type) {
         }
 
         for (var i = 0; i < buildingUnits.length; i++) {
-            var isTreeCloseToBuilding = this.distFromSq(buildingUnits[i].x, buildingUnits[i].y);
+            var isTreeCloseToBuilding = this.distFrom(buildingUnits[i].x, buildingUnits[i].y);
             if (isTreeCloseToBuilding < 70) {
                 this.x = this.x + 70;
                 this.y = this.y + 70;
@@ -117,11 +117,13 @@ function unitClass(type) {
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
+    /*
     this.distFromSq = function(otherX, otherY) { //return square distance faster for comparison, not accuracy
         var deltaX = otherX-this.x;
         var deltaY = otherY-this.y;
         return deltaX*deltaX + deltaY*deltaY;
     } 
+    */
 
     this.setTarget = function(newTarget) {
         this.myTarget = newTarget;
@@ -368,7 +370,7 @@ function unitClass(type) {
                 if(this.mineDist < 3){
                     this.mineGoldAction();
                 }                
-            } else if (this.distFromSq(this.myTarget.x, this.myTarget.y) > UNIT_ATTACK_RANGE * UNIT_AI_TREE_RANGE) {
+            } else if (this.distFrom(this.myTarget.x, this.myTarget.y) > UNIT_ATTACK_RANGE * UNIT_AI_TREE_RANGE) {
                 this.gotoX = this.myTarget.x;
                 this.gotoY = this.myTarget.y;
             } else {

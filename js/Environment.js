@@ -17,7 +17,7 @@ function environmentClass(environmentType) {
         // Proximity check for units
         var checkProximity = function(units, threshold) {
             for (var i = 0; i < units.length; i++) {
-                if (this.distFromSq(units[i].x, units[i].y) < threshold) {
+                if (this.distFrom(units[i].x, units[i].y) < threshold) {
                     this.isDead = true;
                     anyNewUnitsToClear = true;
                     return;
@@ -55,11 +55,13 @@ function environmentClass(environmentType) {
         return Math.sqrt(deltaX*deltaX + deltaY*deltaY);
     }
 
+    /*
     this.distFromSq = function(otherX, otherY) { //return square distance faster for comparison, not accuracy
         var deltaX = otherX-this.x;
         var deltaY = otherY-this.y;
         return deltaX*deltaX + deltaY*deltaY;
     } 
+    */
 
     this.move = function(){
         //don't move building
