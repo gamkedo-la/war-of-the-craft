@@ -1,7 +1,7 @@
 // this lets us reuse previously created grid data
 // so set this to TRUE if the world changes (new buildings)
 // to force a fresh data gathering step
-const PATHFINDING_REUSES_GRID_UNLESS_REFRESHED = false; // true, use the variable below, not sure we can make each unit a recalculated grid.
+const PATHFINDING_REUSES_GRID_UNLESS_REFRESHED = true; // true, use the variable below, not sure we can make each unit a recalculated grid.
 var pathfindingGridDataNeedsRefreshing = true; // set to true calculate grid
 const USE_FASTER_ARRAYREMOVE = true; // set to true for faster but maybe buggy version
 
