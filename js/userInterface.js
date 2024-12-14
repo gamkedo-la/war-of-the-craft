@@ -85,15 +85,19 @@ function checkForPlayersSelected(){
 // Various actions for units (lumber, attack, gold, farm)
 function lumberAction(actionList) {
   for (var i = 0; i < actionList.length; i++) {
-    var nearestTreeFoundForPeasant = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_TREE_RANGE, trees, trees);
-    actionList[i].myTarget = nearestTreeFoundForPeasant;
-    actionList[i].actionSx = 0;
-    actionList[i].showAction = true;
-    actionList[i].gotoNear(actionList[0].myTarget.x,actionList[0].myTarget.y, 0, 1);
-    actionList[i].focus = "trees";
-    var goalTile = pixelCoordToIndex(actionList[i].myTarget.x, actionList[i].myTarget.y);
-    startPath(goalTile, actionList[i]);
-    console.log("Lumber Action "+i+" of "+actionList.length+" generated a path to a nearby tree at "+Math.round(nearestTreeFoundForPeasant.x)+","+Math.round(nearestTreeFoundForPeasant.y));
+    var nearestTreeFoundForPeasant = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_TREE_RANGE, trees, "trees");
+    if (nearestTreeFoundForPeasant) {
+        actionList[i].myTarget = nearestTreeFoundForPeasant;
+        actionList[i].actionSx = 0;
+        actionList[i].showAction = true;
+        actionList[i].gotoNear(actionList[0].myTarget.x,actionList[0].myTarget.y, 0, 1);
+        actionList[i].focus = "trees";
+        var goalTile = pixelCoordToIndex(actionList[i].myTarget.x, actionList[i].myTarget.y);
+        startPath(goalTile, actionList[i]);
+        console.log("Lumber Action "+i+" of "+actionList.length+" generated a path to a nearby tree at "+Math.round(nearestTreeFoundForPeasant.x)+","+Math.round(nearestTreeFoundForPeasant.y));
+    } else {
+        console.log("Error: NO nearby tree found!!!"); // should never happen unless you play for HOURS
+    }
   }
   actionList.splice(0,actionList.length); //empties original array
 }

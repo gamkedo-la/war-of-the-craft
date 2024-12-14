@@ -57,25 +57,26 @@ function addNewUnitToTeam(spawnUnit,fightsForTeam){
   allUnits.push(spawnUnit);
 }
 
-function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList, type) {
+// returns a single unit
+function findClosestUnitInRange(fromX,fromY,maxRange,inUnitList,type) {
   var nearestUnitDist = maxRange; 
   var nearestUnitFound = null;
   var unitlist;
 
   if (type) {
-    unitlist = inUnitList.filter(function (item) {
-      return item.type == type;
-    })
+    // extract only the units of the correct type
+    unitlist = inUnitList.filter(function (item) { return item.type == type; })
   } else {
+    // use all units in provided list
     unitlist = inUnitList;
   }
 
-  for(var i=0;i<inUnitList.length;i++) {
-    var distTo = inUnitList[i].distFrom(fromX,fromY); //does this take a lot of performance? (answer:NO)
+  for(var i=0;i<unitlist.length;i++) {
+    var distTo = unitlist[i].distFrom(fromX,fromY); //does this take a lot of performance? (answer:NO)
     if(distTo < nearestUnitDist) {
       nearestUnitDist = distTo; 
    //   console.log("Dist: " + nearestUnitDist);
-      nearestUnitFound = inUnitList[i];
+      nearestUnitFound = unitlist[i];
     }
   }
   // console.log(nearestUnitFound)
@@ -96,13 +97,13 @@ function findClosestFriendlyBuildingInRange(fromX,fromY,maxRange,inUnitList, typ
     unitlist = inUnitList;
   }
 
-  for(var i=0;i<inUnitList.length;i++) {
-    var distTo = inUnitList[i].distFrom(fromX,fromY); 
-    if(inUnitList[i].unitColor == team){
-      //console.log(inUnitList[i].unitColor)
+  for(var i=0;i<unitlist.length;i++) {
+    var distTo = unitlist[i].distFrom(fromX,fromY); 
+    if(unitlist[i].unitColor == team){
+      //console.log(unitlist[i].unitColor)
       if(distTo < nearestUnitDist) {
         nearestUnitDist = distTo; 
-        nearestUnitFound = inUnitList[i];
+        nearestUnitFound = unitlist[i];
       }
     } 
   }
