@@ -145,10 +145,14 @@ function keydownHandler(evt) {
 
   console.log(`[debugging | keydown event] key pressed: ${evt.key}`);
   
-  // debug keys to trigger win/lose immediately
+  // debug cheat keys to trigger win/lose immediately
   if (evt.key === '0') { gameOver(true); } 
   if (evt.key === '9') { gameOver(false); } 
   
+  // debug cheat key to spawn tons of baddies and soldiers to test battle
+  if (evt.key === '8') { debugWAR(); } 
+
+
   if (evt.key === 'Escape') {
     if (isGamePaused) {
       console.log('Unpausing Game');

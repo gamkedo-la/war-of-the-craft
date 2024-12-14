@@ -199,3 +199,37 @@ function drawGame(){
   canvasContext.drawImage(viewportShadows,-20,-40);
 }
 
+// debug function (cheat key: "8") that spawns tons of enemies and warriors
+// used just to test battles, ai, and skeleton decals, etc
+function debugWAR() {
+    num = 50;
+    console.log("===== WAR!! spawning "+num*2+" units!! =====");
+    
+    var num, team, type, playerControlled;
+
+    /*
+    team = enemyUnits;
+    type = "goblin";
+    playerControlled = false;
+    populateTeam(team,num,playerControlled,type);
+    */
+
+    team = enemyUnits;
+    type = "orc";
+    playerControlled = false;
+    populateTeam(team,num,playerControlled,type);
+
+    /*
+    team = playerUnits;
+    type = "peasant";
+    playerControlled = true;
+    populateTeam(team,num,playerControlled,type);
+    */
+
+    team = playerUnits;
+    type = "warrior";
+    playerControlled = true;
+    populateTeam(team,num,playerControlled,type);
+
+}
+
