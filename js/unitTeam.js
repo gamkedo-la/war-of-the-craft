@@ -14,22 +14,31 @@ function populateTeam(whichTeam,howMany,isPlayerControlled, type){
       spawnUnit = new unitClass(type);
     } else if (type == "players hq"){
       spawnUnit = new buildingClass("players hq");
+      pathfindingGridDataNeedsRefreshing = true;
     } else if (type == "goblins hq"){
       spawnUnit = new buildingClass("goblins hq");
+      pathfindingGridDataNeedsRefreshing = true;
     } else if (type == "orcs barracks"){
       spawnUnit = new buildingClass("orc barracks");
+      pathfindingGridDataNeedsRefreshing = true;
     } else if (type == "peasant farm"){
       spawnUnit = new buildingClass("peasant farm");
+      pathfindingGridDataNeedsRefreshing = true;
     } else if (type == "tower"){
       spawnUnit = new buildingClass("tower");
+      pathfindingGridDataNeedsRefreshing = true;
     } else if (type == "orc farm"){
       spawnUnit = new buildingClass("orc farm");
+      pathfindingGridDataNeedsRefreshing = true;
     } else if (type == "trees"){
       spawnUnit = new environmentClass("trees");
+      pathfindingGridDataNeedsRefreshing = true;
     } else if (type == "mines"){
       spawnUnit = new environmentClass("mines");
+      pathfindingGridDataNeedsRefreshing = true;
     } else if (type == "wall"){
       spawnUnit = new buildingClass("wall");
+      pathfindingGridDataNeedsRefreshing = true;
     } else {
       console.log("Unidentified type:" + type);
     }
