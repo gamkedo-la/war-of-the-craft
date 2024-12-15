@@ -169,6 +169,28 @@ function unitClass(type) {
         }
     }
 
+    this.farmingAction = function(){
+        this.farmingFood = true;
+        this.delaySound--;
+        if(this.delaySound <= 0){
+          //  peasantChoppingTree.play();
+          //  this.delaySound = 20;
+        }
+        this.myTarget.effort--;
+        if(this.myTarget.effort == 0 || this.myTarget.isDead){
+          //  assignmentTotals.woodChopped++; // add to stats totals
+            if (this.food) this.food++; else this.food = 1;
+            this.farmingFood = false;
+            
+            if(this.myTarget.food <= 0){
+                this.myTarget.isDead = true;
+                this.showAction = false;
+                soonCheckUnitsToClear();
+                this.returntoHQAction();
+            }
+        }
+    }
+
     this.mineGoldAction = function(){
         this.miningGold = true;
         this.myTarget.effort--;
@@ -309,7 +331,14 @@ function unitClass(type) {
                 this.mineDist = this.distFrom(this.gotoX, this.gotoY);
                 if(this.mineDist < 3){
                     this.mineGoldAction();
-                }    
+                }  
+            } else if (this.myTarget.type == "players farm"){
+                this.gotoX = this.myTarget.x-10;
+                this.gotoY = this.myTarget.y+5;
+                this.farmDist = this.distFrom(this.gotoX, this.gotoY);
+                if(this.farmDist < 3){
+                    this.farmingAction();
+                }     
             } else if (this.myTarget.type == "players hq"){
                 this.gotoX = this.myTarget.x-10;
                 this.gotoY = this.myTarget.y+5;

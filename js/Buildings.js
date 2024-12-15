@@ -107,6 +107,7 @@ function buildingClass(building) {
                 this.pic = orcFarmPic;
                 this.health = 10;
                 this.minimapDrawPriority = 2;
+                this.food = 100;
                 break;
             case "tower":
                 console.log("Tower Built");
@@ -216,6 +217,9 @@ function buildingClass(building) {
     this.draw = function(){
         this.sY = this.height * this.buildingStage;
         drawBitmapCenteredAtLocation(this.pic, this.sX, this.sY,this.width,this.height, this.x,this.y);
+        if(this.food > 0){
+            colorText("Food: " + this.food, this.x+10, this.y-10, "Black", "14px Arial");
+        }
       /*  if(this.buildingInProgress){
           drawBitmapCenteredAtLocation(healthBarPic, this.progressSX, 9,50,13, this.x,this.y);
         } */
