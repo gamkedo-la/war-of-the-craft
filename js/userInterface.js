@@ -1,3 +1,4 @@
+var all_construction_is_free = false; // FOR DEBUGGING: use cheatkey "7"
 var constructionX = 10, constructionY = 120;
 var lumberX = 10, lumberY = 200;
 var attackX = 10, attackY = 300;
@@ -165,8 +166,7 @@ function showWall() {
 
 function placeWall(){
   if(mouseClicked && buttonDelayTimer){
-    if(woodAvailable >= 5 &&
-      goldAvailable >= 5){
+    if(all_construction_is_free || (woodAvailable >= 5 && goldAvailable >= 5)){
       populateTeam(buildingUnits,1,true, "wall");
       var newUnit = buildingUnits.length-1;
       buildingUnits[newUnit].x = mouseX + camera.x; 
@@ -197,8 +197,7 @@ function displayFarmToBuild(){
 
 function placeFarm() {
   if(buttonDelayTimer && mouseClicked){
-    if(goldAvailable >= 2 &&
-       woodAvailable >= 10){
+    if(all_construction_is_free || (goldAvailable >= 2 && woodAvailable >= 10)){
       console.log("UI Place Farm")
       populateTeam(buildingUnits,1,true, "peasant farm");
       var currentBuilding = buildingUnits.length-1;
@@ -243,9 +242,7 @@ function displayTowerToBuild(){
 
 function placeTower() {
   if(buttonDelayTimer && mouseClicked){
-    if(goldAvailable >= 100 &&
-       foodAvailable >= 30 &&
-       woodAvailable >= 100){
+    if(all_construction_is_free || (goldAvailable >= 100 && foodAvailable >= 30 && woodAvailable >= 100)){
       populateTeam(buildingUnits,1,true, "tower");
       var currentBuilding = buildingUnits.length-1;
       buildingUnits[currentBuilding].buildingInProgress = true;

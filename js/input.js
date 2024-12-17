@@ -149,6 +149,9 @@ function keydownHandler(evt) {
   if (evt.key === '0') { gameOver(true); } 
   if (evt.key === '9') { gameOver(false); } 
   
+  // debug cheat ley to make buiding stuff free
+  if (evt.key === '7') { all_construction_is_free = true; }
+  
   // debug cheat key to spawn tons of baddies and soldiers to test battle
   if (evt.key === '8') { debugWAR(); } 
 

@@ -233,13 +233,5 @@ function debugWAR() {
     playerControlled = true;
     populateTeam(team,num,playerControlled,type);
 
-    // also spawn a tower!
-    let tower = new buildingClass("tower");
-    tower.x = camera.x + mouseX;
-    tower.y = camera.y + mouseY;
-    tower.resetAndSetPlayerTeam();
-    addUnitToGrid(tower);
-    allKnownTowers.push(tower);
-
 }
 
