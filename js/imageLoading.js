@@ -29,6 +29,7 @@ var winPic = document.createElement('img');
 var losePic = document.createElement('img');
 var logoPic = document.createElement('img');
 var helpGUI = document.createElement('img');
+var arrowPic = document.createElement('img');
 
 // "dead" versions of things
 var stumpPic = document.createElement('img');
@@ -90,6 +91,7 @@ function loadImages() {
 			{varName: losePic, theFile: "LoseScreen.png", sX: 0, sY:0},
             {varName: logoPic, theFile: "logo.png", sX: 0, sY:0},
             {varName: helpGUI, theFile: "helpGUI.png", sX: 0, sY:0},
+            {varName: arrowPic, theFile: "arrow.png", sX: 0, sY:0},
 
 		];
 			

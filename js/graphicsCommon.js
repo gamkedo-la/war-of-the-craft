@@ -61,3 +61,10 @@ function lineDraw(startX,startY,endX,endY, lineColor){
   canvasContext.stroke();
 }
 
+function drawBitmapCenteredWithRotation(img, atX,atY, withAng) {
+	canvasContext.save();
+	canvasContext.translate(atX, atY);
+	canvasContext.rotate(withAng);
+	canvasContext.drawImage(img, -img.width/2, -img.height/2);
+	canvasContext.restore();
+}

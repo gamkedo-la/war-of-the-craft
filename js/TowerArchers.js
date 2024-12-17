@@ -13,6 +13,12 @@ function updateTowerArchers() {
                 console.log("...and found a nearby enemy to target!");
                 // TODO:
                 // spawn an arrow!
+                let dir = Math.atan2(closestTarget.y - tower.y, closestTarget.x - tower.x);
+                console.log("firing an arrow from "
+                    +Math.round(tower.x)+","+Math.round(tower.y)
+                    +" to "+Math.round(closestTarget.x)+","+Math.round(closestTarget.y)
+                    +" at angle "+dir.toFixed(2));
+                allKnownArrows.push({x:tower.x,y:tower.y,angle:dir,life:100});
             } else {
                 console.log("...but there were no nearby enemies.");
             }
@@ -26,7 +32,17 @@ function updateTowerArchers() {
 }
 
 function drawAllArrows() {
-    for (arrow of allKnownArrows) {
-        // TODO
+    let spd = 8;
+    // we have to go backwards so we can splice the array safely while looping
+    for (var i = allKnownArrows.length - 1; i >= 0; i--) {
+        let arrow = allKnownArrows[i];
+        // move
+        arrow.x += Math.cos(arrow.angle) * spd;
+        arrow.y += Math.sin(arrow.angle) * spd;
+        drawBitmapCenteredWithRotation(arrowPic,arrow.x,arrow.y,arrow.angle);
+        // eventually fall to the ground
+        arrow.life--;
+        if (arrow.life<=0) allKnownArrows.splice(i, 1); // remove from allKnownArrows[]
     }
+
 }

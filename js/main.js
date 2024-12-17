@@ -205,7 +205,7 @@ function drawGame(){
 // used just to test battles, ai, and skeleton decals, etc
 function debugWAR() {
     num = 50;
-    console.log("===== WAR!! spawning "+num*2+" units!! and getting rich! =====");
+    console.log("===== DEBUG WAR!! spawning "+num*2+" units!! and getting rich! =====");
     
     var num, team, type, playerControlled;
 
@@ -235,6 +235,9 @@ function debugWAR() {
 
     // also spawn a tower!
     let tower = new buildingClass("tower");
+    tower.x = camera.x + mouseX;
+    tower.y = camera.y + mouseY;
+    tower.resetAndSetPlayerTeam();
     addUnitToGrid(tower);
     allKnownTowers.push(tower);
 
