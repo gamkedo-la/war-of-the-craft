@@ -1,9 +1,13 @@
-const TOWER_SIGHT_RANGE = 600; //pixels
+const TOWER_SIGHT_RANGE = 400; //pixels
 const TOWER_SHOT_DELAY_MIN = 500; // ms
 const TOWER_SHOT_DELAY_MAX = 2000; // ms
 const TOWER_ARROW_SPEED = 8; // pixels per frame
 const TOWER_ARROW_LIFESPAN = 100; // frames until it vanishes
 const TOWER_DEBUG = false; // output console log messages
+const TOWER_ARROW_HIT_RADIUS = 20; // max dist to a unit to count as a hit
+const TOWER_ARROW_DAMAGE = 20; // insta-kill! maybe reduce for multiple hits?
+const TOWER_SHOT_OFFSET_X = 0; 
+const TOWER_SHOT_OFFSET_Y = -30; // so arrows appear from roof
 
 var allKnownTowers = []; // an array of "tower" units
 var allKnownArrows = []; // just {x,y,target} 
@@ -13,6 +17,8 @@ function updateTowerArchers() {
     let now = performance.now(); // in ms
     // loop through all towers and maybe shoot
     for (tower of allKnownTowers) {
+        let firex = tower.x+TOWER_SHOT_OFFSET_X;
+        let firey = tower.y+TOWER_SHOT_OFFSET_Y;
         if (!tower.timeToShoot || tower.timeToShoot < now) {
             if (TOWER_DEBUG) console.log("tower is ready to shoot another arrow because now is "+now.toFixed(0));
             let closestTarget = findClosestUnitInRange(tower.x,tower.y,TOWER_SIGHT_RANGE,enemyUnits);
@@ -20,12 +26,12 @@ function updateTowerArchers() {
                 if (TOWER_DEBUG) console.log("...and found a nearby enemy to target!");
                 // TODO:
                 // spawn an arrow!
-                let dir = Math.atan2(closestTarget.y - tower.y, closestTarget.x - tower.x);
+                let dir = Math.atan2(closestTarget.y - firey, closestTarget.x - firex);
                 if (TOWER_DEBUG) console.log("firing an arrow from "
-                    +Math.round(tower.x)+","+Math.round(tower.y)
+                    +Math.round(firex)+","+Math.round(firey)
                     +" to "+Math.round(closestTarget.x)+","+Math.round(closestTarget.y)
                     +" at angle "+dir.toFixed(2));
-                allKnownArrows.push({x:tower.x,y:tower.y,angle:dir,life:TOWER_ARROW_LIFESPAN});
+                allKnownArrows.push({x:firex,y:firey,angle:dir,life:TOWER_ARROW_LIFESPAN});
             } else {
                 if (TOWER_DEBUG) console.log("...but there were no nearby enemies.");
             }
@@ -47,7 +53,22 @@ function drawAllArrows() {
         arrow.x += Math.cos(arrow.angle) * TOWER_ARROW_SPEED;
         arrow.y += Math.sin(arrow.angle) * TOWER_ARROW_SPEED;
         drawBitmapCenteredWithRotation(arrowPic,arrow.x,arrow.y,arrow.angle);
-        // eventually fall to the ground
+
+        // detect a hit
+        let closestTarget = findClosestUnitInRange(arrow.x,arrow.y,TOWER_ARROW_HIT_RADIUS,enemyUnits);
+        if (closestTarget) {
+            console.log("ARROW HIT A UNIT!");
+            if (closestTarget.health) {
+                warriorHurtSound.play(); // FIXME: or orc or peasant
+                closestTarget.health -= TOWER_ARROW_DAMAGE;
+                if (closestTarget.health <= 0) {
+                    closestTarget.isDead = true;
+                    console.log("ARROW KILLED A UNIT!");
+                }
+            }
+        }
+
+        // eventually fall to the ground and vanish
         arrow.life--;
         if (arrow.life<=0) allKnownArrows.splice(i, 1); // remove from allKnownArrows[]
     }
