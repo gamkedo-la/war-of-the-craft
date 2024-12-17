@@ -120,6 +120,7 @@ function buildingClass(building) {
                 this.pic = towerPic;
                 this.health = 10;
                 this.minimapDrawPriority = 2;
+                allKnownTowers.push(this); // remember for archer logic
                 break;
             //Computer buildings
             case "goblins hq":

@@ -107,6 +107,7 @@ function moveEverything() {
   removeDeadUnits();
   checkButtonHandling();
   enemyAIManager.update();
+  updateTowerArchers(); // fire arrows etc
   checkAndHandleVictory(); 
   camera.update();
   refreshCollisionGrid();
@@ -137,6 +138,7 @@ function drawGame(){
   
   canvasContext.drawImage(backGroundPic,-SIZE_OF_THE_SHORE,-SIZE_OF_THE_SHORE); // offset so we can scroll a little bit past the top left corner of map
   wildflowers.draw(); // random flowers, grass and rocks
+  drawAllArrows();
 
   var leftEdgeCol=Math.floor(camera.x/GRID_WIDTH);
   var topEdgeRow=Math.floor(camera.y/GRID_HEIGHT);
@@ -203,7 +205,7 @@ function drawGame(){
 // used just to test battles, ai, and skeleton decals, etc
 function debugWAR() {
     num = 50;
-    console.log("===== WAR!! spawning "+num*2+" units!! =====");
+    console.log("===== WAR!! spawning "+num*2+" units!! and getting rich! =====");
     
     var num, team, type, playerControlled;
 
@@ -230,6 +232,11 @@ function debugWAR() {
     type = "warrior";
     playerControlled = true;
     populateTeam(team,num,playerControlled,type);
+
+    // also spawn a tower!
+    let tower = new buildingClass("tower");
+    addUnitToGrid(tower);
+    allKnownTowers.push(tower);
 
 }
 
