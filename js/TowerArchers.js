@@ -24,14 +24,17 @@ function updateTowerArchers() {
             let closestTarget = findClosestUnitInRange(tower.x,tower.y,TOWER_SIGHT_RANGE,enemyUnits);
             if (closestTarget) {
                 if (TOWER_DEBUG) console.log("...and found a nearby enemy to target!");
-                // TODO:
-                // spawn an arrow!
+
                 let dir = Math.atan2(closestTarget.y - firey, closestTarget.x - firex);
                 if (TOWER_DEBUG) console.log("firing an arrow from "
                     +Math.round(firex)+","+Math.round(firey)
                     +" to "+Math.round(closestTarget.x)+","+Math.round(closestTarget.y)
                     +" at angle "+dir.toFixed(2));
+
+                // spawn an arrow
                 allKnownArrows.push({x:firex,y:firey,angle:dir,life:TOWER_ARROW_LIFESPAN});
+                arrowSound.play();
+
             } else {
                 if (TOWER_DEBUG) console.log("...but there were no nearby enemies.");
             }
@@ -57,13 +60,13 @@ function drawAllArrows() {
         // detect a hit
         let closestTarget = findClosestUnitInRange(arrow.x,arrow.y,TOWER_ARROW_HIT_RADIUS,enemyUnits);
         if (closestTarget) {
-            console.log("ARROW HIT A UNIT!");
+            if (TOWER_DEBUG) console.log("ARROW HIT A UNIT!");
             if (closestTarget.health) {
                 warriorHurtSound.play(); // FIXME: or orc or peasant
                 closestTarget.health -= TOWER_ARROW_DAMAGE;
                 if (closestTarget.health <= 0) {
                     closestTarget.isDead = true;
-                    console.log("ARROW KILLED A UNIT!");
+                    if (TOWER_DEBUG) console.log("ARROW KILLED A UNIT!");
                 }
             }
         }

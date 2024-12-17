@@ -47,6 +47,7 @@ var introSound = new SoundOverlapsClass("Intro");
 var notEnoughFoodSound = new SoundOverlapsClass("NeedMoreFood");
 var notEnoughWoodSound = new SoundOverlapsClass("NotEnoughWood");
 var notEnoughGoldSound = new SoundOverlapsClass("NotEnoughGold");
+var arrowSound = new SoundOverlapsClass("arrowSound");
 
 function setFormat() {
     var audio = new Audio();
