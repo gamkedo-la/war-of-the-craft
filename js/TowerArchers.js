@@ -1,3 +1,10 @@
+const TOWER_SIGHT_RANGE = 600; //pixels
+const TOWER_SHOT_DELAY_MIN = 500; // ms
+const TOWER_SHOT_DELAY_MAX = 2000; // ms
+const TOWER_ARROW_SPEED = 8; // pixels per frame
+const TOWER_ARROW_LIFESPAN = 100; // frames until it vanishes
+const TOWER_DEBUG = false; // output console log messages
+
 var allKnownTowers = []; // an array of "tower" units
 var allKnownArrows = []; // just {x,y,target} 
 
@@ -7,22 +14,23 @@ function updateTowerArchers() {
     // loop through all towers and maybe shoot
     for (tower of allKnownTowers) {
         if (!tower.timeToShoot || tower.timeToShoot < now) {
-            console.log("tower is ready to shoot another arrow because now is "+now.toFixed(0));
-            let closestTarget = findClosestUnitInRange(tower.x,tower.y,800,enemyUnits);
+            if (TOWER_DEBUG) console.log("tower is ready to shoot another arrow because now is "+now.toFixed(0));
+            let closestTarget = findClosestUnitInRange(tower.x,tower.y,TOWER_SIGHT_RANGE,enemyUnits);
             if (closestTarget) {
-                console.log("...and found a nearby enemy to target!");
+                if (TOWER_DEBUG) console.log("...and found a nearby enemy to target!");
                 // TODO:
                 // spawn an arrow!
                 let dir = Math.atan2(closestTarget.y - tower.y, closestTarget.x - tower.x);
-                console.log("firing an arrow from "
+                if (TOWER_DEBUG) console.log("firing an arrow from "
                     +Math.round(tower.x)+","+Math.round(tower.y)
                     +" to "+Math.round(closestTarget.x)+","+Math.round(closestTarget.y)
                     +" at angle "+dir.toFixed(2));
-                allKnownArrows.push({x:tower.x,y:tower.y,angle:dir,life:100});
+                allKnownArrows.push({x:tower.x,y:tower.y,angle:dir,life:TOWER_ARROW_LIFESPAN});
             } else {
-                console.log("...but there were no nearby enemies.");
+                if (TOWER_DEBUG) console.log("...but there were no nearby enemies.");
             }
-            tower.timeToShoot = now + 2000 + Math.random() * 1000; // wait 2-3 seconds
+            // wait a while before firing again
+            tower.timeToShoot = now + TOWER_SHOT_DELAY_MIN + Math.random() * (TOWER_SHOT_DELAY_MAX-TOWER_SHOT_DELAY_MIN); 
         }
     }
     // TODO:
@@ -32,13 +40,12 @@ function updateTowerArchers() {
 }
 
 function drawAllArrows() {
-    let spd = 8;
     // we have to go backwards so we can splice the array safely while looping
     for (var i = allKnownArrows.length - 1; i >= 0; i--) {
         let arrow = allKnownArrows[i];
         // move
-        arrow.x += Math.cos(arrow.angle) * spd;
-        arrow.y += Math.sin(arrow.angle) * spd;
+        arrow.x += Math.cos(arrow.angle) * TOWER_ARROW_SPEED;
+        arrow.y += Math.sin(arrow.angle) * TOWER_ARROW_SPEED;
         drawBitmapCenteredWithRotation(arrowPic,arrow.x,arrow.y,arrow.angle);
         // eventually fall to the ground
         arrow.life--;

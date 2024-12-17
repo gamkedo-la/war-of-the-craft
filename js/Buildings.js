@@ -182,7 +182,7 @@ function buildingClass(building) {
 
     this.startToBuild = function() {
         this.buildingTime--;
-        console.log(this.buildingTime)
+        console.log("Building time remaining: "+this.buildingTime);
         //var advanceProgressSX = this.ticksPerBuildingTime/3
         /*if( this.buildingTime == advanceProgressSX*2 || 
             this.buildingTime == advanceProgressSX ){

@@ -54,7 +54,7 @@ function enemyAITeamClass(){
         var minVariationY = enemy.y - AI_TEAM_POSITION_VARIATION_Y;
         var enemyPositionX =  Math.floor(Math.random() * (maxVariationX - minVariationX)) + minVariationX;
         var enemyPositionY =  Math.floor(Math.random() * (maxVariationY - minVariationY)) + minVariationY;
-        console.log( enemyPositionX + " " + enemyPositionY);
+        //console.log( enemyPositionX + " " + enemyPositionY);
         
         if (enemy.jobType == "goblin") {
             if (enemy.lumber == 0) {
