@@ -666,8 +666,10 @@ function unitClass(type) {
                // console.log("Target:" + this.myTarget)
             }
         } else {
-            colorCircle(this.x + 5, this.y, UNIT_PLACEHOLDER_RADIUS, "yellow", "10px Arial Black");
-            //  colorText(this.iD, this.x+10, this.y-10, "yellow")
+            // unit is dead. draw nothing!
+            // (we used to draw a yellow circle on all dead units but now we have skeletons and tree stumps etc)
+            // colorCircle(this.x + 5, this.y, UNIT_PLACEHOLDER_RADIUS, "yellow", "10px Arial Black");
+            // colorText(this.iD, this.x+10, this.y-10, "yellow")
         }
         // used to detect if we have moved since the previous frame
         this.previousX = this.x;

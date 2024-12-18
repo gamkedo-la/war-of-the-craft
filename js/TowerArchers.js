@@ -67,6 +67,8 @@ function drawAllArrows() {
                 if (closestTarget.health <= 0) {
                     closestTarget.isDead = true;
                     if (TOWER_DEBUG) console.log("ARROW KILLED A UNIT!");
+                    // arrow should also dissappear now that it hit something
+                   arrow.life = 0; 
                 }
             }
         }

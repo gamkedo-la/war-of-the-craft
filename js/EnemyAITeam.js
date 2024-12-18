@@ -34,7 +34,7 @@ function enemyAITeamClass(){
         var enemy = enemyUnits[this.indexEnemyToUpdate];
     
         // Skip if enemy has no target
-        if (!enemy.myTarget) {
+        if (!enemy || !enemy.myTarget) {
             this.indexEnemyToUpdate++;
             return;
         }
