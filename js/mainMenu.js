@@ -47,7 +47,7 @@ function drawMainMenu() {
         let x = -256 + (Math.sin(i*12345)*1000);
         let age = (((performance.now()/4)+i*12345)%480);
         let y = canvas.height + 256 - age;
-        console.log("age:"+age);
+        //console.log("age:"+age);
         canvasContext.globalAlpha = 1 - (age/480);
         canvasContext.drawImage(firePic, x, y);
     }
