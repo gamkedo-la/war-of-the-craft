@@ -33,7 +33,7 @@ const lines = [
 
 // Starting positions and spacing
 const lineX = 178;  // Horizontal position for all lines
-const lineY0 = 140; // Starting vertical position
+const lineY0 = 180; // Starting vertical position
 const lineSpace = 20; // Spacing between lines
 
 function drawMainMenu() {
@@ -41,6 +41,17 @@ function drawMainMenu() {
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
     canvasContext.drawImage(mainMenuPic, 0, 0, canvas.width, canvas.height);
     canvasContext.drawImage(logoPic, 0, 0);
+
+    // simple fire effect on the bottom
+    for (let i=0; i<100; i++) {
+        let x = -256 + (Math.sin(i*12345)*1000);
+        let age = (((performance.now()/4)+i*12345)%480);
+        let y = canvas.height + 256 - age;
+        console.log("age:"+age);
+        canvasContext.globalAlpha = 1 - (age/480);
+        canvasContext.drawImage(firePic, x, y);
+    }
+    canvasContext.globalAlpha = 1; // reset
 
     // Render introduction text
     canvasContext.fillStyle = "white";

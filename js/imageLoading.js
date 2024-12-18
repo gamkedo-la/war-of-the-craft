@@ -30,6 +30,7 @@ var losePic = document.createElement('img');
 var logoPic = document.createElement('img');
 var helpGUI = document.createElement('img');
 var arrowPic = document.createElement('img');
+var firePic = document.createElement('img');
 
 // "dead" versions of things
 var stumpPic = document.createElement('img');
@@ -92,6 +93,7 @@ function loadImages() {
             {varName: logoPic, theFile: "logo.png", sX: 0, sY:0},
             {varName: helpGUI, theFile: "helpGUI.png", sX: 0, sY:0},
             {varName: arrowPic, theFile: "arrow.png", sX: 0, sY:0},
+            {varName: firePic, theFile: "fire.png", sX: 0, sY:0},
 
 		];
 			
