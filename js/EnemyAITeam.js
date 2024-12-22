@@ -1,7 +1,7 @@
 const AI_TEAM_THINK_DELAY_FRAMES = 30;
 const AI_TEAM_POSITION_VARIATION_X = 250;
 const AI_TEAM_POSITION_VARIATION_Y = 250;
-const AI_TEAM_MISTAKE_PROBABILITY = 33; //Percantage
+const AI_TEAM_MISTAKE_PROBABILITY = 0; //Percantage
 var orcWarningPlayed = false;
 
 function enemyAITeamClass(){

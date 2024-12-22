@@ -1,5 +1,6 @@
 var framesUntilFogUpdate = 0;
 const FOG_UPDATE_FRAME_DELAY = 10;
+var fogOfWarOn = true;
 
 function drawFogOfWar() {
     if(framesUntilFogUpdate-- < 0){

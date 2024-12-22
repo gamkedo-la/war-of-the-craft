@@ -184,14 +184,14 @@ function drawGame(){
   if(showTowerToBuild){
     drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 270,100,90, mouseX+camera.x, mouseY+camera.y);
   }
+  if(fogOfWarOn){
+    drawFogOfWar();   //Turning off for now.  Fog of War when working eliminates the canvas to the background layer.
 
-  drawFogOfWar();   //Turning off for now.  Fog of War when working eliminates the canvas to the background layer.
-
-  canvasContext.globalAlpha = 0.3;
-  canvasContext.drawImage(fowCanvas,-SIZE_OF_THE_SHORE,-SIZE_OF_THE_SHORE); 
-  canvasContext.globalAlpha = 1.0;
-  canvasContext.drawImage(unexploredCanvas,-SIZE_OF_THE_SHORE,-SIZE_OF_THE_SHORE); 
-
+    canvasContext.globalAlpha = 0.3;
+    canvasContext.drawImage(fowCanvas,-SIZE_OF_THE_SHORE,-SIZE_OF_THE_SHORE); 
+    canvasContext.globalAlpha = 1.0;
+    canvasContext.drawImage(unexploredCanvas,-SIZE_OF_THE_SHORE,-SIZE_OF_THE_SHORE); 
+  }
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();

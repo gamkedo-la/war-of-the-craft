@@ -154,6 +154,7 @@ function keydownHandler(evt) {
   
   // debug cheat key to spawn tons of baddies and soldiers to test battle
   if (evt.key === '8') { debugWAR(); } 
+  if (evt.key === '2') {fogOfWarOn = !fogOfWarOn}
 
 
   if (evt.key === 'Escape') {
