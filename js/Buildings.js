@@ -22,6 +22,19 @@ function countPlayerGold() {
     }
     return total;
 }
+
+function countEnemyGold() {
+    var total = 0;
+    for (nextone of allUnits)  {
+        if (nextone.type == "goblins hq") {
+            //console.log("debug: counting gold - hq found!",nextone);
+            if (nextone.gold) total += nextone.gold;
+        }
+    }
+    return total;
+}
+
+
 function countPlayerFood() {
     var total = 0;
     for (nextone of allUnits)  {
@@ -31,10 +44,33 @@ function countPlayerFood() {
     }
     return total;
 }
+
+function countEnemyFood() {
+    var total = 0;
+    for (nextone of allUnits)  {
+        if (nextone.type == "goblins hq") {
+            if (nextone.food) total += nextone.food;
+        }
+    }
+    return total;
+}
+
+
 function countPlayerWood() {
     var total = 0;
     for (nextone of allUnits)  {
         if (nextone.type == "players hq") {
+            if (nextone.lumber) total += nextone.lumber;
+        }
+    }
+    return total;
+}
+
+
+function countEnemyWood() {
+    var total = 0;
+    for (nextone of allUnits)  {
+        if (nextone.type == "goblins hq") {
             if (nextone.lumber) total += nextone.lumber;
         }
     }
@@ -127,6 +163,8 @@ function buildingClass(building) {
                 adjustForComputer();
                 this.pic = goblinHQPic;
                 this.unitColor = "Red";
+                this.x = enemyUnits[0].x - 40;
+                this.y = enemyUnits[0].y - 30;
                 break;
             case "orc barrack":
                 adjustForComputer();

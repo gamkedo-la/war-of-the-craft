@@ -147,7 +147,7 @@ function unitClass(type) {
         var goalTile = pixelCoordToIndex(targetX, targetY);
         startPath(goalTile, this);
         //startPath(100, playerUnits[0]);
- //       console.log("Tile Path Length: " + this.tilePath.length)
+       // console.log("Tile Path Length: " + this.tilePath.length)
     }
 
     this.chopTreeAction = function(){
@@ -210,7 +210,7 @@ function unitClass(type) {
         var nearestHQFound;
         //console.log(this.unitColor)
         if(this.unitColor == 'Red'){
-  //          console.log("Red unit returning to HQ");
+            console.log("Red unit returning to HQ");
             nearestHQFound = findClosestFriendlyBuildingInRange(this.x, this.y, 1000000000, buildingUnits, null, 'Red');
         } else if (this.unitColor == 'White') {
             console.log("White unit returning to HQ");
@@ -248,7 +248,6 @@ function unitClass(type) {
 
     this.move = function() {
         var wasTileIndex = pixelCoordToIndex(this.x,this.y);
-      //  console.log("Tile Path Length: " + this.tilePath.length)
         if(this.tilePath.length>0){
             //this.myTarget = null;
             //step 1:  check if we are on the next tile, if so, chop 1 off front of list
@@ -267,6 +266,7 @@ function unitClass(type) {
                 this.gotoX = this.x;
                 this.gotoY = this.y;
             } else if (this.myTarget.type == "goblins hq"){
+                console.log("Go to goblins HQ")
                 this.gotoX = this.myTarget.x-10;
                 this.gotoY = this.myTarget.y+5;
                 this.playerHQdist = this.distFrom(this.gotoX, this.gotoY);

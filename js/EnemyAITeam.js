@@ -40,11 +40,11 @@ function enemyAITeamClass(){
         }
 
         // Enemy can forget to make any progress with units
-        var numberBetween0and100 =  Math.floor(Math.random() * (100 - 0)) + 0;
-        if (numberBetween0and100 <= AI_TEAM_MISTAKE_PROBABILITY) {
-            this.indexEnemyToUpdate++;
-            return;
-        }
+       // var numberBetween0and100 =  Math.floor(Math.random() * (100 - 0)) + 0;
+       // if (numberBetween0and100 <= AI_TEAM_MISTAKE_PROBABILITY) {
+       //     this.indexEnemyToUpdate++;
+       //     return;
+      //  }
 
         // Give some variation to enemy position.
         // So that it might find a not optimal target instead of finding the closest.
@@ -59,23 +59,20 @@ function enemyAITeamClass(){
         if (enemy.jobType == "goblin") {
             if (enemy.lumber == 0) {
                 // Find the nearest tree and assign it as a target
-                var nearestTree = findClosestUnitInRange(enemyPositionX, enemyPositionY, UNIT_AI_TREE_RANGE, trees);
-                if (nearestTree) {
-                    enemy.myTarget = nearestTree;
-                    enemy.actionSx = 0;
-                    enemy.showAction = true;
-                    enemy.gotoNear(nearestTree.x, nearestTree.y, 0, 1);
-                    enemy.focus = "trees";
-    
-                    let goalTile = pixelCoordToIndex(nearestTree.x, nearestTree.y);
-                    startPath(goalTile, enemy);
-                }
+                var nearestTreeFoundForGoblin = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_TREE_RANGE, trees)
+                enemy.myTarget = nearestTreeFoundForGoblin;
+                enemy.actionSx = 0;
+                enemy.showAction = true;
+                enemy.gotoNear(enemy.myTarget.x,enemy.myTarget.y, 0, 1);
+                enemy.focus = "trees";
+               /* var goalTile = pixelCoordToIndex(enemy.myTarget.x, enemy.myTarget.y);
+                startPath(goalTile, enemy); */
             } else {
                 enemy.returntoHQAction();
             }
         } else if (enemy.jobType == 'orc') {
             // Orc patrol until player is found, then assign player as a target
-            let closestTarget = findClosestUnitInRange(enemyPositionX,enemyPositionY,20000, playerUnits);
+            let closestTarget = findClosestUnitInRange(enemy.x,enemy.y,20000, playerUnits);
             if(closestTarget != null){
                 let playerTile = pixelCoordToIndex(closestTarget.x, closestTarget.y);
                 startPath(playerTile, enemy);
@@ -98,7 +95,12 @@ function enemyAITeamClass(){
                 }
             }
         }
-
         this.indexEnemyToUpdate++;
+        //build and recruit options
+        if(enemyWoodAvailable >= 10){
+            console.log("build farm")
+            populateTeam(buildingUnits,1,false, "orc farm");
+            enemyWoodConsumed += 10;
+        }
     }
 }

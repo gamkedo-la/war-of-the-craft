@@ -39,6 +39,8 @@ var woodConsumed = 0;
 var woodAvailable = 0;
 var goldConsumed = 0;
 var goldAvailable = 0;
+var enemyWoodAvailable = 0;
+var enemyWoodConsumed = 0;
 
 // Check if mouse is inside a given box
 function checkMouseInsideBox(xPos, yPos, width, height) {
@@ -85,6 +87,7 @@ function checkForPlayersSelected(){
 
 // Various actions for units (lumber, attack, gold, farm)
 function lumberAction(actionList) {
+  console.log("Lumber Action")
   for (var i = 0; i < actionList.length; i++) {
     var nearestTreeFoundForPeasant = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_TREE_RANGE, trees);
     if (nearestTreeFoundForPeasant) {
@@ -402,9 +405,13 @@ function drawTopBarResourceTotalsGUI() {
     var totalGold = countPlayerGold();
     var totalWood = countPlayerWood();
     var totalFood = countPlayerFood();
+    var totalEnemyGold = countEnemyGold();
+    var totalEnemyWood = countEnemyWood();
+    var totalEnemyFood = countEnemyFood();
     foodAvailable = totalFood - foodConsumed;
     woodAvailable = totalWood - woodConsumed;
-    goldAvailable = totalGold - goldConsumed
+    goldAvailable = totalGold - goldConsumed;
+    enemyWoodAvailable = totalEnemyWood - enemyWoodConsumed; 
 
     drawBitmapAtLocation(resourceIconsPic, 0, 0, 16, 16, 220, 8);
     colorText(" = "+totalWood, 240, 22, topBarRGB, topBarFont);
