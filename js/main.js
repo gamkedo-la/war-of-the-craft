@@ -209,17 +209,16 @@ function debugWAR() {
     
     var num, team, type, playerControlled;
 
-    /*
     team = enemyUnits;
     type = "goblin";
     playerControlled = false;
     populateTeam(team,num,playerControlled,type);
-    */
 
-    team = enemyUnits;
+    /*team = enemyUnits;
     type = "orc";
     playerControlled = false;
     populateTeam(team,num,playerControlled,type);
+    */
 
     /*
     team = playerUnits;

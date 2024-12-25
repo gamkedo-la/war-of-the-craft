@@ -3,6 +3,8 @@ const AI_TEAM_POSITION_VARIATION_X = 250;
 const AI_TEAM_POSITION_VARIATION_Y = 250;
 const AI_TEAM_MISTAKE_PROBABILITY = 0; //Percantage
 var orcWarningPlayed = false;
+var enemyFarmBuilt = 0;
+var goblinFocus = "trees"
 
 function enemyAITeamClass(){
     
@@ -57,7 +59,7 @@ function enemyAITeamClass(){
         //console.log( enemyPositionX + " " + enemyPositionY);
         
         if (enemy.jobType == "goblin") {
-            if (enemy.lumber == 0) {
+            if (enemy.lumber == 0 && goblinFocus == "trees") {
                 // Find the nearest tree and assign it as a target
                 var nearestTreeFoundForGoblin = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_TREE_RANGE, trees)
                 enemy.myTarget = nearestTreeFoundForGoblin;
@@ -67,7 +69,16 @@ function enemyAITeamClass(){
                 enemy.focus = "trees";
                /* var goalTile = pixelCoordToIndex(enemy.myTarget.x, enemy.myTarget.y);
                 startPath(goalTile, enemy); */
-            } else {
+            } else if (enemy.lumber > 0 && goblinFocus =="trees") {
+                enemy.returntoHQAction();
+            } else if(enemy.gold == 0 && goblinFocus == "gold"){
+                var nearestMineFoundForGoblin = findClosestUnitInRange(this.x, this.y, UNIT_AI_MINE_RANGE, mines);
+                enemy.myTarget = nearestMineFoundForGoblin;
+                enemy.actionSx = 0;
+                enemy.showAction = true;
+                enemy.gotoNear(enemy.myTarget.x,enemy.myTarget.y, 0, 1);
+                enemy.focus = "mines";
+            } else if (enemy.gold > 0 && goblinFocus == "gold") {
                 enemy.returntoHQAction();
             }
         } else if (enemy.jobType == 'orc') {
@@ -97,10 +108,12 @@ function enemyAITeamClass(){
         }
         this.indexEnemyToUpdate++;
         //build and recruit options
-        if(enemyWoodAvailable >= 10){
+        if(enemyWoodAvailable >= 10 && enemyFarmBuilt == 0){
             console.log("build farm")
             populateTeam(buildingUnits,1,false, "orc farm");
             enemyWoodConsumed += 10;
+            enemyFarmBuilt++;
+            goblinFocus = "gold";
         }
     }
 }
