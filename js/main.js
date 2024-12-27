@@ -220,17 +220,16 @@ function debugWAR() {
     populateTeam(team,num,playerControlled,type);
     */
 
-    /*
     team = playerUnits;
     type = "peasant";
     playerControlled = true;
     populateTeam(team,num,playerControlled,type);
-    */
-
+    
+    /*
     team = playerUnits;
     type = "warrior";
     playerControlled = true;
     populateTeam(team,num,playerControlled,type);
-
+    */
 }
 

@@ -57,29 +57,48 @@ function enemyAITeamClass(){
         var enemyPositionX =  Math.floor(Math.random() * (maxVariationX - minVariationX)) + minVariationX;
         var enemyPositionY =  Math.floor(Math.random() * (maxVariationY - minVariationY)) + minVariationY;
         //console.log( enemyPositionX + " " + enemyPositionY);
+
+        //build and recruit options
+        if(enemyWoodAvailable < 1 && enemyFarmBuilt == 0){ //10
+            goblinFocus = "trees";
+        } else if(enemyWoodAvailable >= 1 && enemyFarmBuilt == 0){ //10, 0
+            console.log("build farm")
+            populateTeam(buildingUnits,1,false, "orc farm");
+            enemyWoodConsumed += 10;
+            enemyFarmBuilt++;
+            goblinFocus = "gold";
+        } else if(enemyGoldAvailable < 2 && enemyFarmBuilt >= 1){
+            goblinFocus = "gold";
+        } else if(enemyGoldAvailable >= 1){
+            enemyGoldConsumed =+ 1;
+            populateTeam(enemyUnits, 1, false, "goblin");
+            goblinFocus = "food"
+        }
         
-        if (enemy.jobType == "goblin") {
-            if (enemy.lumber == 0 && goblinFocus == "trees") {
-                // Find the nearest tree and assign it as a target
-                var nearestTreeFoundForGoblin = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_TREE_RANGE, trees)
-                enemy.myTarget = nearestTreeFoundForGoblin;
-                enemy.actionSx = 0;
-                enemy.showAction = true;
-                enemy.gotoNear(enemy.myTarget.x,enemy.myTarget.y, 0, 1);
-                enemy.focus = "trees";
-               /* var goalTile = pixelCoordToIndex(enemy.myTarget.x, enemy.myTarget.y);
-                startPath(goalTile, enemy); */
-            } else if (enemy.lumber > 0 && goblinFocus =="trees") {
-                enemy.returntoHQAction();
-            } else if(enemy.gold == 0 && goblinFocus == "gold"){
-                var nearestMineFoundForGoblin = findClosestUnitInRange(this.x, this.y, UNIT_AI_MINE_RANGE, mines);
-                enemy.myTarget = nearestMineFoundForGoblin;
-                enemy.actionSx = 0;
-                enemy.showAction = true;
-                enemy.gotoNear(enemy.myTarget.x,enemy.myTarget.y, 0, 1);
-                enemy.focus = "mines";
-            } else if (enemy.gold > 0 && goblinFocus == "gold") {
-                enemy.returntoHQAction();
+        if (enemy.jobType === "goblin") {
+            const isFocusingOnTrees = goblinFocus === "trees";
+            const isFocusingOnGold = goblinFocus === "gold";
+            console.log("isFocusingOnTrees: " + isFocusingOnTrees + " isFocusingOnGold: " + isFocusingOnGold)
+            if (isFocusingOnTrees) {
+                if (enemy.lumber === 0) {
+                    // Find the nearest tree and assign it as a target
+                    const nearestTree = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_TREE_RANGE, trees);
+                    assignGoblinTarget(enemy, nearestTree, "trees");
+                    console.log("Focus is on Wood");
+                } else if (enemy.lumber > 0) {
+                    enemy.returntoHQAction();
+                }
+            } else if (isFocusingOnGold) {
+                console.log(enemy.gold)
+                if (enemy.gold === 0) {
+                    // Find the nearest mine and assign it as a target
+                    const nearestMine = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_MINE_RANGE, mines);
+                    console.log("Focus is on Gold:" + nearestMine);
+                    enemy.actionSx = 15 * 2;
+                    assignGoblinTarget(enemy, nearestMine, "mines");
+                } else if (enemy.gold > 0) {
+                    enemy.returntoHQAction();
+                }
             }
         } else if (enemy.jobType == 'orc') {
             // Orc patrol until player is found, then assign player as a target
@@ -106,14 +125,18 @@ function enemyAITeamClass(){
                 }
             }
         }
+        
         this.indexEnemyToUpdate++;
-        //build and recruit options
-        if(enemyWoodAvailable >= 10 && enemyFarmBuilt == 0){
-            console.log("build farm")
-            populateTeam(buildingUnits,1,false, "orc farm");
-            enemyWoodConsumed += 10;
-            enemyFarmBuilt++;
-            goblinFocus = "gold";
-        }
+    }
+}
+
+function assignGoblinTarget(enemy, target, focus) {
+    if (target) {
+        enemy.myTarget = target;
+        enemy.actionSx = 0;
+        enemy.showAction = true;
+        enemy.gotoNear(target.x, target.y, 0, 1);
+        enemy.focus = focus;
+        console.log(enemy.focus)
     }
 }

@@ -41,6 +41,10 @@ var goldConsumed = 0;
 var goldAvailable = 0;
 var enemyWoodAvailable = 0;
 var enemyWoodConsumed = 0;
+var enemyGoldAvailable = 0;
+var enemyGoldConsumed = 0;
+var enemyFoodAvailable = 0;
+var enemyFoodConsumed = 0;
 
 // Check if mouse is inside a given box
 function checkMouseInsideBox(xPos, yPos, width, height) {
@@ -412,6 +416,8 @@ function drawTopBarResourceTotalsGUI() {
     woodAvailable = totalWood - woodConsumed;
     goldAvailable = totalGold - goldConsumed;
     enemyWoodAvailable = totalEnemyWood - enemyWoodConsumed; 
+    enemyGoldAvailable = totalEnemyGold - enemyGoldConsumed;
+    enemyFoodAvailable = totalEnemyFood - enemyFoodConsumed;
 
     drawBitmapAtLocation(resourceIconsPic, 0, 0, 16, 16, 220, 8);
     colorText(" = "+totalWood, 240, 22, topBarRGB, topBarFont);

@@ -24,6 +24,7 @@ function unitClass(type) {
     this.sY = 0;
     this.lumber = 0;
     this.food = 0;
+    this.gold = 0;
     this.jobType = type;
     this.collFill = 0.2; 
     this.collDim = 1;
@@ -271,7 +272,7 @@ function unitClass(type) {
                 this.gotoY = this.myTarget.y+5;
                 this.playerHQdist = this.distFrom(this.gotoX, this.gotoY);
                 if(this.playerHQdist < 3){
-                    console.log("At enemy HQ with this focus: "+this.focus);
+          //        console.log("At enemy HQ with this focus: "+this.focus);
                     
                     ////////////////////////////////////////////////////
                     // deliver any resources the unit is carrying
