@@ -9,6 +9,7 @@ var farmBuildX = 10, farmBuildY = 200;
 var peasantMainMenuX = 10, peasantMainMenuY = 400;
 var pictureWidth = 60, pictureHeight = 60;
 var towerX = 10, towerY = 300;
+var walkX = 100, walkY = 120;
 var showHelp = true;
 
 var peasantSelected = false, warriorSelected = false;
@@ -22,6 +23,7 @@ var buildWallHovering = false, buildWallSelected = false;
 var farmBuildHovering = false, farmBuildSelected = false;
 var farmButtonHovering = false, farmButtonSelected = false, farmReadyToBePlaced = false;
 var towerButtonHovering = false, towerButtonSelected = false, towerReadyToBePlaced = false;
+var walkButtonHovering = false, walkButtonSelected = false, walkLocationReadyToBePlaced = false;
 var peasantReturnMenuHovering = false, peasantReturnMenuSelected = false;
 
 var showTowerToBuild = false, showWallToBuild = false, showFarmToBuild = false;
@@ -91,7 +93,7 @@ function checkForPlayersSelected(){
 
 // Various actions for units (lumber, attack, gold, farm)
 function lumberAction(actionList) {
-  console.log("Lumber Action")
+ // console.log("Lumber Action")
   for (var i = 0; i < actionList.length; i++) {
     var nearestTreeFoundForPeasant = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_TREE_RANGE, trees);
     if (nearestTreeFoundForPeasant) {
@@ -102,7 +104,7 @@ function lumberAction(actionList) {
         actionList[i].focus = "trees";
         var goalTile = pixelCoordToIndex(actionList[i].myTarget.x, actionList[i].myTarget.y);
         startPath(goalTile, actionList[i]);
-        console.log("Lumber Action "+i+" of "+actionList.length+" generated a path to a nearby tree at "+Math.round(nearestTreeFoundForPeasant.x)+","+Math.round(nearestTreeFoundForPeasant.y));
+  //      console.log("Lumber Action "+i+" of "+actionList.length+" generated a path to a nearby tree at "+Math.round(nearestTreeFoundForPeasant.x)+","+Math.round(nearestTreeFoundForPeasant.y));
     } else {
         console.log("Error: NO nearby tree found!!!"); // should never happen unless you play for HOURS
     }
@@ -286,6 +288,24 @@ function returnToPeasantMainMenu(){
   peasantMainMenu = true;
 }
 
+var showWalkLocation = false;
+var walkDelayTimer = 20;
+
+function walkAction(){
+  showWalkLocation = true;
+  walkDelayTimer--;
+  var unitsAlongSide = Math.floor(Math.sqrt(selectedUnits.length+2));
+  if(walkDelayTimer <= 0 && mouseClicked){
+    for (var i = 0; i < selectedUnits.length; i++) {
+      selectedUnits[i].gotoNear(mouseX, mouseY, i, unitsAlongSide);
+    }
+    selectedUnits = [];
+    //peasantMainMenu = false;
+    showWalkLocation = false;
+    walkDelayTimer = 20;
+  }
+}
+
 function recruitPeasant(){
   if(foodAvailable >= 10 && goldAvailable >= 1){
     headQuartersUI = false;
@@ -342,12 +362,14 @@ function checkButtonHandling(){
     constructionButtonHovering = checkMouseInsideBox(constructionX, constructionY, pictureWidth, pictureHeight);
     recruitPeasantBoxHovering = checkMouseInsideBox(recruitPeasantX, recruitPeasantY, pictureWidth, pictureHeight);
     recruitWarriorBoxHovering = checkMouseInsideBox(recruitWarriorX, recruitWarriorY, pictureWidth, pictureHeight);
+    walkButtonHovering = checkMouseInsideBox(walkX, walkY, pictureWidth, pictureHeight);
 
     handleButtonClick(mouseClicked, lumberButtonHovering, lumberButtonSelected, lumberAction);
     handleButtonClick(mouseClicked, attackButtonHovering, attackButtonSelected, attackAction);  
     handleButtonClick(mouseClicked, goldButtonHovering, goldButtonSelected, goldAction);
     handleButtonClick(mouseClicked, farmButtonHovering, farmButtonSelected, farmAction);
     handleButtonClick(mouseClicked, constructionButtonHovering, constructionButtonSelected, constructionAction);
+    handleButtonClick(mouseClicked, walkButtonHovering, walkButtonSelected, walkAction);
   }
 
   if (peasantSelected && peasantConstructionMenu) {
@@ -360,7 +382,6 @@ function checkButtonHandling(){
     handleButtonClick(mouseClicked, farmBuildHovering, farmBuildSelected, displayFarmToBuild); 
     handleButtonClick(mouseClicked, peasantReturnMenuHovering, peasantReturnMenuSelected, returnToPeasantMainMenu);
     handleButtonClick(mouseClicked, towerButtonHovering, towerButtonSelected, displayTowerToBuild);
-   // console.log(buildWallHovering,farmBuildHovering, towerButtonHovering, peasantReturnMenuHovering)
   }
 
   if(wallReadyToBePlace){
@@ -454,6 +475,7 @@ function drawUserInterface() {
     drawButton(attackX, attackY, userInterfacePic, 180, "ATTACK", null, attackButtonHovering, attackButtonSelected);
     drawButton(goldX, goldY, userInterfacePic, 240, "MINE", "GOLD", goldButtonHovering, goldButtonSelected);
     drawButton(farmX, farmY, userInterfacePic, 300, "FARM", "FOOD", farmButtonHovering, farmButtonSelected);
+    drawButton(walkX, walkY, userInterfacePic, 780, "WALK", null, walkButtonHovering, walkButtonSelected);
   }
 
   if (peasantSelected && peasantConstructionMenu) {

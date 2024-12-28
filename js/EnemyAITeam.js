@@ -89,11 +89,11 @@ function enemyAITeamClass(){
                     enemy.returntoHQAction();
                 }
             } else if (isFocusingOnGold) {
-                console.log(enemy.gold)
+            //    console.log(enemy.gold)
                 if (enemy.gold === 0) {
                     // Find the nearest mine and assign it as a target
                     const nearestMine = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_MINE_RANGE, mines);
-                    console.log("Focus is on Gold:" + nearestMine);
+           //         console.log("Focus is on Gold:" + nearestMine);
                     enemy.actionSx = 15 * 2;
                     assignGoblinTarget(enemy, nearestMine, "mines");
                 } else if (enemy.gold > 0) {

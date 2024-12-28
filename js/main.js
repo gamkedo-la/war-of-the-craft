@@ -21,6 +21,8 @@ var trees = [];
 var mines = [];
 var peasantFarm = [];
 var enemyAIManager = new enemyAITeamClass();
+var movementFrameX = 0;
+var movementFrame = 0;
 
 var skipIntroNow = false; // set to true on keypress or mousedown
 var isGamePaused = false;
@@ -104,6 +106,9 @@ function moveEverything() {
   for(var i=0;i<allUnits.length;i++) {
     allUnits[i].move();
   }
+  if(showWalkLocation){
+    walkAction();
+  }
   removeDeadUnits();
   checkButtonHandling();
   enemyAIManager.update();
@@ -128,7 +133,7 @@ function drawEverything() {
       transitionToGame(elapsedTime);
   } else { 
  //   requestAnimationFrame(gameLoop);  
-    drawGame();
+      drawGame();
 }
 }
 
@@ -184,6 +189,20 @@ function drawGame(){
   if(showTowerToBuild){
     drawBitmapCenteredAtLocationNoCameraCulling(towerPic, 0, 270,100,90, mouseX+camera.x, mouseY+camera.y);
   }
+  
+  if(showWalkLocation){
+    movementFrame++;
+    if(movementFrame >= 12){
+      movementFrameX++;
+      movementFrame = 0;
+      if(movementFrameX > 2){
+        movementFrameX = 0;
+      }
+    }
+    console.log("Frame: " + movementFrameX)
+    drawBitmapCenteredAtLocation(userInterfacePic, movementFrameX*60, 840, 60,60,mouseX+camera.x, mouseY+camera.y);
+  }
+
   if(fogOfWarOn){
     drawFogOfWar();   //Turning off for now.  Fog of War when working eliminates the canvas to the background layer.
 
@@ -192,6 +211,7 @@ function drawGame(){
     canvasContext.globalAlpha = 1.0;
     canvasContext.drawImage(unexploredCanvas,-SIZE_OF_THE_SHORE,-SIZE_OF_THE_SHORE); 
   }
+
   canvasContext.restore(); // unshift camera pos
 
   drawUserInterface();
