@@ -110,10 +110,12 @@ function lumberAction(actionList) {
   actionList.splice(0,actionList.length); //empties original array
 }
 
-function attackAction(actionList) { //not called
+function attackAction(actionList) { 
   for (var i = 0; i < actionList.length; i++) {
     actionList[i].actionSx = 15 * 1;
     actionList[i].showAction = true;
+    actionList[i].setTarget(selectedUnits);
+    updateDebugText(`Player commands ${selectedUnits.length} units to attack!`);
   }
   actionList.splice(0,actionList.length);
 }
@@ -342,7 +344,7 @@ function checkButtonHandling(){
     recruitWarriorBoxHovering = checkMouseInsideBox(recruitWarriorX, recruitWarriorY, pictureWidth, pictureHeight);
 
     handleButtonClick(mouseClicked, lumberButtonHovering, lumberButtonSelected, lumberAction);
-    //handleButtonClick(mouseClicked, attackButtonHovering, attackButtonSelected, attackAction);  
+    handleButtonClick(mouseClicked, attackButtonHovering, attackButtonSelected, attackAction);  
     handleButtonClick(mouseClicked, goldButtonHovering, goldButtonSelected, goldAction);
     handleButtonClick(mouseClicked, farmButtonHovering, farmButtonSelected, farmAction);
     handleButtonClick(mouseClicked, constructionButtonHovering, constructionButtonSelected, constructionAction);
