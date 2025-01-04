@@ -136,10 +136,9 @@ function unitClass(type) {
      
     }
 
-    this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {
-        if(formationDim == 0){
-            formationDim = 1;
-        }
+    this.gotoNear = function(aroundX, aroundY, formationPos=1, formationDim=1) {
+        if (!formationDim) { formationDim = 1; }
+        console.log("gotoNear "+Math.round(aroundX)+","+Math.round(aroundY)+" for unit:",this.iD);
         var colNum = formationPos % formationDim;
         var rowNum = Math.floor(formationPos / formationDim);
         var targetX = aroundX + colNum * UNIT_RANKS_SPACING;
