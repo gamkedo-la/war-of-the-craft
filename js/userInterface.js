@@ -297,10 +297,12 @@ function walkAction(){
   var unitsAlongSide = Math.floor(Math.sqrt(selectedUnits.length+2));
   if(walkDelayTimer <= 0 && mouseClicked){
     for (var i = 0; i < selectedUnits.length; i++) {
-      selectedUnits[i].gotoNear(mouseX, mouseY, i, unitsAlongSide);
+      let xPos = mouseX + camera.x;
+      let yPos = mouseY + camera.y;
+      selectedUnits[i].gotoNear(xPos, yPos, i, unitsAlongSide);
+      console.log("Unit: " + selectedUnits[i].jobType + " X: " + xPos + "Y: " + yPos + " Side: "  + unitsAlongSide);
     }
     selectedUnits = [];
-    //peasantMainMenu = false;
     showWalkLocation = false;
     walkDelayTimer = 20;
   }

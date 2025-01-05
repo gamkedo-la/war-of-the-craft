@@ -199,7 +199,6 @@ function drawGame(){
         movementFrameX = 0;
       }
     }
-    console.log("Frame: " + movementFrameX)
     drawBitmapCenteredAtLocation(userInterfacePic, movementFrameX*60, 840, 60,60,mouseX+camera.x, mouseY+camera.y);
   }
 

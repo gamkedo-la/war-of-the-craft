@@ -78,13 +78,13 @@ function enemyAITeamClass(){
         if (enemy.jobType === "goblin") {
             const isFocusingOnTrees = goblinFocus === "trees";
             const isFocusingOnGold = goblinFocus === "gold";
-            console.log("isFocusingOnTrees: " + isFocusingOnTrees + " isFocusingOnGold: " + isFocusingOnGold)
+       //     console.log("isFocusingOnTrees: " + isFocusingOnTrees + " isFocusingOnGold: " + isFocusingOnGold)
             if (isFocusingOnTrees) {
                 if (enemy.lumber === 0) {
                     // Find the nearest tree and assign it as a target
                     const nearestTree = findClosestUnitInRange(enemy.x, enemy.y, UNIT_AI_TREE_RANGE, trees);
                     assignGoblinTarget(enemy, nearestTree, "trees");
-                    console.log("Focus is on Wood");
+      //              console.log("Focus is on Wood");
                 } else if (enemy.lumber > 0) {
                     enemy.returntoHQAction();
                 }
@@ -137,6 +137,6 @@ function assignGoblinTarget(enemy, target, focus) {
         enemy.showAction = true;
         enemy.gotoNear(target.x, target.y, 0, 1);
         enemy.focus = focus;
-        console.log(enemy.focus)
+    //    console.log(enemy.focus)
     }
 }

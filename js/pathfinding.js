@@ -99,12 +99,16 @@ function startPath(toTile, pathFor){
 		return;
     }
 	
-	if (pathfindingGridDataNeedsRefreshing || !PATHFINDING_REUSES_GRID_UNLESS_REFRESHED) { 
+	  if (pathfindingGridDataNeedsRefreshing || !PATHFINDING_REUSES_GRID_UNLESS_REFRESHED) { 
         SetupPathfindingGridData(pathFor);
     }
-	grid[toTile].setGoal();
-	PathfindingNextStep(pathFor);
-
+    if(pathFor.jobType == "peasant"){
+      console.log("To Tile: " + toTile)
+    }
+	  grid[toTile].setGoal();
+  
+	  PathfindingNextStep(pathFor);
+ 
     // on my computer this is usually 0.003 ms
     // console.timeEnd("pathfinding took"); // end the debug timer and say how long it look
 
