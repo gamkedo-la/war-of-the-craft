@@ -1,7 +1,7 @@
 // this lets us reuse previously created grid data
 // so set this to TRUE if the world changes (new buildings)
 // to force a fresh data gathering step
-const PATHFINDING_REUSES_GRID_UNLESS_REFRESHED = true; // true, use the variable below, not sure we can make each unit a recalculated grid.
+const PATHFINDING_REUSES_GRID_UNLESS_REFRESHED = false; // true, use the variable below, not sure we can make each unit a recalculated grid.
 var pathfindingGridDataNeedsRefreshing = true; // set to true calculate grid
 const USE_FASTER_ARRAYREMOVE = true; // set to true for faster but maybe buggy version
 
@@ -124,6 +124,7 @@ function startPath(toTile, pathFor){
 }
 
 function PathfindingNextStep(whichPathfinder) {
+  var totalCalculations = 0;
   var tentativeDistance = 0;
 	var pathfinder = whichPathfinder;
 	var safetyBreak = 50000;
@@ -136,6 +137,7 @@ function PathfindingNextStep(whichPathfinder) {
         var ctDistWithH; ///// a* with hVal heuristic added
         //console.log(unvisitedList.length);
         for (var i=0; i < unvisitedList.length; i++) {
+          totalCalculations++;
           var compareTile = unvisitedList[i];
         
           if(currentTile == null || compareTile.distance + compareTile.hVal < ctDistWithH) { /////
@@ -158,6 +160,7 @@ function PathfindingNextStep(whichPathfinder) {
         //// "for each neighbor v of u: //// where v has not yet been removed from Q"
         var neighborsStillInUnvisitedList = currentTile.myUnvisitedNeighbors();
         for (var i = 0; i < neighborsStillInUnvisitedList.length; i++) {
+          totalCalculations++;
           var neighborTile = neighborsStillInUnvisitedList[i];
           
           ///// A* note: hVal is NOT part of these calls, would accumulate
@@ -189,6 +192,7 @@ function PathfindingNextStep(whichPathfinder) {
 			  pathfinder.tilePath.unshift(endTile.idx);
               var countSteps = 0;
 			  for (var pathIndex = endTile.distance; pathIndex>1; pathIndex--) {
+                totalCalculations++;
                 countSteps++;
 			//	console.log(previousTile.name);
 				pathfinder.tilePath.unshift(previousTile.idx);
@@ -198,6 +202,9 @@ function PathfindingNextStep(whichPathfinder) {
 			}
 		}
   }
+
+  console.log("- pathfinding completed after doing "+totalCalculations+" calculations.");
+
 }
 
 function arrayContains(arr, obj) {
