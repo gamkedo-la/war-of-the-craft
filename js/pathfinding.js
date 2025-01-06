@@ -91,7 +91,9 @@ function hValCal(atColumn,atRow, toColumn,toRow, multWeight, geometric) { /////
 
 function startPath(toTile, pathFor){
 	
-    //console.log("starting pathfinding...");
+    var currentTile = pixelCoordToIndex(pathFor.x, pathFor.y);
+    console.log("starting pathfinding from tile "+currentTile+" to tile "+toTile);
+    console.log("- collGrid["+currentTile+"]="+collGrid[currentTile]+" and collGrid["+toTile+"]="+collGrid[toTile]);
     console.time("- pathfinding took"); // start a debug timer
 
     if (toTile< 0 || toTile >= collGrid.length) { // invalid or off board
