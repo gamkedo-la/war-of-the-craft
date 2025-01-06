@@ -101,20 +101,21 @@ function startPath(toTile, pathFor){
 		return;
     }
 	
-	  if (pathfindingGridDataNeedsRefreshing || !PATHFINDING_REUSES_GRID_UNLESS_REFRESHED) { 
+	if (pathfindingGridDataNeedsRefreshing || !PATHFINDING_REUSES_GRID_UNLESS_REFRESHED) { 
         SetupPathfindingGridData(pathFor);
     }
+
     if(pathFor.jobType == "peasant"){
       console.log("- peasant jobtype detected. goal tile: " + toTile)
     }
-	  grid[toTile].setGoal();
-  
-	  PathfindingNextStep(pathFor);
+	  
+    grid[toTile].setGoal();
+	PathfindingNextStep(pathFor);
  
     // on my computer this is usually 0.003 ms
     console.timeEnd("- pathfinding took"); // end the debug timer and say how long it look
     if (!pathFor.tilePath || !pathFor.tilePath.length) {
-        console.log("- pathfinding failed: zero-length path created!!!!!!!!!!!!!");
+        console.log("- pathfinding failed: zero-length path created!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     } else { 
         console.log("- pathfinding succeeded! path length in tiles: "+pathFor.tilePath.length);
     }
