@@ -91,8 +91,8 @@ function hValCal(atColumn,atRow, toColumn,toRow, multWeight, geometric) { /////
 
 function startPath(toTile, pathFor){
 	
-    // console.log("starting pathfinding...");
-    // console.time("pathfinding took"); // start a debug timer
+    //console.log("starting pathfinding...");
+    console.time("- pathfinding took"); // start a debug timer
 
     if (toTile< 0 || toTile >= collGrid.length) { // invalid or off board
         console.log("Not a valid location");
@@ -103,14 +103,20 @@ function startPath(toTile, pathFor){
         SetupPathfindingGridData(pathFor);
     }
     if(pathFor.jobType == "peasant"){
-      console.log("To Tile: " + toTile)
+      console.log("- peasant jobtype detected. goal tile: " + toTile)
     }
 	  grid[toTile].setGoal();
   
 	  PathfindingNextStep(pathFor);
  
     // on my computer this is usually 0.003 ms
-    // console.timeEnd("pathfinding took"); // end the debug timer and say how long it look
+    console.timeEnd("- pathfinding took"); // end the debug timer and say how long it look
+    if (!pathFor.tilePath || !pathFor.tilePath.length) {
+        console.log("- pathfinding failed: zero-length path created!!!!!!!!!!!!!");
+    } else { 
+        console.log("- pathfinding succeeded! path length in tiles: "+pathFor.tilePath.length);
+    }
+
 
 }
 
@@ -178,7 +184,9 @@ function PathfindingNextStep(whichPathfinder) {
 			  pathfinder.tilePath = [];
 			  
 			  pathfinder.tilePath.unshift(endTile.idx);
+              var countSteps = 0;
 			  for (var pathIndex = endTile.distance; pathIndex>1; pathIndex--) {
+                countSteps++;
 			//	console.log(previousTile.name);
 				pathfinder.tilePath.unshift(previousTile.idx);
 				previousTile.setTile(PATH);  
