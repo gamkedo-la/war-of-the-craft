@@ -117,7 +117,7 @@ function attackAction(actionList) {
     actionList[i].actionSx = 15 * 1;
     actionList[i].showAction = true;
     actionList[i].setTarget(selectedUnits);
-    updateDebugText(`Player commands ${selectedUnits.length} units to attack!`);
+    console.log(`Player commands ${selectedUnits.length} units to attack!`);
   }
   actionList.splice(0,actionList.length);
 }
@@ -141,10 +141,12 @@ function goldAction(actionList) {
 function farmAction(actionList) {
   for (var i = 0; i < actionList.length; i++) {
     var nearestFarm = findClosestUnitInRange(actionList[i].x, actionList[i].y, UNIT_AI_FARM_RANGE, buildingUnits, "peasant farm");
-    actionList[i].myTarget = nearestFarm;
-    actionList[i].actionSx = 15 * 3;
-    actionList[i].showAction = true;
-    actionList[i].gotoNear(actionList[0].myTarget.x,actionList[0].myTarget.y, 0, 1);
+    if (nearestFarm) {
+        actionList[i].myTarget = nearestFarm;
+        actionList[i].actionSx = 15 * 3;
+        actionList[i].showAction = true;
+        actionList[i].gotoNear(actionList[0].myTarget.x,actionList[0].myTarget.y, 0, 1);
+    }
   }
   actionList.splice(0,actionList.length);
 }
