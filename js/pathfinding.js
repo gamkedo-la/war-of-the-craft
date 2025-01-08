@@ -1,3 +1,5 @@
+const PATHFINDING_DEBUG_LOG = false; // set to true for verbose debug info in the console
+
 // this lets us reuse previously created grid data
 // so set this to TRUE if the world changes (new buildings)
 // to force a fresh data gathering step
@@ -15,7 +17,7 @@ function SetupPathfindingGridData(whichPathfinder) {
 
     unvisitedList = [];
 	  var pathfinder = whichPathfinder;
-    //console.log("Pathfinder: " + pathfinder)
+    //if (PATHFINDING_DEBUG_LOG) console.log("Pathfinder: " + pathfinder)
 
 
   /*  //code below isn't currently hooked to anything.  Do we need it?
@@ -33,7 +35,7 @@ function SetupPathfindingGridData(whichPathfinder) {
         }
     } */
     if(grid.length > 0){
-      //console.log("Trying to reuse Grid... this is new, may have bugs", grid.length);
+      //if (PATHFINDING_DEBUG_LOG) console.log("Trying to reuse Grid... this is new, may have bugs", grid.length);
       for(var i = 0; i < grid.length; i++){
        // grid[i].pathfinder = pathfinder;
         grid[i].setup(grid[i].tilC, grid[i].tilR, grid[i].tilIdx, collGrid[i], pathfinder);
@@ -92,12 +94,12 @@ function hValCal(atColumn,atRow, toColumn,toRow, multWeight, geometric) { /////
 function startPath(toTile, pathFor){
 	
     var currentTile = pixelCoordToIndex(pathFor.x, pathFor.y);
-    console.log("starting pathfinding from tile "+currentTile+" to tile "+toTile);
-    console.log("- collGrid["+currentTile+"]="+collGrid[currentTile]+" and collGrid["+toTile+"]="+collGrid[toTile]);
-    console.time("- pathfinding took"); // start a debug timer
+    if (PATHFINDING_DEBUG_LOG) console.log("starting pathfinding from tile "+currentTile+" to tile "+toTile);
+    if (PATHFINDING_DEBUG_LOG) console.log("- collGrid["+currentTile+"]="+collGrid[currentTile]+" and collGrid["+toTile+"]="+collGrid[toTile]);
+    if (PATHFINDING_DEBUG_LOG) console.time("- pathfinding took"); // start a debug timer
 
     if (toTile< 0 || toTile >= collGrid.length) { // invalid or off board
-        console.log("Not a valid location");
+        if (PATHFINDING_DEBUG_LOG) console.log("Not a valid location");
 		return;
     }
 	
@@ -106,18 +108,18 @@ function startPath(toTile, pathFor){
     }
 
     if(pathFor.jobType == "peasant"){
-      console.log("- peasant jobtype detected. goal tile: " + toTile)
+      if (PATHFINDING_DEBUG_LOG) console.log("- peasant jobtype detected. goal tile: " + toTile)
     }
 	  
     grid[toTile].setGoal();
 	PathfindingNextStep(pathFor);
  
     // on my computer this is usually 0.003 ms
-    console.timeEnd("- pathfinding took"); // end the debug timer and say how long it look
+    if (PATHFINDING_DEBUG_LOG) console.timeEnd("- pathfinding took"); // end the debug timer and say how long it look
     if (!pathFor.tilePath || !pathFor.tilePath.length) {
-        console.log("- pathfinding failed: zero-length path created!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        if (PATHFINDING_DEBUG_LOG) console.log("- pathfinding failed: zero-length path created!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     } else { 
-        console.log("- pathfinding succeeded! path length in tiles: "+pathFor.tilePath.length);
+        if (PATHFINDING_DEBUG_LOG) console.log("- pathfinding succeeded! path length in tiles: "+pathFor.tilePath.length);
     }
 
 
@@ -135,7 +137,7 @@ function PathfindingNextStep(whichPathfinder) {
         var currentTile = null;
         var currentTileIndex = -1;
         var ctDistWithH; ///// a* with hVal heuristic added
-        //console.log(unvisitedList.length);
+        //if (PATHFINDING_DEBUG_LOG) console.log(unvisitedList.length);
         for (var i=0; i < unvisitedList.length; i++) {
           totalCalculations++;
           var compareTile = unvisitedList[i];
@@ -144,7 +146,7 @@ function PathfindingNextStep(whichPathfinder) {
             currentTile = compareTile;
             currentTileIndex = i;
             ctDistWithH = currentTile.distance + currentTile.hVal; /////
-            //console.log(`Current Tile: ${currentTile.name}, Distance: ${currentTile.distance}, Heuristic: ${currentTile.hVal}`);
+            //if (PATHFINDING_DEBUG_LOG) console.log(`Current Tile: ${currentTile.name}, Distance: ${currentTile.distance}, Heuristic: ${currentTile.hVal}`);
           }
         }
         
@@ -181,9 +183,9 @@ function PathfindingNextStep(whichPathfinder) {
        { //// all nodes have been accounted for, work backward from end's tiles for path
              //// terminate the algorithm from taking further steps since we found what we needed
         if (endTile!=null) {
-          //console.log("Best distance found: " + endTile.distance);
+          //if (PATHFINDING_DEBUG_LOG) console.log("Best distance found: " + endTile.distance);
 			if(endTile.distance == INFINITY_START_DISTANCE){
-				console.log("No Valid Path Found");
+				if (PATHFINDING_DEBUG_LOG) console.log("No Valid Path Found");
 			} else {
 			  // walk backward from destination to create the path
 			  var previousTile = endTile.cameFrom;
@@ -194,7 +196,7 @@ function PathfindingNextStep(whichPathfinder) {
 			  for (var pathIndex = endTile.distance; pathIndex>1; pathIndex--) {
                 totalCalculations++;
                 countSteps++;
-			//	console.log(previousTile.name);
+			//	if (PATHFINDING_DEBUG_LOG) console.log(previousTile.name);
 				pathfinder.tilePath.unshift(previousTile.idx);
 				previousTile.setTile(PATH);  
 				previousTile = previousTile.cameFrom;  
@@ -203,7 +205,7 @@ function PathfindingNextStep(whichPathfinder) {
 		}
   }
 
-  console.log("- pathfinding completed after doing "+totalCalculations+" calculations.");
+  if (PATHFINDING_DEBUG_LOG) console.log("- pathfinding completed after doing "+totalCalculations+" calculations.");
 
 }
 
