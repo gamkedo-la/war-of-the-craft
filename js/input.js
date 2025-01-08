@@ -122,8 +122,11 @@ function mouseupHandler(evt) {
           selectedUnits[i].gotoNear(mousePos.x, mousePos.y, i, unitsAlongSide);
         }
       }
+      
+      /*
       document.getElementById("debugText").innerHTML =
                 "Moving to ("+mousePos.x+","+mousePos.y+")";
+      */
 
       // used just for debug and level design checks
       if (debugListTilesClicked) {
