@@ -46,8 +46,8 @@ function drawBitmapAtLocation(graphic, sX,sY, width,height,atX, atY) {
   //img, sx, sy, swidth, sheight, x, y, width, height)
 };
 
-function colorText(showWords, textX, textY, fillColor, fontStyle) {
-  canvasContext.textAlign = "left";
+function colorText(showWords, textX, textY, fillColor, fontStyle, alignment="left") {
+  canvasContext.textAlign = alignment;
   canvasContext.fillStyle = fillColor;
   canvasContext.font = fontStyle; //"14px Arial Black"
   canvasContext.fillText(showWords, textX, textY);

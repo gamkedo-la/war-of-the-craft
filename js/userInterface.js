@@ -416,10 +416,12 @@ function drawButton(x, y, image, sY,text1, text2, hovering, selected) {
     drawBitmapAtLocation(image, 0, sY, pictureWidth, pictureHeight, x, y);
   }
   
-  colorText(text1, 9, y + pictureHeight + 15, hovering ? "Yellow" : "White", "14px Arial");
+  var centerOffset = Math.round(pictureWidth/2);
+  colorText(text1, x+centerOffset, y + pictureHeight + 15, hovering ? "Yellow" : "White", "14px Arial","center");
   if (text2) {
-    colorText(text2, 9, y + pictureHeight + 29, hovering ? "Yellow" : "White", "14px Arial");
+    colorText(text2, x+centerOffset, y + pictureHeight + 29, hovering ? "Yellow" : "White", "14px Arial","center");
   }
+
 }
 
 function drawTopBarResourceTotalsGUI() {
