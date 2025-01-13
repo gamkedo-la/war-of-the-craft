@@ -48,6 +48,8 @@ var notEnoughFoodSound = new SoundOverlapsClass("NeedMoreFood");
 var notEnoughWoodSound = new SoundOverlapsClass("NotEnoughWood");
 var notEnoughGoldSound = new SoundOverlapsClass("NotEnoughGold");
 var arrowSound = new SoundOverlapsClass("arrowSound");
+var deliverGold = new SoundOverlapsClass("DeliverGold")
+var deliverWood = new SoundOverlapsClass("DeliverWood")
 
 function setFormat() {
     var audio = new Audio();

@@ -281,7 +281,9 @@ function unitClass(type) {
                         console.log("delivered "+this.lumber+" lumber to HQ");
                         if (!this.myTarget.lumber) this.myTarget.lumber = 0; // avoid NaN
                         this.myTarget.lumber += this.lumber;
-                        this.lumber = 0;
+                        this.lumber = 0;                    
+                        
+                        
                     }
                     if (this.gold) {
                         console.log("delivered "+this.gold+" gold to HQ");
@@ -352,12 +354,14 @@ function unitClass(type) {
                     // FIXME: should this take time (one per tick etc - like chopping wood?)
                     if (this.lumber) {
                         console.log("delivered "+this.lumber+" lumber to HQ");
+                        deliverWood.play();
                         if (!this.myTarget.lumber) this.myTarget.lumber = 0; // avoid NaN
                         this.myTarget.lumber += this.lumber;
                         this.lumber = 0;
                     }
                     if (this.gold) {
                         console.log("delivered "+this.gold+" gold to HQ");
+                        deliverGold.play();
                         if (!this.myTarget.gold) this.myTarget.gold = 0; // avoid NaN
                         this.myTarget.gold += this.gold;
                         this.gold = 0;
