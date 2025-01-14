@@ -129,6 +129,8 @@ function drawEverything() {
       // Draw startup screen for the first 15 seconds
       drawMainMenu();
   } else if (!isGameRunning || skipIntroNow) {
+      // hide credits button
+      document.getElementById("creditsButton").style.display='none';
       // Perform panning transition
       transitionToGame(elapsedTime);
   } else { 

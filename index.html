@@ -42,13 +42,27 @@
         margin-left:-420px;
         background-image:url(images/gui_bezel.png);        
     }
+    #creditsButton {
+        position:absolute;
+        top:64px;
+        left:50%;
+        margin-left:352px;
+        color:white;
+        text-decoration:none;
+        cursor: pointer;
+        font-family:arial; 
+        font-size:13px;
+    }
+    #creditsButton:hover {
+        color:red;
+    }
 </style>
 </head>
 <body>
 
     <div id="gui_bezel"></div>
     <canvas id="gameCanvas" width="800" height="600" oncontextmenu="return false;"></canvas>
-    
+    <a id="creditsButton" onClick="toggleCredits()">Credits</a>
     <p id="debugText"></p>
 
     <script src="js/imageLoading.js"></script>

@@ -1,3 +1,5 @@
+var currentlyShowingCredits = false;
+
 var introCountDown = 500;
 var introNotPlayed = true;
 var elapsedTime = 0; 
@@ -31,6 +33,20 @@ const lines = [
     "Build, survive, and conquer — your journey begins now."
 ];
 
+const credits = [
+    "CREDITS:",
+    "",
+    "name - contributions",
+    "",
+    "name - contributions",
+    "",
+    "name - contributions",
+    "",
+    "name - contributions",
+    "",
+    "name - contributions",
+];
+
 // Starting positions and spacing
 const lineX = 178;  // Horizontal position for all lines
 const lineY0 = 180; // Starting vertical position
@@ -43,7 +59,7 @@ function drawMainMenu() {
     canvasContext.drawImage(logoPic, 0, 0);
 
     // simple fire effect on the bottom
-    for (let i=0; i<100; i++) {
+    for (let i=0; i<200; i++) {
         let x = -256 + (Math.sin(i*12345)*1000);
         let age = (((performance.now()/4)+i*12345)%480);
         let y = canvas.height + 256 - age;
@@ -53,16 +69,20 @@ function drawMainMenu() {
     }
     canvasContext.globalAlpha = 1; // reset
 
-    // Render introduction text
+    // Render introduction text or credits
     canvasContext.fillStyle = "white";
     canvasContext.textAlign = "left";
     canvasContext.font = "18px Arial";
-    lines.forEach((line, index) => {
+
+    // either render the intro text or the credits
+    let theText = currentlyShowingCredits ? credits : lines;
+
+    theText.forEach((line, index) => {
         const lineY = lineY0 + index * lineSpace;
 
         // text outline for readibility
         canvasContext.strokeStyle = 'black';
-        canvasContext.lineWidth = 4; // looks like 2px since half is inside
+        canvasContext.lineWidth = 3; // looks like 1.5px since half is inside
         canvasContext.strokeText(line, lineX, lineY); 
 
         canvasContext.fillStyle = "white";
@@ -70,8 +90,11 @@ function drawMainMenu() {
     });
 
     // Optionally, display "Press Any Key to Start"
-    canvasContext.fillStyle = "gray";
+    canvasContext.strokeStyle = "orange";
+    canvasContext.lineWidth = 1 + 2*(Math.abs(Math.cos(performance.now()/300))); // wobble an outline
+    canvasContext.fillStyle = "black";
     canvasContext.font = "18px Arial";
+    canvasContext.strokeText("Press Any Key to Start", canvas.width / 2 - 80, canvas.height - 20);
     canvasContext.fillText("Press Any Key to Start", canvas.width / 2 - 80, canvas.height - 20);
 }
 
@@ -104,3 +127,7 @@ function renderFadeEffect() {
     canvasContext.restore();
 }
 
+function toggleCredits() {
+    console.log("toggling credits screen");
+    currentlyShowingCredits = !currentlyShowingCredits;
+}
