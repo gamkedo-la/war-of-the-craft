@@ -34,21 +34,28 @@ const lines = [
 ];
 
 const credits = [
-    "CREDITS:",
-    "",
-    "name - contributions",
-    "",
-    "name - contributions",
-    "",
-    "name - contributions",
-    "",
-    "name - contributions",
-    "",
-    "name - contributions",
+"CREDITS:",
+"",
+"Vince McKeown: Project lead, core gameplay, main UI art, character animations and",
+"  profile icons, fog of war, main enemy AI, resource seeking behaviors, pathfinding,",
+"  graphics and collision optimizations, building art and implementation, voices,",
+"  sound code, archer tower, walls, hill art, title and win/lose images, tuning,",
+"  help text, main menu",
+"Christer \"McFunkypants\" Kaitila: Terrain, resources brought back to HQ, pathfinding",
+"  optimization/debugging, logo, camera movement, game over detection, sounds (win,",
+"  lose, arrow), tower arrows, foot trails, defeated unit decals, wildflowers/grass/trees,",
+"  mining behavior, campfire, GUI styling, pixel snap, page style",
+"Brandon Paul: Music",
+"Barış Köklü: Minimap, food collection, 2 enemy behaviors (skip chance, variation in",
+"  near target selection)",
+"Alex (Weinbagz) Weinberg: Sounds (deliver gold/wood, knight recruit, button click)",
+"Luis Montaña: Orc barracks",
+"Randy Tan Shaoxian: Linux support fix, couple of crash fixes",
+"Chris DeLeon: Couple small fixes",
+"Zbigniew Zelga: Pause mode",
 ];
 
 // Starting positions and spacing
-const lineX = 178;  // Horizontal position for all lines
 const lineY0 = 180; // Starting vertical position
 const lineSpace = 20; // Spacing between lines
 
@@ -76,6 +83,7 @@ function drawMainMenu() {
 
     // either render the intro text or the credits
     let theText = currentlyShowingCredits ? credits : lines;
+    var lineX = currentlyShowingCredits ? 80 : 178;
 
     theText.forEach((line, index) => {
         const lineY = lineY0 + index * lineSpace;
